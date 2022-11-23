@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        linux进程基础 - DX3906&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="进程状态、进程信号、进程创建" />
+    <meta name="generator" content="Hugo 0.105.0 with theme pure" />
+    <title>linux进程基础 - DX3906&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="linux进程基础" />
+<meta property="og:description" content="进程状态、进程信号、进程创建" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-11-17T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-11-17T00:00:00+00:00" />
+
+<meta itemprop="name" content="linux进程基础">
+<meta itemprop="description" content="进程状态、进程信号、进程创建"><meta itemprop="datePublished" content="2022-11-17T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-11-17T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2879">
+<meta itemprop="keywords" content="linux,reverse," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="linux进程基础"/>
+<meta name="twitter:description" content="进程状态、进程信号、进程创建"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/DX39061" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello, hugo</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%AD%97%E7%9A%84%E6%AD%A7%E4%B9%89--%E6%B7%B1%E5%85%A5ptrace%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B/" class="title">“字”的歧义--深入ptrace返回值类型</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0%E4%B8%8Eptrace%E5%87%BD%E6%95%B0/" class="title">linux ptrace相关技术（一）基本概述与ptrace函数</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/" class="title">KCTF2022秋季赛第二题WriteUp</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-19</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="title">linux进程基础</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-17 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" class="title">linux下通过设置LD_PRELOAD环境变量hook动态链接库</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-14 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-14</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">8</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">6</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
+                    class="tag-list-count">7</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
+                    class="tag-list-count">17</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/"
+    >linux进程基础</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2022-11-17 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-17</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/binary/"> Binary </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/linux/"> linux </a>
+    <a class="article-tag-link" href="/tags/reverse/"> reverse </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2879字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h2 id="进程状态">进程状态</h2>
+<p>一台linux机器上运行着多个进程，每个进程在同一时间都处在一种特定的状态，称为<code>进程状态</code>，常见的进程状态如下：</p>
+<h3 id="rtask_running可执行状态">R(TASK_RUNNING)，可执行状态</h3>
+<p>由于一个单核CPU在同一时间只能执行一个进程，所以并不是所有处于可执行状态的进程都正在被CPU执行，处于可执行状态的进程会被添加到CPU的执行队列中，由进程调度器决定每一刻真正执行的是哪一个进程。</p>
+<h3 id="stask_interruptible可中断的睡眠状态">S(TASK_INTERRUPTIBLE)，可中断的睡眠状态</h3>
+<p>处于这个状态的进程在等待着某些事件的发生（如等待socket连接、等待信号量等），属于挂起（睡眠）状态。使用top命令可以发现绝大多数进程都处于这个状态</p>
+<h3 id="dtask_uninterruptible不可中断的睡眠状态">D(TASK_UNINTERRUPTIBLE)，不可中断的睡眠状态</h3>
+<p>与S状态类似，进程处于挂起（睡眠）状态，但此时进程无法被中断/杀死，不会响应进程信号（如SIGKILL），常用于系统底层某些不能被打断的进程</p>
+<h3 id="ttask_stopped暂停状态">T(TASK_STOPPED)，暂停状态</h3>
+<p>向处于<code>TASK_RUNNING</code>状态的进程发送一个<code>SIGSTOP</code>信号可以强制使进程停止，来到<code>TASK_STOPPED</code>状态，当接收到<code>SIGCONT</code>信号时，进程将重新回到<code>TASK_RUNNING</code>状态</p>
+<h3 id="ttask_traced正在被跟踪状态">t(TASK_TRACED)，正在被跟踪状态</h3>
+<p>此状态下的进程也会暂停下来，等待跟踪它的调试进程对它进行操作。与<code>TASK_STOPPED</code>状态不同，此状态不会相应<code>SIGCONT</code>信号，只有调试进程调用<code>PTRACE_CONT</code>、<code>PTRACE_DETACH</code>或进程退出时被调试的进程才能恢复<code>TASK_RUNNING</code>状态</p>
+<h3 id="ztask_dead-exit_zombie退出状态成为僵尸进程">Z(TASK_DEAD-EXIT_ZOMBIE)退出状态，成为僵尸进程</h3>
+<p>大致可分为两种情况：</p>
+<ul>
+<li>
+<p>子进程退出但父进程并未及时释放子进程，称为<code>僵尸状态</code></p>
+</li>
+<li>
+<p>父进程退出，但子进程仍然存在，称为<code>孤儿状态</code></p>
+</li>
+</ul>
+<h3 id="xtask_dead-exit_dead退出状态进程即将被销毁">X(TASK_DEAD-EXIT_DEAD)退出状态，进程即将被销毁</h3>
+<p>进程被置于此状态时，接下来立即会被完全释放，此状态持续时间十分短暂</p>
+<h2 id="进程信号">进程信号</h2>
+<p>控制进程状态的更新、变换需要系统发出信号，即<code>进程信号</code>，进程信号列表可以使用<code>kill -l</code>查看，</p>
+<p>进程信号调控进程状态，大致如下图：</p>
+<p><img src="https://img.dx3906.cloud/imgs/7shwmsnui7.png" alt="7shwmsnui7.png"></p>
+<p>注：图中Running和Ready同属<code>TASK_RUNNING</code>状态</p>
+<h2 id="进程创建">进程创建</h2>
+<p>linux用户态创建进程常用fork、vfork、clone三个函数</p>
+<h3 id="原理">原理</h3>
+<p>三者都是依托父进程创建新的子进程，函数返回值在不同进程中值不同，在子进程中返回0，在父进程中返回子进程pid，返回值为负数则创建子进程失败。</p>
+<p>三者区别在于对进程空间的使用。fork函数创建的子进程会复制一份父进程的进程空间，vfork函数创建的子进程与父进程使用同一份进程空间，而clone函数可选是否共用各种资源。</p>
+<p>fork和vfork函数还有另外一个区别：fork函数创建的子进程与父进程同时运行，先后顺序随即。而vfork函数保证子进程先运行，只有当子进程退出时才会运行父进程，确保不会发生同时读写内存等竞争问题。</p>
+<p>下面针对fork和vfork函数进行尝试：</p>
+<h3 id="使用fork函数">使用fork函数</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+
+int main() {
+    int num = 1;
+    pid_t pid = fork(); // 创建子进程
+
+    if (pid == -1) {
+        puts(&quot;failed to create child process&quot;);
+        return -1;
+    } else if (pid == 0) {
+        puts(&quot;in child process&quot;);
+        printf(&quot;pid = %d\n&quot;, getpid());
+        printf(&quot;num = %d\n&quot;, num);
+        num = 10;
+        printf(&quot;num is modified by child process\nnow num = %d\n\n&quot;, num);
+    } else {
+        sleep(1); // 确保父进程运行到这时子进程已完成了对num的修改
+        puts(&quot;in parent process&quot;);
+        printf(&quot;pid = %d\n&quot;, getpid());
+        printf(&quot;child process pid is %d\n&quot;, pid);   // 父进程中fork函数返回值为子进程pid
+        printf(&quot;num = %d\n\n&quot;, num);
+    }
+}
+</code></pre>
+<p>程序输出：s</p>
+<pre><code>in child process
+pid = 61209
+num = 1
+test is modified by child process
+now num = 10
+
+in parent process
+pid = 61208
+child process pid is 61209
+num = 1
+</code></pre>
+<p>可以看到在子进程中修改了num的值，对父进程的num没有影响，正是因为父、子进程进程空间相互独立</p>
+<h3 id="vfork函数">vfork函数</h3>
+<h4 id="使用exit函数正常退出子进程">使用exit函数正常退出子进程</h4>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+
+int main() {
+    int num = 1;
+    pid_t pid = vfork();
+
+    if (pid == -1) {
+        puts(&quot;failed to create child process&quot;);
+        return -1;
+    } else if (pid == 0) {
+        puts(&quot;in child process&quot;);
+        printf(&quot;pid = %d\n&quot;, getpid());
+        printf(&quot;num = %d\n&quot;, num);
+        num = 10;
+        printf(&quot;test is modified by child process\nnow num = %d\n\n&quot;, num);
+        exit(0); // 退出子进程
+    } else {
+        puts(&quot;in parent process&quot;);
+        printf(&quot;pid = %d\n&quot;, getpid());
+        printf(&quot;child process pid is %d\n&quot;, pid);   // 父进程中vfork函数返回值为子进程pid
+        printf(&quot;num = %d\n\n&quot;, num);
+    }
+}
+</code></pre>
+<p>程序输出：</p>
+<pre><code>in child process
+pid = 62770
+num = 1
+test is modified by child process
+now num = 10
+
+in parent process
+pid = 62769
+child process pid is 62770
+num = 10
+</code></pre>
+<p>可以看到在子进程中修改num的值，在父进程中输出num的值也改变了，正是因为两进程共用一块进程空间</p>
+<h4 id="不能使用return退出子进程">不能使用return退出子进程</h4>
+<p>将上个例子中使用<code>exit(0)</code>退出子进程改为使用<code>return 0</code>试试效果：</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+
+int main() {
+    int num = 1;
+    pid_t pid = vfork();
+
+    if (pid == -1) {
+        puts(&quot;failed to create child process&quot;);
+        return -1;
+    } else if (pid == 0) {
+        puts(&quot;in child process&quot;);
+        printf(&quot;pid = %d\n&quot;, getpid());
+        printf(&quot;num = %d\n&quot;, num);
+        num = 10;
+        printf(&quot;test is modified by child process\nnow num = %d\n\n&quot;, num);
+        return 0;
+    } else {
+        puts(&quot;in parent process&quot;);
+        printf(&quot;pid = %d\n&quot;, getpid());
+        printf(&quot;child process pid is %d\n&quot;, pid);   // 父进程中vfork函数返回值为子进程pid
+        printf(&quot;num = %d\n\n&quot;, num);
+    }
+}
+</code></pre>
+<p>程序输出：</p>
+<pre><code>in child process
+pid = 65039
+num = 1
+test is modified by child process
+now num = 10
+
+in parent process
+pid = 65038
+child process pid is 65039
+num = -1431084768
+</code></pre>
+<p>可以发现父进程输出的num出现了错误。</p>
+<p>这是因为子进程使用return返回意味着子进程中的main函数结束了，main函数的栈会被回收，然后子进程结束。因为父进程与子进程共享这个栈，而栈中存放的num值已不存在，故会打印出错。</p>
+<p>更进一步，如果把return也去掉，会发现效果是一样的，因为函数正常结束，一样会进行栈回收。</p>
+<p>总结来说，子进程退出一般都要使用exit函数</p>
+<h4 id="使用exec函数族调起新的进程">使用exec函数族调起新的进程</h4>
+<p>exec函数族分别包括以下函数：</p>
+<pre><code class="language-c">int execl(const char *path, const char *arg, ...);
+int execlp(const char *file, const char *arg, ...);
+int execle(const char *path, const char *arg, ..., char * const envp[]);
+int execv(const char *path, char *const argv[]);
+int execvp(const char *file, char *const argv[]);
+int execve(const char *path, char *const argv[], char *const envp[]);
+</code></pre>
+<p>其中<code>execve</code>是linux的一个系统调用，其他函数都是对它的封装。功能是根据指定的路径或文件名找到相应的可执行文件，使用该可执行文件的代码段、数据段、堆栈数据替换当前进程中的数据，进行执行。</p>
+<p>要注意的是，使用exec函数族不会创建新的进程，不会改变pid，只是替换了当前进程空间的数据。</p>
+<p>回归正题，最开始只有一个fork函数可以用来创建新进程，但很多程序中仅仅是在新进程中使用了exec函数族调起了新的进程，这时fork函数复制整个父进程的进程空间就成了浪费。于是后来才产生了vfork函数。</p>
+<p>实践一下：</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+
+int main() {
+    int num = 1;
+    pid_t pid = vfork();
+
+    if (pid == -1) {
+        puts(&quot;failed to create child process&quot;);
+        return -1;
+    } else if (pid == 0) {
+        puts(&quot;in child process&quot;);
+        printf(&quot;pid = %d\n&quot;, getpid());
+        printf(&quot;num = %d\n&quot;, num);
+        num = 10;
+        printf(&quot;test is modified by child process\nnow num = %d\n\n&quot;, num);
+        char *argv[] = {&quot;ls&quot;, &quot;-l&quot;, &quot;/&quot;, NULL};
+        execve(&quot;/bin/ls&quot;, argv, NULL);  // 调起ls进程
+        perror(&quot;error exec&quot;);   // 打印错误
+    } else {
+        sleep(1);
+        puts(&quot;in parent process&quot;);
+        printf(&quot;pid = %d\n&quot;, getpid());
+        printf(&quot;child process pid is %d\n&quot;, pid);   // 父进程中vfork函数返回值为子进程pid
+        printf(&quot;num = %d\n\n&quot;, num);
+    }
+    return 0;
+}
+</code></pre>
+<p>程序输出：</p>
+<pre><code>in child process
+pid = 70303
+num = 1
+test is modified by child process
+now num = 10
+
+total 33570236
+lrwxrwxrwx   1 root   root            7 Oct 19 05:01 bin -&gt; usr/bin
+drwxr-xr-x   4 root   root         4096 Nov 12 10:30 boot
+drwxr-xr-x  23 root   root         4360 Nov 17 10:09 dev
+drwxr-xr-x 133 root   root        12288 Nov 17 14:21 etc
+drwxr-xr-x   3 root   root         4096 Jan 23  2022 home
+lrwxrwxrwx   1 root   root            7 Oct 19 05:01 lib -&gt; usr/lib
+lrwxrwxrwx   1 root   root            7 Oct 19 05:01 lib64 -&gt; usr/lib
+drwx------   2 root   root        16384 Jan 23  2022 lost+found
+drwxr-xr-x   3 root   root         4096 Oct 19 00:40 mnt
+drwxr-xr-x  28 root   root         4096 Nov 11 01:15 opt
+dr-xr-xr-x 429 root   root            0 Nov 17 10:09 proc
+drwxr-x---  26 root   root         4096 Nov 10 18:35 root
+drwxr-xr-x  34 root   root          940 Nov 17 14:19 run
+lrwxrwxrwx   1 root   root            7 Oct 19 05:01 sbin -&gt; usr/bin
+drwxr-xr-x   4 root   root         4096 Jan 23  2022 srv
+-rw-------   1 root   root  34359738368 Nov  2 23:05 swapfile
+dr-xr-xr-x  13 root   root            0 Nov 17 10:09 sys
+drwxrwxrwt  19 root   root          580 Nov 17 17:22 tmp
+drwxr-xr-x  11 root   root         4096 Nov 17 01:09 usr
+drwxr-xr-x  15 root   root         4096 Nov 17 10:09 var
+in parent process
+pid = 70302
+child process pid is 70303
+num = 10
+</code></pre>
+<p>可以看到<code>ls</code>进程被正常调起并正常输出</p>
+<p>但这里还有一个问题，按理说execve之后进程空间被完全被替换，回到父进程后应该无法正常运行，这里牵扯到一些内核机制问题，参考 <a href="https://www.zhihu.com/question/515280466">https://www.zhihu.com/question/515280466</a></p>
+<h2 id="reference">Reference</h2>
+<p><a href="https://cloud.tencent.com/developer/article/1568077">Linux系统之进程状态 - 腾讯云开发者社区-腾讯云</a></p>
+<p><a href="http://whatbeg.com/2019/06/05/processthread.html">进程线程常见基础问题 | Whatbeg's blog</a></p>
+<p><a href="https://book.itheima.net/course/223/1277519158031949826/1277528003525484545">https://book.itheima.net/course/223/1277519158031949826/1277528003525484545</a></p>
+<p><a href="https://www.zhihu.com/question/515280466">https://www.zhihu.com/question/515280466</a></p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/" title="linux进程基础" target="_blank" rel="external">https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License: </strong>
+        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" title="linux下通过设置LD_PRELOAD环境变量hook动态链接库"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/"
+                    title="KCTF2022秋季赛第二题WriteUp"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2022  -
+    2022
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+    
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
+<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
+            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.19.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '309208aa79ed1d5c7a67',
+        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
+        repo: 'blog_gitalk',
+        owner: 'DX39061',
+        admin: ['[DX39061]'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+
+
+  </body>
+</html>

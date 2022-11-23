@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        buu misc wp - DX3906&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="buuoj misc 做题记录" />
+    <meta name="generator" content="Hugo 0.105.0 with theme pure" />
+    <title>buu misc wp - DX3906&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="buu misc wp" />
+<meta property="og:description" content="buuoj misc 做题记录" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/04/buu-misc-wp/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-04-05T00:00:00+00:00" />
+
+<meta itemprop="name" content="buu misc wp">
+<meta itemprop="description" content="buuoj misc 做题记录"><meta itemprop="datePublished" content="2022-04-05T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-04-05T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1222">
+<meta itemprop="keywords" content="CTF,misc," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="buu misc wp"/>
+<meta name="twitter:description" content="buuoj misc 做题记录"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/DX39061" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello, hugo</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%AD%97%E7%9A%84%E6%AD%A7%E4%B9%89--%E6%B7%B1%E5%85%A5ptrace%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B/" class="title">“字”的歧义--深入ptrace返回值类型</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0%E4%B8%8Eptrace%E5%87%BD%E6%95%B0/" class="title">linux ptrace相关技术（一）基本概述与ptrace函数</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/" class="title">KCTF2022秋季赛第二题WriteUp</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-19</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="title">linux进程基础</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-17 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" class="title">linux下通过设置LD_PRELOAD环境变量hook动态链接库</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-14 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-14</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">8</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">6</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
+                    class="tag-list-count">7</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
+                    class="tag-list-count">17</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2022/04/buu-misc-wp/"
+    >buu misc wp</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://blog.dx39061.top/2022/04/buu-misc-wp/" class="article-date">
+  <time datetime="2022-04-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-04-05</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/writeups/"> WriteUps </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/ctf/"> CTF </a>
+    <a class="article-tag-link" href="/tags/misc/"> misc </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/04/buu-misc-wp/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1222字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h2 id="金三胖">金三胖</h2>
+<ul>
+<li>
+<p>下载附件是个gif</p>
+</li>
+<li>
+<p>用gimp打开查看每一帧，其中夹杂着<code>flag{he11ohongke}</code></p>
+</li>
+</ul>
+<h2 id="二维码">二维码</h2>
+<ul>
+<li>
+<p>附件是个二维码，扫描出文字<code>secret is here</code></p>
+</li>
+<li>
+<p>binwalk扫一下</p>
+</li>
+</ul>
+<pre><code>↪  binwalk ./QR_code.png                                                       2022年 03月 28日 星期一 22:15:42 CST
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 280 x 280, 1-bit colormap, non-interlaced
+471           0x1D7           Zip archive data, encrypted at least v2.0 to extract, compressed size: 29, uncompressed size: 15, name: 4number.txt
+650           0x28A           End of Zip archive, footer length: 22
+</code></pre>
+<ul>
+<li>
+<p>binwalk -d分不出来</p>
+</li>
+<li>
+<p>foremost分离发现一个加密的压缩包</p>
+</li>
+<li>
+<p>kali利用john解密</p>
+</li>
+</ul>
+<pre><code class="language-shell">zip2john ./00000000.zip  &gt; passwd.txt
+john passwd.txt
+</code></pre>
+<ul>
+<li>
+<p>得到密码7639</p>
+</li>
+<li>
+<p>解压压缩包得到txt文件即可看到flag<code>CTF{vjpw_wnoei}</code></p>
+</li>
+</ul>
+<h2 id="你竟然赶我走">你竟然赶我走</h2>
+<ul>
+<li>
+<p>附件是一张jpg文件</p>
+</li>
+<li>
+<p>用010查看二进制文件拉到最后即可看到flag<code>flag{stego_is_s0_bor1ing}</code></p>
+</li>
+</ul>
+<h2 id="n种方法解决">N种方法解决</h2>
+<ul>
+<li>附件为<code>key.exe</code>，010打开发现是base64字符串</li>
+<li>在线网站转换成png图片，发现是二维码</li>
+<li>扫码得flag<code>KEY{dca57f966e4e4e31fd5b15417da63269}</code></li>
+</ul>
+<h2 id="大白">大白</h2>
+<ul>
+<li>
+<p>附件是一张打不开的图片</p>
+</li>
+<li>
+<p>原因是出题人改了图片高使crc校验码检查出错</p>
+</li>
+<li>
+<p>脚本爆破出图片高</p>
+</li>
+</ul>
+<pre><code class="language-python">#!/usr/bin/env python
+import struct
+import binascii
+import os
+#根据PNG crc校验码爆破出图片宽度、高度
+fi=open('./dabai.png','rb').read()
+
+#12-15字节代表固定的文件头数据块的标示，16-19字节代表宽度，20-23字节代表高度，24-28字节分别代表
+# Bit depth、ColorType、Compression method、Filter method、Interlace method
+#29-32字节为CRC校验和
+
+for i in range(10000):
+    #pack函数将int转为bytes,&gt;表示大端00 00 00 02,I表示4字节无符号int;&lt;表示小端 02 00 00 00
+    data=fi[12:20]+struct.pack('&gt;I',i)+fi[24:29]  
+    #byte的大小为8bits而int的大小为32bits,转换时进行与运算避免补码问题0x932f8a6b
+    crc=binascii.crc32(data)&amp;0xffffffff 
+    #解开为无符号整数
+    if crc==struct.unpack('&gt;I',fi[29:33])[0]&amp;0xffffffff :
+        print(hex(i))
+</code></pre>
+<ul>
+<li>
+<p>0x1df</p>
+</li>
+<li>
+<p>用010修改图片高即可正确显示图片</p>
+</li>
+<li>
+<p>flag<code>flag{He1l0_d4_ba1}</code></p>
+</li>
+</ul>
+<h2 id="基础破解">基础破解</h2>
+<ul>
+<li>
+<p>压缩包加密，提示4位密码，直接用rarcrack爆破</p>
+</li>
+<li>
+<p>kali上装的rarcrack有问题，原因不明，arch上又装了一个，成功爆出密码<code>2593</code></p>
+</li>
+<li>
+<p>解压得flag.txt，base64解码得flag</p>
+</li>
+</ul>
+<h2 id="乌镇峰会种图">乌镇峰会种图</h2>
+<ul>
+<li><code>Stegsolve</code>打开，找到analyze-&gt;file format，即可看到flag<code>flag{97314e7864a8f6262 7b26f3f998c37f1}</code></li>
+</ul>
+<h2 id="文件中的秘密">文件中的秘密</h2>
+<ul>
+<li>Gwenview打开图片，左边属性有一项<code>Windows Comment</code> ，值为flag，windows平台直接查看属性-&gt;备注应该就能看到</li>
+</ul>
+<h2 id="wireshark">wireshark</h2>
+<ul>
+<li>
+<p>附件为一段流量包，要求找到登陆的passwd</p>
+</li>
+<li>
+<p>wireshark打开，过滤<code>http.request.method==POST</code>即可找到登陆语句</p>
+</li>
+<li>
+<p><code>flag{ffb7567a1d4f4abdffdb54e022f8facd}</code></p>
+</li>
+</ul>
+<h2 id="lsb">LSB</h2>
+<ul>
+<li>附件是一张图片，用stegsolve打开</li>
+<li>data extract rgb选都选0，dump下来发现是个二维码，扫码即可拿到flag</li>
+</ul>
+<h2 id="rar">rar</h2>
+<ul>
+<li>
+<p>加密压缩包，提示4位纯数字，rarcrack直接爆</p>
+</li>
+<li>
+<p>得到密码8795</p>
+</li>
+<li>
+<p><code>flag{1773c5da790bd3caff38e3decd180eb7}</code></p>
+</li>
+</ul>
+<h2 id="zip伪加密">zip伪加密</h2>
+<ul>
+<li>
+<p>粘一篇<a href="https://zhuanlan.zhihu.com/p/399456259">知乎文章</a>，详细介绍了zip的结构，这一点用010打开会看得十分清晰</p>
+</li>
+<li>
+<p>把第0x47位改成00即可修正伪加密</p>
+</li>
+<li>
+<p>解压即可拿到flag</p>
+</li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://blog.dx39061.top/2022/04/buu-misc-wp/" title="buu misc wp" target="_blank" rel="external">https://blog.dx39061.top/2022/04/buu-misc-wp/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License: </strong>
+        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/" title="C&#43;&#43; OOP 学习笔记"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.dx39061.top/2022/04/010editor%E9%80%86%E5%90%91-%E7%99%BB%E9%99%86%E7%BB%95%E8%BF%87/"
+                    title="010Editor逆向-登陆绕过"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2022  -
+    2022
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+    
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
+<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
+            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.19.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '309208aa79ed1d5c7a67',
+        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
+        repo: 'blog_gitalk',
+        owner: 'DX39061',
+        admin: ['[DX39061]'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+
+
+  </body>
+</html>

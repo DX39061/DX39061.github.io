@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        逆向人学密码（二）TEA - DX3906&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="如题" />
+    <meta name="generator" content="Hugo 0.105.0 with theme pure" />
+    <title>逆向人学密码（二）TEA - DX3906&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="逆向人学密码（二）TEA" />
+<meta property="og:description" content="如题" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/07/tea/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-07-29T00:00:00+00:00" />
+
+<meta itemprop="name" content="逆向人学密码（二）TEA">
+<meta itemprop="description" content="如题"><meta itemprop="datePublished" content="2022-07-29T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-07-29T00:00:00+00:00" />
+<meta itemprop="wordCount" content="954">
+<meta itemprop="keywords" content="crypto," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="逆向人学密码（二）TEA"/>
+<meta name="twitter:description" content="如题"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/DX39061" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello, hugo</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%AD%97%E7%9A%84%E6%AD%A7%E4%B9%89--%E6%B7%B1%E5%85%A5ptrace%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B/" class="title">“字”的歧义--深入ptrace返回值类型</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0%E4%B8%8Eptrace%E5%87%BD%E6%95%B0/" class="title">linux ptrace相关技术（一）基本概述与ptrace函数</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/" class="title">KCTF2022秋季赛第二题WriteUp</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-19</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="title">linux进程基础</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-17 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" class="title">linux下通过设置LD_PRELOAD环境变量hook动态链接库</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-14 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-14</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">8</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">6</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
+                    class="tag-list-count">7</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
+                    class="tag-list-count">17</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2022/07/tea/"
+    >逆向人学密码（二）TEA</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://blog.dx39061.top/2022/07/tea/" class="article-date">
+  <time datetime="2022-07-29 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-07-29</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/crypto/"> Crypto </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/crypto/"> crypto </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/07/tea/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 954字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h1 id="tea">TEA</h1>
+<h2 id="算法简介">算法简介</h2>
+<ul>
+<li>
+<p>TEA：<strong>微型加密算法</strong>（Tiny Encryption Algorithm，TEA）是一种易于描述和执行的块密码，通常只需要很少的代码就可实现。</p>
+</li>
+<li>
+<p>块密码：在密码学中，<strong>分组加密</strong>（英语：<strong>Block cipher</strong>），又称<strong>分块加密</strong>或<strong>块密码</strong>，是一种对称密钥算法。它将明文分成多个等长的模块（block），使用确定的算法和对称密钥对每组分别加密解密。</p>
+</li>
+</ul>
+<h2 id="算法属性">算法属性</h2>
+<ul>
+<li>
+<p>TEA操作处理两个32位无符号整型上（可能源于一个64位数据）</p>
+</li>
+<li>
+<p>TEA使用一个128位密钥</p>
+</li>
+</ul>
+<h2 id="算法过程">算法过程</h2>
+<h3 id="--tea遵循feistel网络">- TEA遵循Feistel网络</h3>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Feistel_cipher_diagram_en.svg/511px-Feistel_cipher_diagram_en.svg.png" alt="Feistel cipher diagram ensvg"></p>
+<ul>
+<li>
+<p>Feistel网络构造细节：</p>
+<ul>
+<li>
+<p>令F为轮函数，并令$K_0,K_1,……K_n$分别为0,1,……n的子密钥</p>
+</li>
+<li>
+<p>将明文拆分为两个等长的块，$(L_0,R_0)$</p>
+</li>
+<li>
+<p>对每轮$i=0,1……n$，计算</p>
+<p>$L_{i+1}=R_i$</p>
+<p>$R_{i+1}=L_i \bigoplus F(R_i,K_i)$</p>
+</li>
+<li>
+<p>则密文为$(R_{n+1},L_{n+1})$</p>
+</li>
+<li>
+<p>加解密过程唯一区别是子密钥顺序反转</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="--tea实现过程">- TEA实现过程</h3>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/TEA_InfoBox_Diagram.png" alt="TEA InfoBox Diagrampng"></p>
+<h2 id="c语言实现">C语言实现</h2>
+<pre><code class="language-c">#include &lt;stdint.h&gt;
+
+void encrypt (uint32_t* v, uint32_t* k) {
+    uint32_t v0=v[0], v1=v[1], sum=0, i;           /* set up */
+    uint32_t delta=0x9e3779b9;                     /* a key schedule constant */
+    uint32_t k0=k[0], k1=k[1], k2=k[2], k3=k[3];   /* cache key */
+    for (i=0; i &lt; 32; i++) {                       /* basic cycle start */
+        sum += delta;
+        v0 += ((v1&lt;&lt;4) + k0) ^ (v1 + sum) ^ ((v1&gt;&gt;5) + k1);
+        v1 += ((v0&lt;&lt;4) + k2) ^ (v0 + sum) ^ ((v0&gt;&gt;5) + k3);  
+    }                                              /* end cycle */
+    v[0]=v0; v[1]=v1;
+}
+
+void decrypt (uint32_t* v, uint32_t* k) {
+    uint32_t v0=v[0], v1=v[1], sum=0xC6EF3720, i;  /* set up */
+    uint32_t delta=0x9e3779b9;                     /* a key schedule constant */
+    uint32_t k0=k[0], k1=k[1], k2=k[2], k3=k[3];   /* cache key */
+    for (i=0; i&lt;32; i++) {                         /* basic cycle start */
+        v1 -= ((v0&lt;&lt;4) + k2) ^ (v0 + sum) ^ ((v0&gt;&gt;5) + k3);
+        v0 -= ((v1&lt;&lt;4) + k0) ^ (v1 + sum) ^ ((v1&gt;&gt;5) + k1);
+        sum -= delta;                                   
+    }                                              /* end cycle */
+    v[0]=v0; v[1]=v1;
+}
+</code></pre>
+<h2 id="逆向算法特征">逆向算法特征</h2>
+<ul>
+<li>
+<p>delta的值0x9e3779b9，且有sum在每一轮逐次累加，但delta数值容易被魔改</p>
+</li>
+<li>
+<p>加密轮次一般为32轮，且每轮加密都是对两个32位数据进行</p>
+</li>
+<li>
+<p><code>&lt;&lt;4</code>与<code>&gt;&gt;5</code>及其加密逻辑一般是最重要的突破口</p>
+</li>
+</ul>
+<h2 id="xtea">XTEA</h2>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/XTEA_InfoBox_Diagram.svg/300px-XTEA_InfoBox_Diagram.svg.png" alt="XTEA InfoBox Diagramsvg"></p>
+<pre><code class="language-c">#include &lt;stdint.h&gt;
+
+/* take 64 bits of data in v[0] and v[1] and 128 bits of key[0] - key[3] */
+
+void encipher(unsigned int num_rounds, uint32_t v[2], uint32_t const key[4]) {
+    unsigned int i;
+    uint32_t v0=v[0], v1=v[1], sum=0, delta=0x9E3779B9;
+    for (i=0; i &lt; num_rounds; i++) {
+        v0 += (((v1 &lt;&lt; 4) ^ (v1 &gt;&gt; 5)) + v1) ^ (sum + key[sum &amp; 3]);
+        sum += delta;
+        v1 += (((v0 &lt;&lt; 4) ^ (v0 &gt;&gt; 5)) + v0) ^ (sum + key[(sum&gt;&gt;11) &amp; 3]);
+    }
+    v[0]=v0; v[1]=v1;
+}
+
+void decipher(unsigned int num_rounds, uint32_t v[2], uint32_t const key[4]) {
+    unsigned int i;
+    uint32_t v0=v[0], v1=v[1], delta=0x9E3779B9, sum=delta*num_rounds;
+    for (i=0; i &lt; num_rounds; i++) {
+        v1 -= (((v0 &lt;&lt; 4) ^ (v0 &gt;&gt; 5)) + v0) ^ (sum + key[(sum&gt;&gt;11) &amp; 3]);
+        sum -= delta;
+        v0 -= (((v1 &lt;&lt; 4) ^ (v1 &gt;&gt; 5)) + v1) ^ (sum + key[sum &amp; 3]);
+    }
+    v[0]=v0; v[1]=v1;
+}
+</code></pre>
+<h2 id="xxtea">XXTEA</h2>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Algorithm_diagram_for_XXTEA_cipher.svg/391px-Algorithm_diagram_for_XXTEA_cipher.svg.png" alt="Algorithm diagram for XXTEA ciphersvg"></p>
+<pre><code class="language-c">#define MX ((z&gt;&gt;5^y&lt;&lt;2) + (y&gt;&gt;3^z&lt;&lt;4) ^ (sum^y) + (k[p&amp;3^e]^z))
+
+  long btea(long* v, long n, long* k) {
+    unsigned long z=v[n-1], y=v[0], sum=0, e, DELTA=0x9e3779b9;
+    long p, q ;
+    if (n &gt; 1) {          /* Coding Part */
+      q = 6 + 52/n;
+      while (q-- &gt; 0) {
+        sum += DELTA;
+        e = (sum &gt;&gt; 2) &amp; 3;
+        for (p=0; p&lt;n-1; p++) y = v[p+1], z = v[p] += MX;
+        y = v[0];
+        z = v[n-1] += MX;
+      }
+      return 0 ; 
+    } else if (n &lt; -1) {  /* Decoding Part */
+      n = -n;
+      q = 6 + 52/n;
+      sum = q*DELTA ;
+      while (sum != 0) {
+        e = (sum &gt;&gt; 2) &amp; 3;
+        for (p=n-1; p&gt;0; p--) z = v[p-1], y = v[p] -= MX;
+        z = v[n-1];
+        y = v[0] -= MX;
+        sum -= DELTA;
+      }
+      return 0;
+    }
+    return 1;
+  }
+</code></pre>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://blog.dx39061.top/2022/07/tea/" title="逆向人学密码（二）TEA" target="_blank" rel="external">https://blog.dx39061.top/2022/07/tea/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License: </strong>
+        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.dx39061.top/2022/07/base64/" title="逆向人学密码（一）base64编码"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/"
+                    title="堆栈对齐——关于64位程序ret2text失败的溯源"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2022  -
+    2022
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+    
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
+<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
+            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.19.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '309208aa79ed1d5c7a67',
+        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
+        repo: 'blog_gitalk',
+        owner: 'DX39061',
+        admin: ['[DX39061]'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+
+
+  </body>
+</html>

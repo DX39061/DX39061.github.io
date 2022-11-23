@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>oop on DX3906&#39;s blog</title>
+    <link>https://blog.dx39061.top/tags/oop/</link>
+    <description>Recent content in oop on DX3906&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>CC BY 4.0 CN</copyright>
+    <lastBuildDate>Fri, 25 Feb 2022 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.dx39061.top/tags/oop/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>“字”的歧义--深入ptrace返回值类型</title>
+      <link>https://blog.dx39061.top/2022/11/%E5%AD%97%E7%9A%84%E6%AD%A7%E4%B9%89--%E6%B7%B1%E5%85%A5ptrace%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Sun, 20 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/11/%E5%AD%97%E7%9A%84%E6%AD%A7%E4%B9%89--%E6%B7%B1%E5%85%A5ptrace%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B/</guid>
+      <description>众说纷纭 最近在学ptrace的各种用法，看到使用PTRRACE_PEEKDATA读取数据时产生了疑惑 ptrace函数签名： long ptrace(enum __ptrace_request request, pid_t pid, void *addr, void</description>
+    </item>
+    
+    <item>
+      <title>linux ptrace相关技术（一）基本概述与ptrace函数</title>
+      <link>https://blog.dx39061.top/2022/11/%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0%E4%B8%8Eptrace%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Sun, 20 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/11/%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0%E4%B8%8Eptrace%E5%87%BD%E6%95%B0/</guid>
+      <description>linux ptrace技术（一）基本概述与函数参数 ptrace概述 逆向壬应该都对ptrace并不陌生，常出现于ELF文件的反调试中。 ptrace其实</description>
+    </item>
+    
+    <item>
+      <title>KCTF2022秋季赛第二题WriteUp</title>
+      <link>https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/</link>
+      <pubDate>Sat, 19 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/</guid>
+      <description>62进制大数运算 如何面对一堆乱七八糟的函数保持冷静与耐心是这道题最大的难点（（ 搜一下IRtzloZ6iuB会发现有关62进制的内容，结合01</description>
+    </item>
+    
+    <item>
+      <title>linux进程基础</title>
+      <link>https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Thu, 17 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/</guid>
+      <description>进程状态 一台linux机器上运行着多个进程，每个进程在同一时间都处在一种特定的状态，称为进程状态，常见的进程状态如下： R(TASK_RUNN</description>
+    </item>
+    
+    <item>
+      <title>linux下通过设置LD_PRELOAD环境变量hook动态链接库</title>
+      <link>https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/</link>
+      <pubDate>Mon, 14 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/</guid>
+      <description>动态链接概述 程序员在编写代码时，常常需要使用外部库。外部库有静态库和动态库之分，二者都是经过编译、汇编但未进行链接的二进制文件（ELF文件）</description>
+    </item>
+    
+    <item>
+      <title>博客域名更换</title>
+      <link>https://blog.dx39061.top/2022/10/%E5%8D%9A%E5%AE%A2%E5%9F%9F%E5%90%8D%E6%9B%B4%E6%8D%A2/</link>
+      <pubDate>Mon, 17 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/10/%E5%8D%9A%E5%AE%A2%E5%9F%9F%E5%90%8D%E6%9B%B4%E6%8D%A2/</guid>
+      <description>新域名：blog.dx39061.top 原来域名快到期了，续费又太贵，所以换了个，只是后缀从xyz换成了top 原域名解析还在不在了，但使用原</description>
+    </item>
+    
+    <item>
+      <title>angr文档翻译（七）Execution Engines</title>
+      <link>https://blog.dx39061.top/2022/09/execution_engines/</link>
+      <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/execution_engines/</guid>
+      <description>Execution Engines 当你使用angr进行单步执行时，某些东西实际地进行了执行，即angr的一系列引擎（SimEngine的子类），它们会模拟给定代码段对输入</description>
+    </item>
+    
+    <item>
+      <title>angr文档翻译（六）Simulation Managers</title>
+      <link>https://blog.dx39061.top/2022/09/simulation_manager/</link>
+      <pubDate>Thu, 15 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/simulation_manager/</guid>
+      <description>Simulation Managers Simulation Manager是angr中最重要的控制模块，它让你能够控制不同状态的符号执行，使用搜索策略来探索程序的状态空间。在这一节中，你将学会如</description>
+    </item>
+    
+    <item>
+      <title>angr文档翻译（五）Program State</title>
+      <link>https://blog.dx39061.top/2022/09/program_state/</link>
+      <pubDate>Wed, 14 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/program_state/</guid>
+      <description>Program State 到目前为止，我们只使用了angr的程序状态模拟（SimState objects），以最简单的方式展示了有关angr的基本操作。这一节中，</description>
+    </item>
+    
+    <item>
+      <title>逆向人学密码（三）RC algorithms</title>
+      <link>https://blog.dx39061.top/2022/09/rc_algorithms/</link>
+      <pubDate>Tue, 13 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/rc_algorithms/</guid>
+      <description>RC algorithms RC algorithms 是由Ron Rivest设计的一系列加密算法，在逆向中常见到的RC4属于其中的一个，下面引自维基百科 RC1 was never published. RC2 was a 64-bit block cipher developed in 1987. RC3 was broken before</description>
+    </item>
+    
+    <item>
+      <title>angr文档翻译（四）Solver Engine</title>
+      <link>https://blog.dx39061.top/2022/09/solver_engine/</link>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/solver_engine/</guid>
+      <description>Solver Engine angr的强大之处并不在于它是个模拟器，而在于它能够使用符号变量进行符号执行。与其说一个变量对应一个具体的数值，不如说一个变量对应着一个</description>
+    </item>
+    
+    <item>
+      <title>angr文档翻译（三）Loading a Binary</title>
+      <link>https://blog.dx39061.top/2022/09/loading_a_binary/</link>
+      <pubDate>Thu, 08 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/loading_a_binary/</guid>
+      <description>Loading a Binary 在之前的文档中，你仅仅对angr的加载功能进行了一个简单的使用——你加载了/bin/true，然后在没有动态连接库的情况下再次加载了它</description>
+    </item>
+    
+    <item>
+      <title>简析可重定位目标文件和程序链接过程</title>
+      <link>https://blog.dx39061.top/2022/09/%E7%AE%80%E6%9E%90%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%92%8C%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Thu, 08 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/%E7%AE%80%E6%9E%90%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%92%8C%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B/</guid>
+      <description>C源代码到可执行文件 回顾一下从源代码到可执行文件的基本过程 预处理（pre-processor) 作用：删除注释、文件包含、文本替换、展开宏定义</description>
+    </item>
+    
+    <item>
+      <title>angr文档翻译（二）Top Level Interface</title>
+      <link>https://blog.dx39061.top/2022/09/top_level_interface/</link>
+      <pubDate>Mon, 05 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/top_level_interface/</guid>
+      <description>Top Level Interface 开始之前（Before You Start） 我们预期的angr主要的应用场景是Ipython（或者其他python命令行解释器）。当你不确定可</description>
+    </item>
+    
+    <item>
+      <title>angr文档翻译（一）README</title>
+      <link>https://blog.dx39061.top/2022/09/readme/</link>
+      <pubDate>Mon, 05 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/readme/</guid>
+      <description>README angr是一个多架构二进制分析工具包，能够实现对二进制程序的动态符号执行（像Mayhem, KLEE, 等等）和各种静态分析。如果你想要学习如何使用a</description>
+    </item>
+    
+    <item>
+      <title>堆栈对齐——关于64位程序ret2text失败的溯源</title>
+      <link>https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/</link>
+      <pubDate>Sun, 04 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/</guid>
+      <description>起 以一道简单的pwn题说明，题目参见BUU-rip 查看保护信息，啥都没开，amd64 ❯ checksec ./pwn1 [*] &#39;/home/dx3906/CTF/problem/pwn/buu/rip/pwn1&#39; Arch: amd64-64-little RELRO: Partial RELRO Stack: No canary found NX: NX disabled PIE: No PIE (0x400000) RWX: Has RWX segments 运行 ❯</description>
+    </item>
+    
+    <item>
+      <title>逆向人学密码（二）TEA</title>
+      <link>https://blog.dx39061.top/2022/07/tea/</link>
+      <pubDate>Fri, 29 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/07/tea/</guid>
+      <description>TEA 算法简介 TEA：微型加密算法（Tiny Encryption Algorithm，TEA）是一种易于描述和执行的块密码，通常只需要很少的代码就可实现。 块密码：在</description>
+    </item>
+    
+    <item>
+      <title>逆向人学密码（一）base64编码</title>
+      <link>https://blog.dx39061.top/2022/07/base64/</link>
+      <pubDate>Sun, 10 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/07/base64/</guid>
+      <description>base64编码 编码原理 Base64是一种基于64个可打印字符来表示二进制数据的表示方法 由于$\log_{2}{64}=6$，所以每6个比特</description>
+    </item>
+    
+    <item>
+      <title>Python tips</title>
+      <link>https://blog.dx39061.top/2022/06/python-tips/</link>
+      <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/06/python-tips/</guid>
+      <description>基本输入输出 - 输入 python2： input：希望读取一个合法的python表达式 raw_input：以字符串形式读取输入 python3： 只</description>
+    </item>
+    
+    <item>
+      <title>miniLCTF 2022 Reverse 复盘 &amp; wp</title>
+      <link>https://blog.dx39061.top/2022/05/minilctf-2022-reverse-%E5%A4%8D%E7%9B%98-wp/</link>
+      <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/05/minilctf-2022-reverse-%E5%A4%8D%E7%9B%98-wp/</guid>
+      <description>not RC4 RISC-V 逆向，有找到ida的插件，但装上一直报错，放弃 又找到Ghidra，反编译很丑但能用，使劲看发现是个vm 大致流程及指令 0 0xf1 6 LAB_00100b7e 8 { int i; for</description>
+    </item>
+    
+  </channel>
+</rss>

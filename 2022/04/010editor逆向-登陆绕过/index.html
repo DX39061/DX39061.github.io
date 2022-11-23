@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        010Editor逆向-登陆绕过 - DX3906&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="白嫖010 editor" />
+    <meta name="generator" content="Hugo 0.105.0 with theme pure" />
+    <title>010Editor逆向-登陆绕过 - DX3906&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="010Editor逆向-登陆绕过" />
+<meta property="og:description" content="白嫖010 editor" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/04/010editor%E9%80%86%E5%90%91-%E7%99%BB%E9%99%86%E7%BB%95%E8%BF%87/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-04-05T00:00:00+00:00" />
+
+<meta itemprop="name" content="010Editor逆向-登陆绕过">
+<meta itemprop="description" content="白嫖010 editor"><meta itemprop="datePublished" content="2022-04-05T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-04-05T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1930">
+<meta itemprop="keywords" content="reverse,crack," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="010Editor逆向-登陆绕过"/>
+<meta name="twitter:description" content="白嫖010 editor"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/DX39061" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello, hugo</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%AD%97%E7%9A%84%E6%AD%A7%E4%B9%89--%E6%B7%B1%E5%85%A5ptrace%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B/" class="title">“字”的歧义--深入ptrace返回值类型</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0%E4%B8%8Eptrace%E5%87%BD%E6%95%B0/" class="title">linux ptrace相关技术（一）基本概述与ptrace函数</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/" class="title">KCTF2022秋季赛第二题WriteUp</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-19</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="title">linux进程基础</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-17 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" class="title">linux下通过设置LD_PRELOAD环境变量hook动态链接库</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-14 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-14</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">8</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">6</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
+                    class="tag-list-count">7</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
+                    class="tag-list-count">17</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2022/04/010editor%E9%80%86%E5%90%91-%E7%99%BB%E9%99%86%E7%BB%95%E8%BF%87/"
+    >010Editor逆向-登陆绕过</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://blog.dx39061.top/2022/04/010editor%E9%80%86%E5%90%91-%E7%99%BB%E9%99%86%E7%BB%95%E8%BF%87/" class="article-date">
+  <time datetime="2022-04-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-04-05</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/binary/"> Binary </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/reverse/"> reverse </a>
+    <a class="article-tag-link" href="/tags/crack/"> crack </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/04/010editor%E9%80%86%E5%90%91-%E7%99%BB%E9%99%86%E7%BB%95%E8%BF%87/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1930字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h2 id="010editor登陆绕过">010editor登陆绕过</h2>
+<h3 id="patch__10">patch__1.0</h3>
+<ul>
+<li>
+<p>起因是30天试用期到了，又想白嫖，于是试试逆向搞它，确实不难</p>
+</li>
+<li>
+<p>拖进ida静态分析就行</p>
+</li>
+<li>
+<p>string窗口搜索<code>license</code>，找到关键语句</p>
+<p><img src="/upload/2022/04/010_patch-0cc75362d9b54a239a3f0751eb4f9357.png" alt="010_patch.png"></p>
+</li>
+<li>
+<p><code>Password accepted. This license entitles you to:\n\n - Free Upgrades\n - Free Support\n - Free Repository Updates\n\nuntil </code>显然是验证通过后的提示语句，跟进去</p>
+</li>
+<li>
+<p>交叉引用定位<code>loc_72F4D8</code>函数</p>
+</li>
+</ul>
+<pre><code class="language-nasm">.text:000000000072F4D8 loc_72F4D8:                             ; CODE XREF: sub_72EA00+6AE↑j
+.text:000000000072F4D8                 mov     rdi, [r15]
+.text:000000000072F4DB ;   try {
+.text:000000000072F4DB                 call    _ZN9RRegister14GetExpiryQDateEv ; RRegister::GetExpiryQDate(void)
+.text:000000000072F4E0                 lea     rdi, unk_8ACB72 ; this
+.text:000000000072F4E7                 mov     esi, 0Ch        ; char *
+.text:000000000072F4EC                 mov     [rsp+228h+var_68], rax
+.text:000000000072F4F4                 call    __ZN7QString16fromAscii_helperEPKci ; QString::fromAscii_helper(char const*,int)
+.text:000000000072F4F4 ;   } // starts at 72F4DB
+.text:000000000072F4F9                 mov     [rsp+228h+var_48], rax
+.text:000000000072F501                 lea     rbp, [rsp+228h+var_48]
+.text:000000000072F509                 lea     rax, [rsp+228h+var_128]
+.text:000000000072F511                 lea     rsi, [rsp+228h+var_68] ; QString *
+.text:000000000072F519                 mov     rdx, rbp
+.text:000000000072F51C                 mov     rdi, rax        ; this
+.text:000000000072F51F                 mov     r13, rax
+.text:000000000072F522                 mov     [rsp+228h+var_220], rax
+.text:000000000072F527 ;   try {
+.text:000000000072F527                 call    __ZNK5QDate8toStringERK7QString ; QDate::toString(QString const&amp;)
+.text:000000000072F527 ;   } // starts at 72F527
+.text:000000000072F52C                 lea     r14, [rsp+228h+var_118]
+.text:000000000072F534                 lea     rsi, aPasswordAccept_0 ; &quot;Password accepted. This license entitle&quot;...
+.text:000000000072F53B                 mov     edx, 78h ; 'x'  ; int
+.text:000000000072F540                 mov     rdi, r14        ; this
+.text:000000000072F543 ;   try {
+.text:000000000072F543                 call    __ZN7QString15fromUtf8_helperEPKci ; QString::fromUtf8_helper(char const*,int)
+</code></pre>
+<ul>
+<li>再往上找发现<code>loc_72F0A8</code>函数</li>
+</ul>
+<pre><code class="language-nasm">.text:000000000072F0A8 loc_72F0A8:                             ; CODE XREF: sub_72EA00+5FA↑j
+.text:000000000072F0A8                                         ; sub_72EA00+608↑j
+.text:000000000072F0A8                 cmp     ebp, 0DBh
+.text:000000000072F0AE                 jz      loc_72F4D8;上个函数入口
+.text:000000000072F0B4                 cmp     ebp, 0EDh
+.text:000000000072F0BA                 jz      loc_72F1C8
+.text:000000000072F0C0                 cmp     ebp, 20Ch
+.text:000000000072F0C6                 jz      loc_72F1C8
+.text:000000000072F0CC                 cmp     r13d, 93h
+.text:000000000072F0D3                 jz      short loc_72F148
+.text:000000000072F0D5                 lea     rdi, aInvalidNameOrP ; &quot;Invalid name or password. Please enter &quot;...
+.text:000000000072F0DC                 mov     esi, 90h        ; char *
+.text:000000000072F0E1                 call    __ZN7QString16fromAscii_helperEPKci ; QString::fromAscii_helper(char const*,int)
+.text:000000000072F0E1 ;   } // starts at 72F09D
+.text:000000000072F0E6                 lea     rbp, [rsp+228h+var_48]
+.text:000000000072F0EE                 mov     [rsp+228h+var_48], rax
+.text:000000000072F0F6                 mov     rdi, rbp
+.text:000000000072F0F9 ;   try {
+.text:000000000072F0F9                 call    _Z10R_ShowInfoRK7QString ; R_ShowInfo(QString const&amp;)
+.text:000000000072F0F9 ;   } // starts at 72F0F9
+.text:000000000072F0FE                 jmp     loc_72F04B
+</code></pre>
+<ul>
+<li>
+<p>跳转语句<code>jz loc_72F4D8</code>，尝试性把jz改成jnz，apply一下</p>
+</li>
+<li>
+<p>重新进入010，弹出register窗口，随便输入用户名和密码，点击<code>check license</code></p>
+</li>
+</ul>
+<p><img src="/upload/2022/04/010_2-4b26d1c6c078458bace506d6264734f6.png" alt="010_2.png"></p>
+<ul>
+<li>
+<p>弹出成功窗口
+<img src="/upload/2022/04/010_3-446c98d98f924921aa186fb95ef4b8d9.png" alt="010_3.png"></p>
+</li>
+<li>
+<p>点击ok成功进入应用，成功！</p>
+</li>
+</ul>
+<h3 id="patch__20">patch__2.0</h3>
+<ul>
+<li>
+<p>上次搞完之后能用是能用，但是每次都要点击上面两张图的<code>Check License</code>和<code>OK</code>，十分不方便，于是尝试使2个界面不再弹出</p>
+</li>
+<li>
+<p>仔细看main函数，还是挺清晰的</p>
+</li>
+</ul>
+<pre><code class="language-c">__int64 __fastcall main(int a1, char **a2, char **a3)
+{
+  volatile signed __int32 *v3; // rsi
+  int v4; // edx
+  int v5; // ecx
+  int v6; // er8
+  int v7; // er9
+  TForm010Ed *v8; // rdi
+  __int64 (__fastcall ***v9)(_QWORD); // rax
+  QMetaObject *v10; // rax
+  const char *v11; // rax
+  int v12; // edx
+  volatile signed __int32 *v13; // rax
+  __int64 v14; // rdx
+  char *v15; // rsi
+  QApplication *v16; // r14
+  const QString *v17; // rdx
+  __int64 v18; // r14
+  TForm010Ed *v19; // rdi
+  unsigned int v20; // er15
+  int v21; // eax
+  QObject *v22; // r14
+  const char *v23; // rdx
+  QApplication *v24; // rdi
+  unsigned int v25; // er13
+  QTimer *v26; // rdx
+  __int64 v27; // r14
+  volatile signed __int32 **v28; // r13
+  volatile signed __int32 *v29; // rax
+  volatile signed __int32 **v30; // r8
+  volatile signed __int32 **i; // rdx
+  int v33; // edx
+  QDesktopWidget *v34; // rax
+  __int64 v35; // rsi
+  const char *v36; // rcx
+  QWidget *v37; // [rsp+0h] [rbp-178h]
+  int v38; // [rsp+0h] [rbp-178h]
+  QWidget *v39; // [rsp+0h] [rbp-178h]
+  QWidget *v40; // [rsp+0h] [rbp-178h]
+  QWidget *v41; // [rsp+0h] [rbp-178h]
+  char v42; // [rsp+8h] [rbp-170h]
+  int v43; // [rsp+8h] [rbp-170h]
+  int v44; // [rsp+10h] [rbp-168h]
+  int v45; // [rsp+10h] [rbp-168h]
+  void *v46; // [rsp+18h] [rbp-160h] BYREF
+  int v47[2]; // [rsp+20h] [rbp-158h] BYREF
+  QTimer *v48; // [rsp+28h] [rbp-150h]
+  QTimer *v49[2]; // [rsp+30h] [rbp-148h] BYREF
+  QDateTime *v50; // [rsp+40h] [rbp-138h] BYREF
+  char v51; // [rsp+48h] [rbp-130h]
+  int v52; // [rsp+50h] [rbp-128h] BYREF
+  char v53; // [rsp+58h] [rbp-120h]
+  __int64 v54; // [rsp+60h] [rbp-118h] BYREF
+  int v55; // [rsp+68h] [rbp-110h]
+  int v56; // [rsp+70h] [rbp-108h] BYREF
+  char v57; // [rsp+78h] [rbp-100h]
+  int v58; // [rsp+80h] [rbp-F8h] BYREF
+  char v59; // [rsp+88h] [rbp-F0h]
+  int v60; // [rsp+90h] [rbp-E8h] BYREF
+  char v61; // [rsp+98h] [rbp-E0h]
+  int v62[2]; // [rsp+A0h] [rbp-D8h] BYREF
+  char v63; // [rsp+A8h] [rbp-D0h]
+  char v64[32]; // [rsp+B0h] [rbp-C8h] BYREF
+  char v65[104]; // [rsp+D0h] [rbp-A8h] BYREF
+  unsigned __int64 v66; // [rsp+138h] [rbp-40h]
+
+  v66 = __readfsqword(0x28u);
+  qInstallMessageHandler(&amp;R_MessageOutput, a2, a3);
+  sub_5680C0();
+  nullsub_31();
+  RProgress::CreateProgress((RProgress *)&amp;R_MessageOutput);
+  QCoreApplication::setAttribute(20LL, 1LL);
+  QCoreApplication::setAttribute(13LL, 1LL);
+  v3 = (volatile signed __int32 *)&amp;v46 + 1;
+  sub_5943F0((QObject *)v65, v37, v42, v44, (int)v46, (int)&amp;QArrayData::shared_null, (char)v48);
+  dword_10B8F10 = (RApplication *)v65;
+  sub_595D00((unsigned int)v65, (unsigned int)&amp;v46 + 4, v4, v5, v6, v7, v38, v43, v45, (char)v46);
+  v8 = (TForm010Ed *)v49;
+  QCoreApplication::arguments((QCoreApplication *)v49);
+  if ( !(unsigned int)TForm010Ed::CheckRunOnlyOnce((TForm010Ed *)v49)
+    || (v8 = dword_10B8F10, !(unsigned int)sub_594C60(dword_10B8F10)) )
+  {
+    TForm010Ed::CheckDebugFlags(v8);
+    v9 = (__int64 (__fastcall ***)(_QWORD))QApplication::style(v8);
+    v10 = (QMetaObject *)(**v9)(v9);
+    v11 = (const char *)QMetaObject::className(v10);
+    v12 = -1;
+    if ( v11 )
+      v12 = strlen(v11);
+    QString::fromUtf8_helper((QString *)v62, v11, v12);
+    v13 = *(volatile signed __int32 **)v47;
+    v14 = *(_QWORD *)v62;
+    *(_QWORD *)v62 = *(_QWORD *)v47;
+    *(_QWORD *)v47 = v14;
+    if ( !**(_DWORD **)v62 || **(_DWORD **)v62 != -1 &amp;&amp; !_InterlockedDecrement(v13) )
+      QArrayData::deallocate(*(_QWORD *)v62, 2LL, 8LL);
+    v15 = &quot;QCleanlooksStyle&quot;;
+    if ( (unsigned __int8)QString::operator==(v47, &quot;QCleanlooksStyle&quot;)
+      || (v15 = &quot;QCDEStyle&quot;, (unsigned __int8)QString::operator==(v47, &quot;QCDEStyle&quot;))
+      || (v15 = &quot;QPlastiqueStyle&quot;, (unsigned __int8)QString::operator==(v47, &quot;QPlastiqueStyle&quot;))
+      || (v15 = &quot;QMotifStyle&quot;, (unsigned __int8)QString::operator==(v47, &quot;QMotifStyle&quot;))
+      || (v15 = &quot;QWindowsStyle&quot;, (unsigned __int8)QString::operator==(v47, &quot;QWindowsStyle&quot;))
+      || (v15 = &quot;QGtkStyle&quot;, (unsigned __int8)QString::operator==(v47, &quot;QGtkStyle&quot;))
+      || (v15 = &quot;QFusionStyle&quot;, (unsigned __int8)QString::operator==(v47, &quot;QFusionStyle&quot;)) )
+    {
+      v16 = (QApplication *)operator new(0x10uLL);
+      sub_56DC50(v16);
+      QApplication::setStyle(v16, (QStyle *)v15);
+    }
+    R_InitializeCustomCodecs();
+    QGuiApplication::setLayoutDirection(0LL);
+    RStandardPaths::GetProgDir((RStandardPaths *)&amp;v54, 1);
+    v39 = (QWidget *)&amp;v54;
+    operator+((QString *)&amp;v56);
+    RStandardPaths::GetProgDir((RStandardPaths *)&amp;v50, 1);
+    operator+((QString *)&amp;v52);
+    RHelp::Initialize((RHelp *)&amp;v52, (const QString *)&amp;v56, v17);
+    QString::~QString((QString *const)&amp;v52);
+    QString::~QString((QString *const)&amp;v50);
+    QString::~QString((QString *const)&amp;v56);
+    QString::~QString((QString *const)&amp;v54);
+    if ( (int)sub_45E320() &lt; 0 )
+      goto LABEL_42;
+    v18 = operator new(0x50uLL);
+    sub_52F000(v18);
+    unk_10B8F38 = v18;
+    sub_52FD20(v18);
+    if ( !*((_DWORD *)dword_10B8F10 + 8) )
+      RRegister::DecreaseNumUsesLeft(unk_10B8F38);
+    RRegister::CheckPortableInstallLicenseFromLocal(unk_10B8F38);
+    v19 = (TForm010Ed *)unk_10B8F38;
+    v20 = RRegister::CheckStatus(unk_10B8F38, 13, 18887);
+    if ( *((_DWORD *)dword_10B8F10 + 8) &amp;&amp; v20 != 219 )
+    {
+      v19 = (TForm010Ed *)unk_10B8F38;
+      RRegister::DecreaseNumUsesLeft(unk_10B8F38);
+    }
+    v21 = TForm010Ed::CheckNoUserInterface(v19);
+    unk_10B8FA5 = v21 != 0;
+    if ( !v21 &amp;&amp; (!(unsigned int)sub_5A8A90() || v20 != 219) )
+    {
+      *(_QWORD *)v62 = QString::fromAscii_helper((QString *)&quot;:/Icons/resources/Splash.png&quot;, (const char *)0x1C, v33);
+      QPixmap::QPixmap(v64, v62, 0LL, 0LL);
+      QString::~QString((QString *const)v62);
+      v34 = (QDesktopWidget *)QApplication::desktop((QApplication *)v62);
+      v35 = QDesktopWidget::screen(v34, -1);
+      v39 = (QWidget *)operator new(0x40uLL);
+      sub_59A250(v39, v35, v64, 0x40000LL, v20);
+      qword_10B8EF0 = v39;
+      QWidget::show(v39);
+      QSplashScreen::repaint(qword_10B8EF0);
+      QCoreApplication::processEvents(0LL);
+      QTimer::singleShot((QTimer *)0x9C4, (int)dword_10B8F10, (const QObject *)&quot;1on_CloseSplash()&quot;, v36);
+      QPixmap::~QPixmap((QPixmap *)v64);
+    }
+    v22 = (QObject *)operator new(0x1288uLL);
+    sub_5D92B0(
+      v22,
+      (__int64)v39,
+      (int)&amp;v56,
+      (int)v62,
+      v46,
+      v47[0],
+      v48,
+      v49[0],
+      v49[1],
+      v50,
+      v51,
+      v52,
+      v53,
+      v54,
+      v55,
+      v56,
+      v57,
+      v58,
+      v59,
+      v60,
+      v61,
+      v62[0],
+      v63);
+    qword_10B8EF8 = v22;
+    QWidget::setUpdatesEnabled(v22, 0);
+    sub_584E10(v64, unk_10B8F00);
+    QApplication::setPalette((QApplication *)v64, 0LL, v23);
+    if ( (unsigned int)sub_5B5A80(qword_10B8EF8) == -1 )
+      goto LABEL_46;
+    if ( v20 == 375
+      || v20 == 47
+      || v20 == 237
+      || v20 == 275
+      || v20 == 524 &amp;&amp; (unsigned int)RRegister::CheckForNotice(unk_10B8F38) )
+    {
+      QString::fromUtf8_helper((QString *)&amp;v58, &quot;:/Icons/resources/010_icon_32x32.png&quot;, 36);
+      QIcon::QIcon((QIcon *)&amp;v60, (const QString *)&amp;v58);
+      QApplication::setWindowIcon((QApplication *)&amp;v60, (const QIcon *)&amp;v58);
+      QIcon::~QIcon((QIcon *)&amp;v60);
+      QString::~QString((QString *const)&amp;v58);
+      if ( !qword_10B9690 )
+      {
+        v41 = (QWidget *)operator new(0x1C0uLL);
+        sub_72FF40(v41);
+        qword_10B9690 = v41;
+      }
+      sub_72DF80(qword_10B9690);
+      RApplication::on_CloseSplash((RApplication *)v65);
+      if ( !(*(unsigned int (__fastcall **)(QObject *, __int64))(*(_QWORD *)qword_10B9690 + 424LL))(qword_10B9690, 1LL)
+        &amp;&amp; *((_DWORD *)qword_10B9690 + 102) )
+      {
+        v25 = -1;
+        goto LABEL_47;
+      }
+      if ( qword_10B9690 )
+        (*(void (__fastcall **)(QObject *))(*(_QWORD *)qword_10B9690 + 32LL))(qword_10B9690);
+      v40 = (QWidget *)operator new(0x1C0uLL);
+      sub_72FF40(v40);
+      qword_10B9690 = v40;
+    }
+    if ( unk_10B8FA5 )
+    {
+      sub_5D85A0(qword_10B8EF8, (__int64)v40);
+    }
+    else if ( *((_DWORD *)qword_10B8EF8 + 1049) )
+    {
+      QWidget::showNormal(qword_10B8EF8);
+      QWidget::showMaximized(qword_10B8EF8);
+    }
+    else
+    {
+      QWidget::show(qword_10B8EF8);
+    }
+    QWidget::setUpdatesEnabled(qword_10B8EF8, 1);
+    sub_5D50C0(qword_10B8EF8);
+    v24 = qword_10B8EF8;
+    TForm010Ed::RunCommandLineParams(qword_10B8EF8);
+    if ( unk_10B8FAA || unk_10B8FA5 &amp;&amp; (v24 = qword_10B8EF8, !(unsigned int)sub_5B2BE0(qword_10B8EF8)) )
+LABEL_46:
+      v25 = unk_10B8F98;
+    else
+      v25 = QApplication::exec(v24);
+LABEL_47:
+    QPalette::~QPalette((QPalette *)v64);
+    goto LABEL_43;
+  }
+  RApplication::SendBringToFrontMessage(dword_10B8F10);
+  v26 = v49[0];
+  v27 = 1LL;
+  if ( *((_DWORD *)v49[0] + 3) - *((_DWORD *)v49[0] + 2) &gt; 1 )
+  {
+    do
+    {
+      if ( *(_DWORD *)v26 &gt; 1u )
+      {
+        v28 = (volatile signed __int32 **)((char *)v49[0] + 8 * *((int *)v49[0] + 2) + 16);
+        v29 = (volatile signed __int32 *)QListData::detach((QListData *)v49, *((_DWORD *)v49[0] + 1));
+        v3 = (volatile signed __int32 *)*((int *)v49[0] + 3);
+        v30 = (volatile signed __int32 **)((char *)v49[0] + 8 * (_QWORD)v3 + 16);
+        for ( i = (volatile signed __int32 **)((char *)v49[0] + 8 * *((int *)v49[0] + 2) + 16); v30 != i; ++v28 )
+        {
+          if ( i )
+          {
+            v3 = *v28;
+            *i = *v28;
+            if ( (unsigned int)(*v3 + 1) &gt; 1 )
+              _InterlockedAdd(v3, 1u);
+          }
+          ++i;
+        }
+        if ( !*v29 || *v29 != -1 &amp;&amp; !_InterlockedSub(v29, 1u) )
+          QList&lt;QString&gt;::dealloc(v29);
+        v26 = v49[0];
+      }
+      TForm010Ed::SendLoadFileMessage(
+        (QTimer *)((char *)v26 + 8 * v27 + 8 * *((int *)v26 + 2) + 16),
+        (const QString *)v3);
+      v26 = v49[0];
+      ++v27;
+    }
+    while ( (int)v27 &lt; *((_DWORD *)v49[0] + 3) - *((_DWORD *)v49[0] + 2) );
+  }
+LABEL_42:
+  v25 = 0;
+LABEL_43:
+  QList&lt;QLabel *&gt;::~QList(v49);
+  sub_45E4E0((QApplication *)v65);
+  QString::~QString((QString *const)v47);
+  return v25;
+}
+</code></pre>
+<ul>
+<li>发现函数<code>RRegister::CheckStatus</code>，猜测应该是检查是否在30天试用期内，具体原理不明，查看汇编</li>
+</ul>
+<pre><code class="language-nasm">.text:000000000045CEB3 loc_45CEB3:                             ; CODE XREF: main+6CE↓j
+.text:000000000045CEB3                 lea     rax, unk_10B8F38
+.text:000000000045CEBA                 mov     rdi, [rax]
+.text:000000000045CEBD                 call    _ZN9RRegister36CheckPortableInstallLicenseFromLocalEv ; RRegister::CheckPortableInstallLicenseFromLocal(void)
+.text:000000000045CEC2                 lea     rax, unk_10B8F38
+.text:000000000045CEC9                 mov     edx, 49C7h
+.text:000000000045CECE                 mov     esi, 0Dh
+.text:000000000045CED3                 mov     rdi, [rax]
+.text:000000000045CED6                 call    _ZN9RRegister11CheckStatusEii ; RRegister::CheckStatus(int,int)
+.text:000000000045CEDB                 cmp     eax, 0DBh
+.text:000000000045CEE0                 mov     r15d, eax
+.text:000000000045CEE3                 mov     rax, [r13+0]
+.text:000000000045CEE7                 setnz   r14b
+.text:000000000045CEEB                 cmp     dword ptr [rax+20h], 0
+.text:000000000045CEEF                 jz      short loc_45CF05
+.text:000000000045CEF1                 test    r14b, r14b
+.text:000000000045CEF4                 jz      short loc_45CF05
+.text:000000000045CEF6                 lea     rax, unk_10B8F38
+.text:000000000045CEFD                 mov     rdi, [rax]
+.text:000000000045CF00                 call    _ZN9RRegister19DecreaseNumUsesLeftEv ; RRegister::DecreaseNumUsesLeft(void)
+</code></pre>
+<ul>
+<li>
+<p>尝试把<code>call RRegister::CheckStatus</code>整个patch掉，使其不进行检查直接进入应用</p>
+</li>
+<li>
+<p>apply一下，重新运行程序，成功！</p>
+</li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://blog.dx39061.top/2022/04/010editor%E9%80%86%E5%90%91-%E7%99%BB%E9%99%86%E7%BB%95%E8%BF%87/" title="010Editor逆向-登陆绕过" target="_blank" rel="external">https://blog.dx39061.top/2022/04/010editor%E9%80%86%E5%90%91-%E7%99%BB%E9%99%86%E7%BB%95%E8%BF%87/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License: </strong>
+        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.dx39061.top/2022/04/buu-misc-wp/" title="buu misc wp"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.dx39061.top/2022/04/2022dasctf-x-fate-re-crackme-wp/"
+                    title="2022DASCTF X FATE RE Crackme wp"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2022  -
+    2022
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+    
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
+<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
+            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.19.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '309208aa79ed1d5c7a67',
+        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
+        repo: 'blog_gitalk',
+        owner: 'DX39061',
+        admin: ['[DX39061]'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+
+
+  </body>
+</html>

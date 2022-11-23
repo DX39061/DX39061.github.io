@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        miniLCTF 2022 Reverse 复盘 &amp; wp - DX3906&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="如题" />
+    <meta name="generator" content="Hugo 0.105.0 with theme pure" />
+    <title>miniLCTF 2022 Reverse 复盘 &amp; wp - DX3906&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="miniLCTF 2022 Reverse 复盘 &amp; wp" />
+<meta property="og:description" content="如题" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/05/minilctf-2022-reverse-%E5%A4%8D%E7%9B%98-wp/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-05-19T00:00:00+00:00" />
+
+<meta itemprop="name" content="miniLCTF 2022 Reverse 复盘 &amp; wp">
+<meta itemprop="description" content="如题"><meta itemprop="datePublished" content="2022-05-19T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-05-19T00:00:00+00:00" />
+<meta itemprop="wordCount" content="6302">
+<meta itemprop="keywords" content="CTF,reverse," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="miniLCTF 2022 Reverse 复盘 &amp; wp"/>
+<meta name="twitter:description" content="如题"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/DX39061" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello, hugo</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%AD%97%E7%9A%84%E6%AD%A7%E4%B9%89--%E6%B7%B1%E5%85%A5ptrace%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B/" class="title">“字”的歧义--深入ptrace返回值类型</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0%E4%B8%8Eptrace%E5%87%BD%E6%95%B0/" class="title">linux ptrace相关技术（一）基本概述与ptrace函数</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/" class="title">KCTF2022秋季赛第二题WriteUp</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-19</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="title">linux进程基础</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-17 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" class="title">linux下通过设置LD_PRELOAD环境变量hook动态链接库</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-14 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-14</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">8</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">6</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
+                    class="tag-list-count">7</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
+                    class="tag-list-count">17</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2022/05/minilctf-2022-reverse-%E5%A4%8D%E7%9B%98-wp/"
+    >miniLCTF 2022 Reverse 复盘 &amp; wp</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://blog.dx39061.top/2022/05/minilctf-2022-reverse-%E5%A4%8D%E7%9B%98-wp/" class="article-date">
+  <time datetime="2022-05-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-05-19</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/writeups/"> WriteUps </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/ctf/"> CTF </a>
+    <a class="article-tag-link" href="/tags/reverse/"> reverse </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/05/minilctf-2022-reverse-%E5%A4%8D%E7%9B%98-wp/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 6302字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 13分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h2 id="not-rc4">not RC4</h2>
+<ul>
+<li>
+<p>RISC-V 逆向，有找到ida的插件，但装上一直报错，放弃</p>
+</li>
+<li>
+<p>又找到<code>Ghidra</code>，反编译很丑但能用，使劲看发现是个vm</p>
+</li>
+<li>
+<p>大致流程及指令</p>
+</li>
+</ul>
+<pre><code class="language-c">0
+0xf1                6
+LAB_00100b7e        8
+
+{
+  int i;
+
+  for (i = 0; i &lt; 4; i ++) {
+    if (&amp;enc_flag[i]) != check_array[i]) {      //longlong
+      printf(&quot;Wrong!&quot;);
+      exit(0);
+    }
+  }
+  op_pointer++;
+  return;
+}
+
+
+
+
+0xf2                10
+LAB_00100bfe        12
+
+{
+  if (key_num_2 &lt; opcode[op_pointer + 2]) {//0x0b
+    op_pointer -= opcode[op_pointer + 1];//4
+    key_num_2 ++;
+  }
+  else {
+    key_num_2 = 0;
+    op_pointer += 3;
+  }
+  return;
+}
+
+
+
+
+0xf3                14
+LAB_00100974        16
+
+key_const_1 = 0x0000000064627421;
+key_const_2 = 0x0000000079796473;
+{
+  left_8_bytes = input_left_8_bytes +  key_const_1;
+  right_8_bytes = input_right_8_bytes + key_const_2;
+  op_pointer += 2;
+  return;
+}
+
+
+
+
+0xf4                18
+LAB_00100a10        20
+
+{
+  if (opcode[op_pointer + 1] == 0xe1) {
+    left_8_bytes = key_const_1 + ((right_8_bytes ^ left_8_bytes) &gt;&gt; (-right_8_bytes &amp; 0x3f) | (right_8_bytes ^ left_8_bytes) &lt;&lt; (right_8_bytes &amp; 0x3fU));
+    left_8_bytes = key_const_1 + rol(right_8_bytes ^ left_8_bytes, 6);
+  }
+  if (opcode[*op_pointer + 1] == 0xe2) {
+    right_8_bytes = key_const_2 + ((right_8_bytes ^ left_8_bytes) &gt;&gt; (-left_8_bytes &amp; 0x3f) | (right_8_bytes ^ left_8_bytes) &lt;&lt; (left_8_bytes &amp; 0x3f));
+  }
+  op_pointer += 2;
+  return;
+}
+
+void RC5_ENCRYPT(WORD *pt, WORD *ct)
+{
+   WORD i, A = pt[0] + S[0], B = pt[1] + S[1];
+
+   for(i = 1; i &lt;= r; i++)
+   {
+      A = ROTL(A ^ B, B) + S[2*i];
+      B = ROTL(B ^ A, A) + S[2*i + 1];
+   }
+   ct[0] = A; ct[1] = B;
+}
+
+
+
+(val &lt;&lt; r_bits%max_bits) &amp; (2**max_bits-1) | \
+    ((val &amp; (2**max_bits-1)) &gt;&gt; (max_bits-(r_bits%max_bits)))
+
+
+0xf5                22
+LAB_00100af0        24
+
+{
+  *(undefined8 *)(&amp;check_array + (longlong)key_num_1 * 8) = left_8_bytes;
+  *(undefined8 *)(&amp;check_array + (longlong)(key_num_1 + 1) * 8) = right_8_bytes;
+  left_8_bytes = 0;
+  right_8_bytes = 0;
+  key_num_1 += 2;
+  op_pointer++;
+  return;
+}
+
+
+opcode = { 0xf3, 0x00, 0xf4, 0xe1, 0xf4, 0xe2, 0xf2, 0x04, 0x0b, 0xf5,       0xf3, 0x02, 0xf4, 0xe1, 0xf4, 0xe2, 0xf2, 0x04, 0x0b, 0xf5, 0xf1, 0xff }
+
+
+enc_flag = { 0xca, 0x82, 0xef, 0x95, 0xbb, 0x1d, 0xc2, 0x4b, 0xbe, 0x47, 0xb5, 0x71, 0xae, 0xec, 0x7b, 0xf5, 0xcd, 0xf6, 0xe7, 0x15, 0xab, 0xbd, 0xa1, 0x80, 0x85, 0x63, 0x77, 0xe1, 0xd7, 0x93, 0xc7, 0xa3 }
+</code></pre>
+<ul>
+<li>
+<p>最后得知整个流程是个去掉了初始化的<code>RC5</code>（not RC4就在这</p>
+</li>
+<li>
+<p>exp</p>
+</li>
+</ul>
+<pre><code class="language-python">from Crypto.Util.number import *
+enc_flag = [0x4bc21dbb95ef82ca, 0xf57becae71b547be, 0x80a1bdab15e7f6cd, 0xa3c793d7e1776385]
+
+key_const_1 = 0x0000000064627421
+key_const_2 = 0x0000000079796473
+
+rol = lambda val, r_bts, max_bits: \
+    (val &lt;&lt; r_bits%max_bits) &amp; (2**max_bits-1) | \
+    ((val &amp; (2**max_bits-1)) &gt;&gt; (max_bits-(r_bits%max_bits)))
+
+ror = lambda val, r_bits, max_bits: \
+    ((val &amp; (2**max_bits-1)) &gt;&gt; r_bits%max_bits) | \
+    (val &lt;&lt; (max_bits-(r_bits%max_bits)) &amp; (2**max_bits-1))
+
+left_8_bytes = 0x4bc21dbb95ef82ca
+right_8_bytes = 0xf57becae71b547be
+
+for j in range(12):
+
+    right_8_bytes = ror((right_8_bytes - key_const_2), left_8_bytes, 64) ^ left_8_bytes
+    left_8_bytes = ror((left_8_bytes - key_const_1), right_8_bytes,64) ^ right_8_bytes
+
+left_8_bytes -= key_const_1
+right_8_bytes -= key_const_2
+
+print(long_to_bytes(left_8_bytes), long_to_bytes(right_8_bytes))
+</code></pre>
+<ul>
+<li>
+<p>字节序问题，最后要逆过来看</p>
+</li>
+<li>
+<p>flag<code>miniLCTF{I_hate_U_r1sc-V!}</code></p>
+</li>
+</ul>
+<h2 id="lemon">lemon</h2>
+<ul>
+<li>
+<p>lemon语言逆向，给了一段字节码</p>
+</li>
+<li>
+<p>吐槽一下官方仓库readme写得太简略了，费了好大劲才搞懂工具怎么用</p>
+</li>
+<li>
+<p>然后就是体力活了</p>
+</li>
+<li>
+<p>猜一下，写点代码，<code>\dis</code>一下，和题目文件比对一下，还原源代码</p>
+</li>
+</ul>
+<pre><code class="language-python">var v0 = 221492336;
+
+def next(){
+            v0 = (v0*3735928559 + 2974593325) % 4294967295;
+            return v0;
+        }
+
+class RunMe(){
+        def __init__(var n){
+            self.enc = [];
+            self.flag = [];
+            self.res  = [2141786733, 76267819, 37219027, 219942343, 755999918, 701306806, 532732060, 334234642, 524809386, 333469062, 160092960, 126810196, 238089888, 301365991, 258515107, 424705310, 1041878913, 618187854, 4680810, 827308967, 66957703, 924471115, 735310319, 541128627, 47689903, 459905620, 495518230, 167708778, 586337393, 521761774, 861166604, 626644061, 1030425184, 665229750, 330150339];
+            for (var v1=0; v1&lt;n; v1+=1){
+                    self.enc.append(next());
+            }
+        }
+
+        def sign(var x, var y){
+            for(var v2=0; v2&lt;35; v2+=1){
+                self.flag.append(x[v2] ^ y[v2]);
+            }
+        }
+    }
+    print(&quot;Starting&quot;);
+    var v5 = RunMe(35);
+    v5.sign(v5.res, v5.enc);
+    print(v5.flag);
+    print(&quot;Done&quot;);
+</code></pre>
+<ul>
+<li>
+<p>运行得flag</p>
+</li>
+<li>
+<p>flag<code>miniLctf{l3m0n_1s_s0_s0urrR77RrrR7}</code></p>
+</li>
+</ul>
+<h2 id="whatassembly">whatAssembly</h2>
+<ul>
+<li>
+<p>在js里藏着一个<code>flag.wasm</code>，直接请求下载就行</p>
+</li>
+<li>
+<p>下载官方工具包<code>wabt</code></p>
+</li>
+<li>
+<p>使用<code>wasm2c</code>工具将wasm文件反编译成<code>flag.c</code>文件，<code>./wasm2c wasm.wasm -o wasm.c</code>，但是可读性不高</p>
+</li>
+<li>
+<p>继续优化，把<code>wasm-rt.h</code>和<code>wasm.h</code>和<code>flag.c</code>放在同一目录下，<code>gcc -c flag.c -o flag</code>，进行只编译不链接，这一步可能会出奇怪的问题，目前原因不明</p>
+</li>
+<li>
+<p>成功后就可拖进ida进行静态分析，会好看很多</p>
+</li>
+<li>
+<p>前面还尝试了jeb4.0（支持wasm直接反汇编/反编译），可用，但巨丑，效果远不如ida，故放弃</p>
+</li>
+<li>
+<p>以下结合<a href="https://github.com/XDSEC/miniLCTF_2022/blob/main/Official/MiniLCTF2022%20WhatAssembly%20%26%20Lemon%20Official%20Writeup.md">出题人放出的源码</a>分析，附带详细注释</p>
+</li>
+<li>
+<p>check函数</p>
+</li>
+</ul>
+<pre><code class="language-c">__int64 __fastcall w2c_check(unsigned int flag, unsigned int key, unsigned int enc)
+{
+  int v3; // eax
+  unsigned int check_sp; // [rsp+24h] [rbp-47Ch]
+  unsigned int v7; // [rsp+40h] [rbp-460h]
+  unsigned int v8; // [rsp+44h] [rbp-45Ch]
+  unsigned int v9; // [rsp+48h] [rbp-458h]
+  unsigned int v10; // [rsp+4Ch] [rbp-454h]
+  unsigned int v11; // [rsp+50h] [rbp-450h]
+  unsigned int v12; // [rsp+54h] [rbp-44Ch]
+  signed int v13; // [rsp+90h] [rbp-410h]
+  int v14; // [rsp+B4h] [rbp-3ECh]
+  unsigned int flag_cpy_len; // [rsp+DCh] [rbp-3C4h]
+  unsigned int v16; // [rsp+E0h] [rbp-3C0h]
+  unsigned int flag_cpy_addr; // [rsp+E4h] [rbp-3BCh]
+  unsigned int v18; // [rsp+E8h] [rbp-3B8h]
+  unsigned int v19; // [rsp+ECh] [rbp-3B4h]
+  unsigned int v20; // [rsp+F4h] [rbp-3ACh]
+  unsigned int v21; // [rsp+F8h] [rbp-3A8h]
+  int key_addr; // [rsp+120h] [rbp-380h]
+  unsigned int v23; // [rsp+128h] [rbp-378h]
+  unsigned int v24; // [rsp+12Ch] [rbp-374h]
+  unsigned int v25; // [rsp+140h] [rbp-360h]
+  int i; // [rsp+160h] [rbp-340h]
+  int v27; // [rsp+194h] [rbp-30Ch]
+  int v28; // [rsp+198h] [rbp-308h]
+  int v29; // [rsp+1A0h] [rbp-300h]
+  unsigned int v30; // [rsp+1A8h] [rbp-2F8h]
+  int v31; // [rsp+1B4h] [rbp-2ECh]
+  int v32; // [rsp+300h] [rbp-1A0h]
+  int v33; // [rsp+30Ch] [rbp-194h]
+  int v34; // [rsp+324h] [rbp-17Ch]
+  char v35; // [rsp+32Ch] [rbp-174h]
+  unsigned int v36; // [rsp+34Ch] [rbp-154h]
+  char v37; // [rsp+374h] [rbp-12Ch]
+  unsigned int v38; // [rsp+39Ch] [rbp-104h]
+  int v39; // [rsp+3A0h] [rbp-100h]
+  int v40; // [rsp+3ACh] [rbp-F4h]
+  int v41; // [rsp+3BCh] [rbp-E4h]
+  char v42; // [rsp+3CCh] [rbp-D4h]
+  unsigned int v43; // [rsp+3ECh] [rbp-B4h]
+  char v44; // [rsp+414h] [rbp-8Ch]
+  unsigned int v45; // [rsp+43Ch] [rbp-64h]
+  unsigned int v46; // [rsp+458h] [rbp-48h]
+  unsigned int v47; // [rsp+460h] [rbp-40h]
+  int v48; // [rsp+46Ch] [rbp-34h]
+  unsigned int v49; // [rsp+470h] [rbp-30h]
+  unsigned int v50; // [rsp+470h] [rbp-30h]
+  unsigned int v51; // [rsp+470h] [rbp-30h]
+  unsigned int v52; // [rsp+470h] [rbp-30h]
+  unsigned int v53; // [rsp+470h] [rbp-30h]
+  unsigned int v54; // [rsp+470h] [rbp-30h]
+  unsigned int v55; // [rsp+474h] [rbp-2Ch]
+  __int64 v56; // [rsp+480h] [rbp-20h]
+  __int64 v57; // [rsp+498h] [rbp-8h]
+
+  w2c___stack_pointer -= 112;                   // new vm stack frame
+  check_sp = w2c___stack_pointer;
+  i32_store(&amp;w2c_memory, (unsigned int)w2c___stack_pointer + 104LL, flag);// push flag
+  i32_store(&amp;w2c_memory, check_sp + 100LL, key);// push key
+  i32_store(&amp;w2c_memory, check_sp + 96LL, enc); // push enc
+  v56 = i64_load(&amp;w2c_memory, 1032LL);
+  i64_store(&amp;w2c_memory, check_sp + 88, v56);   // table
+  v57 = i64_load(&amp;w2c_memory, 1024LL);
+  i64_store(&amp;w2c_memory, check_sp + 80, v57);   // another table
+  v7 = i32_load(&amp;w2c_memory, check_sp + 104LL); // push len(flag)
+  v8 = w2c_strlen(v7);
+  i32_store(&amp;w2c_memory, check_sp + 76LL, v8);
+  v9 = i32_load(&amp;w2c_memory, check_sp + 100LL); // push len(key)
+  v10 = w2c_strlen(v9);
+  i32_store(&amp;w2c_memory, check_sp + 72LL, v10);
+  v11 = i32_load(&amp;w2c_memory, check_sp + 96LL); // push len(enc)
+  v12 = w2c_strlen(v11);
+  i32_store(&amp;w2c_memory, check_sp + 68LL, v12);
+  if ( (int)i32_load(&amp;w2c_memory, check_sp + 72LL) &gt;= 8// len(key) &gt;= 8
+    &amp;&amp; (v13 = 4 * i32_load(&amp;w2c_memory, check_sp + 76LL), v13 &gt; (int)(i32_load(&amp;w2c_memory, check_sp + 68LL) - 32))// 4 * len(flag) &gt; len(enc) - 32
+    &amp;&amp; (v14 = 4 * i32_load(&amp;w2c_memory, check_sp + 76LL), v14 &lt;= (int)i32_load(&amp;w2c_memory, check_sp + 68LL)) )// 4 * len(flag) &lt;= len(enc)
+  {
+    flag_cpy_len = (i32_load(&amp;w2c_memory, check_sp + 76LL) + 15) &amp; 0xFFFFFFF0;// flag_cpy_len = (flag_len + 15) &amp; ~15
+    i32_store(&amp;w2c_memory, check_sp + 64LL, flag_cpy_len);
+    v16 = i32_load(&amp;w2c_memory, check_sp + 64LL);
+    flag_cpy_addr = w2c_dlmalloc(v16);          // malloc(flag_cpy_len)
+    i32_store(&amp;w2c_memory, check_sp + 60LL, flag_cpy_addr);
+    v18 = i32_load(&amp;w2c_memory, check_sp + 60LL);
+    v19 = i32_load(&amp;w2c_memory, check_sp + 64LL);
+    w2c_memset(v18, 0LL, v19);                  // memset(flag_cpy_addr, 0, flag_cpy_len)
+    v20 = i32_load(&amp;w2c_memory, check_sp + 60LL);
+    v21 = i32_load(&amp;w2c_memory, check_sp + 104LL);
+    v55 = i32_load(&amp;w2c_memory, check_sp + 76LL);
+    w2c___memcpy(v20, v21, v55);                // memcpy(flag_cpy_addr, flag, flag_len)
+    i32_store(&amp;w2c_memory, check_sp + 28LL, 0LL);// i = 0
+    while ( (int)i32_load(&amp;w2c_memory, check_sp + 28LL) &lt; 8 )// while(i &lt; 8)
+    {
+      key_addr = i32_load(&amp;w2c_memory, check_sp + 100LL);
+      v23 = i32_load(&amp;w2c_memory, check_sp + 28LL) + key_addr;// key[i]
+      v24 = i32_load8_u(&amp;w2c_memory, v23);
+      v25 = i32_load(&amp;w2c_memory, check_sp + 28LL) + check_sp + 32;// new s
+      i32_store8(&amp;w2c_memory, v25, v24);        // s[i] = key[i]
+      v49 = i32_load(&amp;w2c_memory, check_sp + 28LL) + 1;// i++
+      i32_store(&amp;w2c_memory, check_sp + 28LL, v49);
+    }
+    i32_store(&amp;w2c_memory, check_sp + 24LL, 0LL);// is_correct
+    i32_store(&amp;w2c_memory, check_sp + 20LL, 0LL);// i = 0
+    while ( 1 )
+    {
+      i = i32_load(&amp;w2c_memory, check_sp + 20LL);
+      if ( i &gt;= (int)i32_load(&amp;w2c_memory, check_sp + 76LL) )// if(i &gt;= flag_len)
+        break;
+      i32_store(&amp;w2c_memory, check_sp + 16LL, 0LL);// j = 0
+      while ( (int)i32_load(&amp;w2c_memory, check_sp + 16LL) &lt; 8 )// while(j &lt; 8)
+      {
+        v27 = i32_load(&amp;w2c_memory, check_sp + 60LL);// flag_cpy_addr
+        v28 = i32_load(&amp;w2c_memory, check_sp + 20LL);// i
+        v29 = i32_load(&amp;w2c_memory, check_sp + 16LL) + v28;// j + i
+        v30 = i32_load8_u(&amp;w2c_memory, (unsigned int)(v29 + v27));// flag_cpy[i+j]
+        v31 = i32_load(&amp;w2c_memory, check_sp + 16LL) + 8;// j + 8
+        i32_store8(&amp;w2c_memory, v31 + check_sp + 32, v30);// s[j+8] = flag_cpy[i+j]
+        v50 = i32_load(&amp;w2c_memory, check_sp + 16LL) + 1;// j++
+        i32_store(&amp;w2c_memory, check_sp + 16LL, v50);
+      }
+      i32_store(&amp;w2c_memory, check_sp + 12LL, 0LL);// j = 0
+      while ( (int)i32_load(&amp;w2c_memory, check_sp + 12LL) &lt; 42 )// while(j &lt; 42)
+      {
+        w2c_qua_rou(check_sp + 32, 12LL, 8LL, 4LL, 0LL);
+        w2c_qua_rou(check_sp + 32, 13LL, 9LL, 5LL, 1LL);
+        w2c_qua_rou(check_sp + 32, 14LL, 10LL, 6LL, 2LL);
+        w2c_qua_rou(check_sp + 32, 15LL, 11LL, 7LL, 3LL);
+        w2c_qua_rou(check_sp + 32, 15LL, 10LL, 5LL, 0LL);
+        w2c_qua_rou(check_sp + 32, 12LL, 11LL, 6LL, 1LL);
+        w2c_qua_rou(check_sp + 32, 13LL, 8LL, 7LL, 2LL);
+        w2c_qua_rou(check_sp + 32, 14LL, 9LL, 4LL, 3LL);
+        v51 = i32_load(&amp;w2c_memory, check_sp + 12LL) + 1;// j++
+        i32_store(&amp;w2c_memory, check_sp + 12LL, v51);
+      }
+      i32_store(&amp;w2c_memory, check_sp + 8LL, 0LL);// j = 0
+      while ( (int)i32_load(&amp;w2c_memory, check_sp + 8LL) &lt; 16 )// while(j &lt; 16)
+      {
+        v32 = i32_load(&amp;w2c_memory, check_sp + 96LL);// enc
+        v33 = 4 * i32_load(&amp;w2c_memory, check_sp + 20LL);// 4 * i
+        v34 = 2 * i32_load(&amp;w2c_memory, check_sp + 8LL) + v33;// 2*j + 4*i
+        v35 = i32_load8_u(&amp;w2c_memory, (unsigned int)(v34 + v32));// enc[2*j + 4*i]
+        v36 = i32_load(&amp;w2c_memory, check_sp + 8LL) + check_sp + 32;// s[j]
+        v48 = (unsigned __int8)i32_load8_u(&amp;w2c_memory, v36);
+        v37 = i32_load8_u(&amp;w2c_memory, v48 / 16 + check_sp + 80);// table[s[j] / 16]
+        v38 = (v35 != v37) | (unsigned int)i32_load(&amp;w2c_memory, check_sp + 24LL);// is_correct |= (enc[2*j + 4*i] != table[s[j] / 16])
+        i32_store(&amp;w2c_memory, check_sp + 24LL, v38);
+        v39 = i32_load(&amp;w2c_memory, check_sp + 96LL);
+        v40 = 4 * i32_load(&amp;w2c_memory, check_sp + 20LL);
+        v41 = 2 * i32_load(&amp;w2c_memory, check_sp + 8LL) + v40;
+        v42 = i32_load8_u(&amp;w2c_memory, (unsigned int)(v41 + 1 + v39));
+        v43 = i32_load(&amp;w2c_memory, check_sp + 8LL) + check_sp + 32;
+        v3 = (unsigned __int8)i32_load8_u(&amp;w2c_memory, v43) % 16;
+        v44 = i32_load8_u(&amp;w2c_memory, v3 + check_sp + 80);
+        v45 = (v42 != v44) | (unsigned int)i32_load(&amp;w2c_memory, check_sp + 24LL);// is_correct |= (enc[2*j + 4*i + 1] != table[s[j] % 16])
+        i32_store(&amp;w2c_memory, check_sp + 24LL, v45);
+        v52 = i32_load(&amp;w2c_memory, check_sp + 8LL) + 1;// j++
+        i32_store(&amp;w2c_memory, check_sp + 8LL, v52);
+      }
+      v53 = i32_load(&amp;w2c_memory, check_sp + 20LL) + 8;// i += 8
+      i32_store(&amp;w2c_memory, check_sp + 20LL, v53);
+    }
+    v46 = i32_load(&amp;w2c_memory, check_sp + 60LL);// free(flag_cpy_addr)
+    w2c_dlfree(v46);
+    v54 = i32_load(&amp;w2c_memory, check_sp + 24LL);// is_correct
+    i32_store(&amp;w2c_memory, check_sp + 108LL, v54);
+  }
+  else
+  {
+    i32_store(&amp;w2c_memory, check_sp + 108LL, 0xFFFFFFFFLL);
+  }
+  v47 = i32_load(&amp;w2c_memory, check_sp + 108LL);
+  w2c___stack_pointer = check_sp + 112;         // destory vm stack frame
+  return v47;
+}
+</code></pre>
+<ul>
+<li>其中的table是在之前的<code>init_memory</code>中被初始化的</li>
+</ul>
+<pre><code class="language-c">void *init_memory()
+{
+  wasm_rt_allocate_memory(&amp;w2c_memory, 256LL, 256LL);
+  if ( (unsigned int)dword_14DE0 &lt;= 0xD2B )
+    wasm_rt_trap(1LL);
+  ZNSt16allocator_traitsISaINSt8__detail10_Hash_nodeISt4pairIKN6spdlog5level10level_enumEN3fmt2v617basic_string_viewIcEEELb0EEEEE10deallocateERSD_PSC_m(
+    (void *)(w2c_memory + 1024),
+    &quot;0123456789abcdefunsigned short&quot;,
+    0x92CuLL);
+  if ( (unsigned int)dword_14DE0 &lt;= 0xD2F )
+    wasm_rt_trap(1LL);
+  ZNSt16allocator_traitsISaINSt8__detail10_Hash_nodeISt4pairIKN6spdlog5level10level_enumEN3fmt2v617basic_string_viewIcEEELb0EEEEE10deallocateERSD_PSC_m(
+    (void *)(w2c_memory + 3372),
+    &amp;data_segment_data_1,
+    4uLL);
+  if ( (unsigned int)dword_14DE0 &lt;= 0xD2F )
+    wasm_rt_trap(1LL);
+  return ZNSt16allocator_traitsISaINSt8__detail10_Hash_nodeISt4pairIKN6spdlog5level10level_enumEN3fmt2v617basic_string_viewIcEEELb0EEEEE10deallocateERSD_PSC_m(
+           (void *)(w2c_memory + 3376),
+           (const void *)data_segment_data_2,
+           0LL);
+}
+</code></pre>
+<ul>
+<li><code>w2c_qua_rou</code>函数</li>
+</ul>
+<pre><code class="language-c">__int64 __fastcall w2c_qua_rou(unsigned int a1, unsigned int a, unsigned int b, unsigned int c, unsigned int d)
+{
+  unsigned int v9; // [rsp+34h] [rbp-2ACh]
+  int v10; // [rsp+38h] [rbp-2A8h]
+  unsigned int v11; // [rsp+40h] [rbp-2A0h]
+  char v12; // [rsp+4Ch] [rbp-294h]
+  int v13; // [rsp+50h] [rbp-290h]
+  unsigned int v14; // [rsp+58h] [rbp-288h]
+  char v15; // [rsp+5Ch] [rbp-284h]
+  int v16; // [rsp+7Ch] [rbp-264h]
+  unsigned int v17; // [rsp+84h] [rbp-25Ch]
+  char v18; // [rsp+90h] [rbp-250h]
+  int v19; // [rsp+94h] [rbp-24Ch]
+  unsigned int v20; // [rsp+9Ch] [rbp-244h]
+  char v21; // [rsp+A0h] [rbp-240h]
+  int v22; // [rsp+C4h] [rbp-21Ch]
+  unsigned int v23; // [rsp+CCh] [rbp-214h]
+  unsigned int v24; // [rsp+DCh] [rbp-204h]
+  int v25; // [rsp+E0h] [rbp-200h]
+  unsigned int v26; // [rsp+E8h] [rbp-1F8h]
+  char v27; // [rsp+F4h] [rbp-1ECh]
+  int v28; // [rsp+F8h] [rbp-1E8h]
+  unsigned int v29; // [rsp+100h] [rbp-1E0h]
+  char v30; // [rsp+104h] [rbp-1DCh]
+  int v31; // [rsp+124h] [rbp-1BCh]
+  unsigned int v32; // [rsp+12Ch] [rbp-1B4h]
+  char v33; // [rsp+138h] [rbp-1A8h]
+  int v34; // [rsp+13Ch] [rbp-1A4h]
+  unsigned int v35; // [rsp+144h] [rbp-19Ch]
+  char v36; // [rsp+148h] [rbp-198h]
+  int v37; // [rsp+16Ch] [rbp-174h]
+  unsigned int v38; // [rsp+174h] [rbp-16Ch]
+  unsigned int v39; // [rsp+184h] [rbp-15Ch]
+  int v40; // [rsp+188h] [rbp-158h]
+  unsigned int v41; // [rsp+190h] [rbp-150h]
+  char v42; // [rsp+19Ch] [rbp-144h]
+  int v43; // [rsp+1A0h] [rbp-140h]
+  unsigned int v44; // [rsp+1A8h] [rbp-138h]
+  char v45; // [rsp+1ACh] [rbp-134h]
+  int v46; // [rsp+1CCh] [rbp-114h]
+  unsigned int v47; // [rsp+1D4h] [rbp-10Ch]
+  char v48; // [rsp+1E0h] [rbp-100h]
+  int v49; // [rsp+1E4h] [rbp-FCh]
+  unsigned int v50; // [rsp+1ECh] [rbp-F4h]
+  char v51; // [rsp+1F0h] [rbp-F0h]
+  int v52; // [rsp+214h] [rbp-CCh]
+  unsigned int v53; // [rsp+21Ch] [rbp-C4h]
+  unsigned int v54; // [rsp+22Ch] [rbp-B4h]
+  int v55; // [rsp+230h] [rbp-B0h]
+  unsigned int v56; // [rsp+238h] [rbp-A8h]
+  char v57; // [rsp+244h] [rbp-9Ch]
+  int v58; // [rsp+248h] [rbp-98h]
+  unsigned int v59; // [rsp+250h] [rbp-90h]
+  char v60; // [rsp+254h] [rbp-8Ch]
+  int v61; // [rsp+274h] [rbp-6Ch]
+  unsigned int v62; // [rsp+27Ch] [rbp-64h]
+  char v63; // [rsp+288h] [rbp-58h]
+  int v64; // [rsp+28Ch] [rbp-54h]
+  unsigned int v65; // [rsp+294h] [rbp-4Ch]
+  char v66; // [rsp+298h] [rbp-48h]
+  int v67; // [rsp+2BCh] [rbp-24h]
+  unsigned int v68; // [rsp+2C4h] [rbp-1Ch]
+  unsigned int v69; // [rsp+2D4h] [rbp-Ch]
+
+  v9 = w2c___stack_pointer - 32;
+  i32_store(&amp;w2c_memory, (unsigned int)(w2c___stack_pointer - 32) + 28LL, a1);
+  i32_store(&amp;w2c_memory, v9 + 24LL, a);
+  i32_store(&amp;w2c_memory, v9 + 20LL, b);
+  i32_store(&amp;w2c_memory, v9 + 16LL, c);
+  i32_store(&amp;w2c_memory, v9 + 12LL, d);
+  v10 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v11 = i32_load(&amp;w2c_memory, v9 + 24LL) + v10; // s[a]
+  v12 = i32_load8_u(&amp;w2c_memory, v11);
+  v13 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v14 = i32_load(&amp;w2c_memory, v9 + 12LL) + v13; // s[d]
+  v15 = i32_load8_u(&amp;w2c_memory, v14);
+  v16 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v17 = i32_load(&amp;w2c_memory, v9 + 24LL) + v16; // s[a]
+  v18 = i32_load8_u(&amp;w2c_memory, v17);
+  v19 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v20 = i32_load(&amp;w2c_memory, v9 + 12LL) + v19; // s[d]
+  v21 = i32_load8_u(&amp;w2c_memory, v20);
+  v22 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v23 = i32_load(&amp;w2c_memory, v9 + 20LL) + v22; // s[b]
+  v24 = (((int)(unsigned __int8)(v21 + v18) &gt;&gt; 4) | (16 * (unsigned __int8)(v15 + v12))) ^ (unsigned __int8)i32_load8_u(&amp;w2c_memory, v23);
+  i32_store8(&amp;w2c_memory, v23, v24);            // s[b] ^= ((s[a] + s[d]) &gt;&gt; 4) | ((s[a] + s[d]) &lt;&lt; 4)
+  v25 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v26 = i32_load(&amp;w2c_memory, v9 + 16LL) + v25; // s[c]
+  v27 = i32_load8_u(&amp;w2c_memory, v26);
+  v28 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v29 = i32_load(&amp;w2c_memory, v9 + 20LL) + v28; // s[b]
+  v30 = i32_load8_u(&amp;w2c_memory, v29);
+  v31 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v32 = i32_load(&amp;w2c_memory, v9 + 16LL) + v31; // s[c]
+  v33 = i32_load8_u(&amp;w2c_memory, v32);
+  v34 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v35 = i32_load(&amp;w2c_memory, v9 + 20LL) + v34; // s[b]
+  v36 = i32_load8_u(&amp;w2c_memory, v35);
+  v37 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v38 = i32_load(&amp;w2c_memory, v9 + 12LL) + v37; // s[d]
+  v39 = (((int)(unsigned __int8)(v36 + v33) &gt;&gt; 6) | (4 * (unsigned __int8)(v30 + v27))) ^ (unsigned __int8)i32_load8_u(&amp;w2c_memory, v38);
+  i32_store8(&amp;w2c_memory, v38, v39);            // s[d] ^= ((s[b] + s[c]) &gt;&gt; 6) | ((s[c] + s[b]) &lt;&lt; 2)
+  v40 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v41 = i32_load(&amp;w2c_memory, v9 + 20LL) + v40; // s[b]
+  v42 = i32_load8_u(&amp;w2c_memory, v41);
+  v43 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v44 = i32_load(&amp;w2c_memory, v9 + 24LL) + v43; // s[a]
+  v45 = i32_load8_u(&amp;w2c_memory, v44);
+  v46 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v47 = i32_load(&amp;w2c_memory, v9 + 20LL) + v46; // s[b]
+  v48 = i32_load8_u(&amp;w2c_memory, v47);
+  v49 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v50 = i32_load(&amp;w2c_memory, v9 + 24LL) + v49; // s[a]
+  v51 = i32_load8_u(&amp;w2c_memory, v50);
+  v52 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v53 = i32_load(&amp;w2c_memory, v9 + 16LL) + v52; // s[c]
+  v54 = (((int)(unsigned __int8)(v51 + v48) &gt;&gt; 5) | (8 * (unsigned __int8)(v45 + v42))) ^ (unsigned __int8)i32_load8_u(&amp;w2c_memory, v53);
+  i32_store8(&amp;w2c_memory, v53, v54);            // s[c] ^= ((s[b] + s[a]) &gt;&gt; 5) | ((s[b] + s[a]) &lt;&lt; 3)
+  v55 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v56 = i32_load(&amp;w2c_memory, v9 + 12LL) + v55; // s[d]
+  v57 = i32_load8_u(&amp;w2c_memory, v56);
+  v58 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v59 = i32_load(&amp;w2c_memory, v9 + 16LL) + v58; // s[c]
+  v60 = i32_load8_u(&amp;w2c_memory, v59);
+  v61 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v62 = i32_load(&amp;w2c_memory, v9 + 12LL) + v61; // s[d]
+  v63 = i32_load8_u(&amp;w2c_memory, v62);
+  v64 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v65 = i32_load(&amp;w2c_memory, v9 + 16LL) + v64; // s[c]
+  v66 = i32_load8_u(&amp;w2c_memory, v65);
+  v67 = i32_load(&amp;w2c_memory, v9 + 28LL);
+  v68 = i32_load(&amp;w2c_memory, v9 + 24LL) + v67; // s[a]
+  v69 = (((int)(unsigned __int8)(v66 + v63) &gt;&gt; 7) | (2 * (unsigned __int8)(v60 + v57))) ^ (unsigned __int8)i32_load8_u(&amp;w2c_memory, v68);
+  return i32_store8(&amp;w2c_memory, v68, v69);     // s[a] ^= ((s[d] + s[c]) &gt;&gt; 7) | ((s[d] + s[c]) &lt;&lt; 1)
+}
+</code></pre>
+<ul>
+<li>复原原函数</li>
+</ul>
+<pre><code class="language-c">int check(char *flag, char *key, char *enc){
+    char table[] = &quot;0123456789abcdef&quot;;
+    char s[1000];
+    int flag_len = strlen(flag);
+    int key_len = strlen(key);
+    int enc_len = strlen(enc);
+    int is_correct = 0;
+
+    if(key_len &gt;= 8 &amp;&amp; 4 * flag_len &gt; enc_len &amp;&amp; 4 * flag_len &lt;= enc_len){
+        int flag_cpy_len = (flag_len + 15) &amp; ~15;
+        char *flag_cpy_addr = malloc(flag_cpy_len);
+        memset(flag_cpy_addr, 0, flag_cpy_len);
+        memcpy(flag_cpy_addr, flag, flag_len);
+        for(int i = 0; i &lt; 8; i++){
+            s[i] = key[i];
+        }
+        for(int i = 0; i &lt; enc_len; i += 8){
+            for(int j = 0; j &lt; 8; j++){
+                s[j + 8] = flag_cpy_addr[i + j];
+            }
+            for(int j = 0; j &lt; 42; j++){
+                qua_rou(s, 12LL, 8LL, 4LL, 0LL);
+                qua_rou(s, 13LL, 9LL, 5LL, 1LL);
+                qua_rou(s, 14LL, 10LL, 6LL, 2LL);
+                qua_rou(s, 15LL, 11LL, 7LL, 3LL);
+                qua_rou(s, 15LL, 10LL, 5LL, 0LL);
+                qua_rou(s, 12LL, 11LL, 6LL, 1LL);
+                qua_rou(s, 13LL, 8LL, 7LL, 2LL);
+                qua_rou(s, 14LL, 9LL, 4LL, 3LL);
+            }
+
+            for(int j = 0; j &lt; 16; j++){
+                is_correct |= (enc[2*j + 4*i] != table[s[j] / 16]);
+                is_correct |= (enc[2*j + 4*i + 1] != table[s[j] % 16]);
+            }
+        }
+    }
+    return is_correct;
+}
+</code></pre>
+<ul>
+<li>
+<p>逆它，重在理解每一步是在干啥，不用每一句都死逆</p>
+</li>
+<li>
+<p>如flag_cpy的复制可省略，key并无用处，最下面的for循环中<code>/16</code>和<code>%16</code>是分别对一个字节的低8位和高8位运算</p>
+</li>
+<li>
+<p>脚本</p>
+</li>
+</ul>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+
+char enc[] = &quot;05779c24d9249e693fa7ac4a10c68dfbd3520083b33f56e90fd84978b6a15c970b976779a8fefe91fb87d2221c9a1f87ed7eaddb8ae6370f9de69e3a7a5c5c488cde79756b0b9f1713e749edd41cff04&quot;;
+char table[] = &quot;0123456789abcdef&quot;;
+char key[]=&quot;D33.B4T0&quot;;
+char flag[1000];
+unsigned char s[1000];
+
+int index(char c){
+    for(int i = 0; i &lt; 16; i++){
+        if(table[i] == c) return i;
+    }
+    return -1;
+}
+
+void qua_rou_rev(char *s, int a, int b, int c, int d){
+    s[a] ^= ((((s[d] + s[c]) &amp; 0xff) &gt;&gt; 7) | (((s[d] + s[c]) &amp; 0xff) &lt;&lt; 1)) &amp; 0xff;
+    s[c] ^= ((((s[b] + s[a]) &amp; 0xff) &gt;&gt; 5) | (((s[b] + s[a]) &amp; 0xff) &lt;&lt; 3)) &amp; 0xff;
+    s[d] ^= ((((s[b] + s[c]) &amp; 0xff) &gt;&gt; 6) | (((s[c] + s[b]) &amp; 0xff) &lt;&lt; 2)) &amp; 0xff;
+    s[b] ^= ((((s[a] + s[d]) &amp; 0xff) &gt;&gt; 4) | (((s[a] + s[d]) &amp; 0xff) &lt;&lt; 4)) &amp; 0xff;
+}
+
+int main(){
+    //0 8 16 24 32
+    for(int i = 0; i &lt; 40; i += 8){
+        for(int j = 0; j &lt; 16; j++){
+            s[j] = index(enc[2*j + 4*i]) * 16 + index(enc[2*j + 4*i + 1]);//分别取s[i]一个字节的低8未和高8位
+        }
+        for(int j = 0; j &lt; 42; j++){
+            qua_rou_rev(s, 14, 9, 4, 3);
+            qua_rou_rev(s, 13, 8, 7, 2);
+            qua_rou_rev(s, 12, 11, 6, 1);
+            qua_rou_rev(s, 15, 10, 5, 0);
+            qua_rou_rev(s, 15, 11, 7, 3);
+            qua_rou_rev(s, 14, 10, 6, 2);
+            qua_rou_rev(s, 13, 9, 5, 1);
+            qua_rou_rev(s, 12, 8, 4, 0);
+        }
+
+        for(int j = 0; j &lt; 16; j++){
+            flag[i+j] = s[j+8];
+        }
+    }
+    for(int i = 0; i &lt; 40; i++){
+        printf(&quot;%c&quot;, flag[i]);
+    }
+}
+</code></pre>
+<ul>
+<li><code>miniLctf{0ooo00oh!h3ll0_WASM_h4ck3r!}</code></li>
+</ul>
+<h2 id="twin">twin</h2>
+<ul>
+<li>
+<p>ref:<a href="https://ppppz.net/2022/05/18/miniLCTF2022-TWIN/">P.Z.师傅的wp</a></p>
+</li>
+<li>
+<blockquote>
+<p>创建或终止线程时，TLS回调函数都会自动调用执行</p>
+</blockquote>
+</li>
+<li>
+<p>在ida里找到<code>TlsCallback_0</code>，打开是空的，原因是里面有个反调试</p>
+</li>
+<li>
+<p>有一句<code>call $+5</code>实际是原地tp，后一句计算正确的地址，然后retn实现跳转，直接把它从这句一直到<code>retn</code>全都nop掉即可，后面还有很多处同理</p>
+</li>
+<li>
+<p>修复后的<code>TlsCallback_0</code>函数</p>
+</li>
+</ul>
+<pre><code class="language-c">void __cdecl TlsCallback_0(int a1, int a2)
+{
+  char *v2; // eax
+  char Buffer[80]; // [esp+10h] [ebp-11Ch] BYREF
+  struct _STARTUPINFOA StartupInfo; // [esp+60h] [ebp-CCh] BYREF
+  struct _PROCESS_INFORMATION ProcessInformation; // [esp+A4h] [ebp-88h] BYREF
+  char v7[22]; // [esp+B8h] [ebp-74h] BYREF
+  char v8[4]; // [esp+CEh] [ebp-5Eh] BYREF
+  char v9[44]; // [esp+D4h] [ebp-58h] BYREF
+  char v10[12]; // [esp+100h] [ebp-2Ch] BYREF
+  CHAR Name[8]; // [esp+10Ch] [ebp-20h] BYREF
+  CHAR ApplicationName[8]; // [esp+114h] [ebp-18h] BYREF
+  char v13[8]; // [esp+11Ch] [ebp-10h] BYREF
+  char Format[7]; // [esp+124h] [ebp-8h] BYREF
+  uint8_t v15; // [esp+12Bh] [ebp-1h]
+
+  if ( a2 == 1 )
+  {
+    memset(Buffer, 0, sizeof(Buffer));
+    sub_401930(Buffer);
+    v15 = 0;
+    v15 = NtCurrentPeb()-&gt;BeingDebugged;
+    if ( !v15 )
+      *(&amp;TlsCallbacks + 1) = (int (__cdecl *)(int, int))sub_401D60;
+    strcpy(Name, &quot;93&gt;8&quot;);
+    sub_4018C0(Name);
+    hObject = CreateFileMappingA(0, 0, 4u, 0, 0x1000u, Name);
+    *(_DWORD *)dword_404448 = MapViewOfFile(hObject, 0xF001Fu, 0, 0, 0x1000u);
+    v7[0] = 47;
+    v7[1] = 19;
+    v7[2] = 26;
+    v7[3] = 30;
+    v7[4] = 12;
+    v7[5] = 26;
+    v7[6] = 95;
+    v7[7] = 22;
+    v7[8] = 17;
+    v7[9] = 15;
+    v7[10] = 10;
+    v7[11] = 11;
+    v7[12] = 95;
+    v7[13] = 6;
+    v7[14] = 16;
+    v7[15] = 10;
+    v7[16] = 13;
+    v7[17] = 95;
+    v7[18] = 25;
+    v7[19] = 19;
+    v7[20] = 30;
+    v7[21] = 24;
+    strcpy(v8, &quot;E_&quot;);
+    v2 = (char *)sub_4018C0(v7);
+    sub_401930(v2);
+    Format[0] = 90;
+    Format[1] = 12;
+    Format[2] = 0;
+    sub_4018C0(Format);
+    sub_401130(Format, dword_404448[0]);
+  }
+  if ( !a2 )
+  {
+    ApplicationName[0] = 81;
+    ApplicationName[1] = 80;
+    ApplicationName[2] = 11;
+    ApplicationName[3] = 18;
+    ApplicationName[4] = 15;
+    ApplicationName[5] = 0;
+    sub_4018C0(ApplicationName);
+    sub_401410();
+    memset(&amp;StartupInfo, 0, sizeof(StartupInfo));
+    StartupInfo.cb = 68;
+    CreateProcessA(ApplicationName, 0, 0, 0, 0, 3u, 0, 0, &amp;StartupInfo, &amp;ProcessInformation);
+    v10[0] = 28;
+    v10[1] = 16;
+    v10[2] = 13;
+    v10[3] = 13;
+    v10[4] = 26;
+    v10[5] = 28;
+    v10[6] = 11;
+    v10[7] = 117;
+    v10[8] = 0;
+    v13[0] = 8;
+    v13[1] = 13;
+    v13[2] = 16;
+    v13[3] = 17;
+    v13[4] = 24;
+    v13[5] = 117;
+    v13[6] = 0;
+    v9[0] = 47;
+    v9[1] = 19;
+    v9[2] = 26;
+    v9[3] = 30;
+    v9[4] = 12;
+    v9[5] = 26;
+    v9[6] = 95;
+    v9[7] = 28;
+    v9[8] = 19;
+    v9[9] = 16;
+    v9[10] = 12;
+    v9[11] = 26;
+    v9[12] = 95;
+    v9[13] = 11;
+    v9[14] = 23;
+    v9[15] = 26;
+    v9[16] = 95;
+    v9[17] = 27;
+    v9[18] = 26;
+    v9[19] = 29;
+    v9[20] = 10;
+    v9[21] = 24;
+    v9[22] = 24;
+    v9[23] = 26;
+    v9[24] = 13;
+    v9[25] = 95;
+    v9[26] = 30;
+    v9[27] = 17;
+    v9[28] = 27;
+    v9[29] = 95;
+    v9[30] = 11;
+    v9[31] = 13;
+    v9[32] = 6;
+    v9[33] = 95;
+    v9[34] = 30;
+    v9[35] = 24;
+    v9[36] = 30;
+    v9[37] = 22;
+    v9[38] = 17;
+    v9[39] = 117;
+    v9[40] = 0;
+    sub_401510(ApplicationName, (int)&amp;ProcessInformation);
+    if ( dword_404440 == 1 )
+    {
+      sub_4012C0((_DWORD *)(*(_DWORD *)dword_404448 + 20), 5, (int)&amp;unk_40405C);
+      if ( !memcmp((const void *)(*(_DWORD *)dword_404448 + 20), &amp;unk_40402C, 0x14u) )
+      {
+        sub_4018C0(v10);
+        sub_401930(v10);
+LABEL_13:
+        CloseHandle(hObject);
+        return;
+      }
+    }
+    else if ( dword_404440 == -2 )
+    {
+      sub_4018C0(v9);
+      sub_401930(v9);
+      goto LABEL_13;
+    }
+    sub_4018C0(v13);
+    sub_401930(v13);
+    goto LABEL_13;
+  }
+}
+</code></pre>
+<ul>
+<li>
+<p>其中<code>a2</code>存储了<code>是创建进程还是退出进程</code>的状态，从而执行不同的代码</p>
+</li>
+<li>
+<p>在程序开始的时候首先进入第一个<code>if</code>中的内容</p>
+</li>
+<li>
+<p>注意下面两句</p>
+</li>
+</ul>
+<pre><code class="language-c">if ( !v15 )
+      *(&amp;TlsCallbacks + 1) = (int (__cdecl *)(int, int))sub_401D60;
+</code></pre>
+<ul>
+<li>
+<p>把<code>sub_401D60</code>放在了<code>TlsCallbacks</code>之后，形成了个列表，创建或终止线程时会依次调用这两个函数</p>
+</li>
+<li>
+<p>接下来重点在用创建了新的文件<code>tmp</code></p>
+</li>
+<li>
+<p>动调可得<code>sub_401130</code>是<code>scanf</code>的功能</p>
+</li>
+<li>
+<p>接着会进入上面在TlsCallbacks之后加上的<code>sub_401D60</code></p>
+</li>
+</ul>
+<pre><code class="language-c">void __cdecl __noreturn sub_401D60(int a1, int a2)
+{
+  CHAR ModuleName[16]; // [esp+0h] [ebp-1Ch] BYREF
+  CHAR ProcName[12]; // [esp+10h] [ebp-Ch] BYREF
+
+  if ( a2 == 1 )
+  {
+    ProcName[0] = 40;
+    ProcName[1] = 13;
+    ProcName[2] = 22;
+    ProcName[3] = 11;
+    ProcName[4] = 26;
+    ProcName[5] = 57;
+    ProcName[6] = 22;
+    ProcName[7] = 19;
+    ProcName[8] = 26;
+    ProcName[9] = 0;
+    ModuleName[0] = 20;
+    ModuleName[1] = 26;
+    ModuleName[2] = 13;
+    ModuleName[3] = 17;
+    ModuleName[4] = 26;
+    ModuleName[5] = 19;
+    ModuleName[6] = 76;
+    ModuleName[7] = 77;
+    ModuleName[8] = 81;
+    ModuleName[9] = 27;
+    ModuleName[10] = 19;
+    ModuleName[11] = 19;
+    ModuleName[12] = 0;
+    sub_4018C0(ProcName);
+    sub_4018C0(ModuleName);
+    hModule = GetModuleHandleA(ModuleName);
+    dword_4043DC = (int)GetProcAddress(hModule, ProcName);
+    sub_4016C0(dword_4043DC, sub_401650, hModule);
+  }
+  ExitProcess(0xFFFFFFFF);
+}
+</code></pre>
+<ul>
+<li><code>sub_4016C0</code>实现了对WriteFile函数的hook</li>
+</ul>
+<pre><code class="language-c">int __cdecl sub_4016C0(int a1, int a2, HMODULE a3)
+{
+  DWORD flOldProtect; // [esp+Ch] [ebp-10h] BYREF
+  int v5; // [esp+10h] [ebp-Ch]
+  HMODULE v6; // [esp+14h] [ebp-8h]
+  LPVOID lpAddress; // [esp+18h] [ebp-4h]
+
+  v6 = GetModuleHandleA(0);
+  v5 = (int)v6 + *(_DWORD *)((char *)v6 + *((_DWORD *)v6 + 15) + 128);
+  flOldProtect = 0;
+  do
+  {
+    if ( !*(_DWORD *)(v5 + 16) || dword_4043D0 )
+      break;
+    if ( a3 == GetModuleHandleA((LPCSTR)v6 + *(_DWORD *)(v5 + 12)) )
+    {
+      for ( lpAddress = (char *)v6 + *(_DWORD *)(v5 + 16); lpAddress; lpAddress = (char *)lpAddress + 4 )
+      {
+        if ( *(_DWORD *)lpAddress == a1 )
+        {
+          VirtualProtect(lpAddress, 4u, 4u, &amp;flOldProtect);
+          *(_DWORD *)lpAddress = a2;
+          VirtualProtect(lpAddress, 4u, flOldProtect, 0);
+          dword_4043D0 = 1;
+          break;
+        }
+      }
+    }
+    v5 += 20;
+  }
+  while ( !dword_4043D0 );
+  return dword_4043D0;
+}
+</code></pre>
+<pre><code class="language-c">int __stdcall sub_401650(int a1, int a2, int a3, int a4, int a5)
+{
+  *(_BYTE *)(a2 + 1822) = 6;
+  *(_BYTE *)(a2 + 1713) = 6;
+  dword_4043DC(a1, a2, a3, a4, a5);
+  sub_4017C0(dword_4043DC, sub_401650, hModule);
+  return 0;
+}
+</code></pre>
+<ul>
+<li>
+<p>这里可以看到把文件中其中两个字节改成了6,后面有用</p>
+</li>
+<li>
+<p>执行完函数之后，有个<code>ExitProcess</code>，直接退出进程，再次调用<code>TLS_Callback</code>，这次进入第二个<code>if</code></p>
+</li>
+<li>
+<p><code>sub_401410</code>函数中调用了hook过的<code>WriteFile</code>函数，即修改了上述两个6，可以这时候再ida打开tmp文件，可以发现6原来是xxtea中右移的值</p>
+</li>
+<li>
+<p><code>CreateProcessA</code>创建了新的进程，<code>sub_401510</code>函数实现了当前进程对子进程的调试</p>
+</li>
+<li>
+<p><code>sub_401510</code>函数实现了该进程对子进程的调试监控</p>
+</li>
+</ul>
+<pre><code class="language-c">BOOL __cdecl sub_401510(LPCSTR lpFileName, int a2)
+{
+  CONTEXT Context; // [esp+8h] [ebp-33Ch] BYREF
+  int v4[23]; // [esp+2D4h] [ebp-70h] BYREF
+  HANDLE hThread; // [esp+330h] [ebp-14h]
+  int v6; // [esp+334h] [ebp-10h]
+  int v7; // [esp+338h] [ebp-Ch]
+  int v8; // [esp+33Ch] [ebp-8h]
+  int v9; // [esp+340h] [ebp-4h]
+
+  v4[22] = *(_DWORD *)a2;
+  hThread = *(HANDLE *)(a2 + 4);
+  v6 = *(_DWORD *)(a2 + 8);
+  v7 = *(_DWORD *)(a2 + 12);
+  v9 = 1;
+  while ( v9 )
+  {
+    WaitForDebugEvent(&amp;DebugEvent, 0xFFFFFFFF);
+    if ( DebugEvent.dwDebugEventCode == 1 )
+    {
+      qmemcpy(v4, &amp;DebugEvent.u, 0x54u);
+      v8 = v4[0];
+      if ( v4[0] == 0xC0000005 )
+      {
+        memset(&amp;Context, 0, sizeof(Context));
+        Context.ContextFlags = 65543;
+        GetThreadContext(hThread, &amp;Context);
+        Context.Eip += 5;
+        Context.Eax ^= 0x1B207u;
+        SetThreadContext(hThread, &amp;Context);
+      }
+    }
+    if ( DebugEvent.dwDebugEventCode == 5 )
+    {
+      dword_404440 = DebugEvent.u.Exception.ExceptionRecord.ExceptionCode;
+      v9 = 0;
+    }
+    ContinueDebugEvent(DebugEvent.dwProcessId, DebugEvent.dwThreadId, 0x10002u);
+  }
+  Sleep(0x64u);
+  return DeleteFileA(lpFileName);
+}
+</code></pre>
+<ul>
+<li>当子进程发生<code>0xC0000005</code>异常（即内存读写异常）时，利用<code>GetThreadContext</code>获取子进程的上下文，修改Eip和Eax的值</li>
+<li>对应的异常触发可在tmp文件中找到</li>
+</ul>
+<pre><code class="language-wasm">.text:0040122D                 mov     eax, [ebp-4]
+.text:00401230                 xor     ebx, ebx
+.text:00401232                 mov     [ebx], ebx
+.text:00401234                 mov     eax, [ebp-4]
+.text:00401237                 pop     ebx
+.text:00401238                 mov     esp, ebp
+.text:0040123A                 pop     ebp
+.text:0040123B                 retn
+</code></pre>
+<ul>
+<li>
+<p><code>xor ebx ebx</code>之后ebx中的值为0，后一句取ebx的地址，触发了异常，进行了上述操作，最终效果是给xxtea解密的delta又异或上了<code>0x1B207u</code></p>
+</li>
+<li>
+<p>异常处理过后，tmp继续执行，可以看到进行的是个xxtea加密</p>
+</li>
+<li>
+<p>有一个点需要注意，tmp是作为子进程被调试的，<code>is_debugger_present</code>应为1</p>
+</li>
+<li>
+<p>解密得到前半段flag，粘个脚本，xxtea加解密脚本引自官方</p>
+</li>
+</ul>
+<pre><code class="language-c">#include &lt;stdint.h&gt;
+#include &lt;stdio.h&gt;
+#define DELTA 479354212
+//delta = ((0x9E3779B9 ^ 0x12345678 ^0x90909090 ^ 0x7b) + 12345) ^ 111111
+#define MX (((z &gt;&gt; 6 ^ y &lt;&lt; 2) + (y &gt;&gt; 3 ^ z &lt;&lt; 4)) ^ ((sum ^ y) + (key[(p &amp; 3) ^ e] ^ z)))
+void btea(uint32_t *v, int n, uint32_t const key[4])
+{
+    uint32_t y, z, sum;
+    unsigned p, rounds, e;
+    if (n &gt; 1)
+    { /* Coding Part */
+        rounds = 6 + 52 / n;
+        sum = 0;
+        z = v[n - 1];
+        do
+        {
+            sum += DELTA;
+            e = (sum &gt;&gt; 2) &amp; 3;
+            for (p = 0; p &lt; n - 1; p++)
+            {
+                y = v[p + 1];
+                z = v[p] += MX;
+            }
+            y = v[0];
+            z = v[n - 1] += MX;
+        } while (--rounds);
+    }
+    else if (n &lt; -1)
+    { /* Decoding Part */
+        n = -n;
+        rounds = 6 + 52 / n;
+        sum = rounds * DELTA;
+        y = v[0];
+        do
+        {
+            e = (sum &gt;&gt; 2) &amp; 3;
+            for (p = n - 1; p &gt; 0; p--)
+            {
+                z = v[p - 1];
+                y = v[p] -= MX;
+            }
+            z = v[n - 1];
+            y = v[0] -= MX;
+            sum -= DELTA;
+        } while (--rounds);
+    }
+}
+int main()
+{
+    unsigned int enc_flag[] = {0x6B7CE328, 0x4841D5DD, 0x963784DC, 0xEF8A3226, 0x0776B226};
+    char flag[40];
+    unsigned int key[] = {0x12, 0x90, 0x56, 0x78};
+    btea(enc_flag, -5, key);
+    for(int i = 0; i &lt; 20; i++){
+        flag[i] = *((char*)enc_flag + i);
+    }
+    puts(flag);
+}   
+// 
+</code></pre>
+<ul>
+<li>
+<p><code>sub_401510</code>函数的返回值<code>dword_404440</code>正常情况应为1</p>
+</li>
+<li>
+<p>于是进入相应if语句</p>
+</li>
+<li>
+<p><code>sub_4012C0</code>函数对内存中一段数据进行了xxtea加密</p>
+</li>
+</ul>
+<pre><code class="language-c">int __cdecl sub_4012C0(_DWORD *a1, int a2, int a3)
+{
+  int v3; // ecx
+  int v4; // eax
+  int v5; // edx
+  int result; // eax
+  int v7; // [esp+8h] [ebp-1Ch]
+  int v8; // [esp+10h] [ebp-14h]
+  unsigned int v9; // [esp+14h] [ebp-10h]
+  unsigned int v10; // [esp+1Ch] [ebp-8h]
+  unsigned int i; // [esp+20h] [ebp-4h]
+
+  v8 = 52 / a2 + 6;
+  v9 = 0;
+  v10 = a1[a2 - 1];
+  do
+  {
+    v9 += dword_404058;
+    v7 = (v9 &gt;&gt; 2) &amp; 3;
+    for ( i = 0; i &lt; a2 - 1; ++i )
+    {
+      v3 = ((v10 ^ *(_DWORD *)(a3 + 4 * (v7 ^ i &amp; 3))) + (a1[i + 1] ^ v9)) ^ (((16 * v10) ^ (a1[i + 1] &gt;&gt; 3))
+                                                                            + ((4 * a1[i + 1]) ^ (v10 &gt;&gt; 5)));
+      v4 = a1[i];
+      a1[i] = v3 + v4;
+      v10 = v3 + v4;
+    }
+    v5 = (((v10 ^ *(_DWORD *)(a3 + 4 * (v7 ^ i &amp; 3))) + (*a1 ^ v9)) ^ (((16 * v10) ^ (*a1 &gt;&gt; 3))
+                                                                     + ((4 * *a1) ^ (v10 &gt;&gt; 5))))
+       + a1[a2 - 1];
+    a1[a2 - 1] = v5;
+    result = v5;
+    v10 = v5;
+    --v8;
+  }
+  while ( v8 );
+  return result;
+}
+</code></pre>
+<ul>
+<li>解密可得后半段flag，脚本如下，xxtea加解密脚本引自官方</li>
+</ul>
+<pre><code class="language-c">#include &lt;stdint.h&gt;
+#include &lt;stdio.h&gt;
+#define DELTA 0x9E3779B9
+
+#define MX (((z &gt;&gt; 5 ^ y &lt;&lt; 2) + (y &gt;&gt; 3 ^ z &lt;&lt; 4)) ^ ((sum ^ y) + (key[(p &amp; 3) ^ e] ^ z)))
+void btea(uint32_t *v, int n, uint32_t const key[4])
+{
+    uint32_t y, z, sum;
+    unsigned p, rounds, e;
+    if (n &gt; 1)
+    { /* Coding Part */
+        rounds = 6 + 52 / n;
+        sum = 0;
+        z = v[n - 1];
+        do
+        {
+            sum += DELTA;
+            e = (sum &gt;&gt; 2) &amp; 3;
+            for (p = 0; p &lt; n - 1; p++)
+            {
+                y = v[p + 1];
+                z = v[p] += MX;
+            }
+            y = v[0];
+            z = v[n - 1] += MX;
+        } while (--rounds);
+    }
+    else if (n &lt; -1)
+    { /* Decoding Part */
+        n = -n;
+        rounds = 6 + 52 / n;
+        sum = rounds * DELTA;
+        y = v[0];
+        do
+        {
+            e = (sum &gt;&gt; 2) &amp; 3;
+            for (p = n - 1; p &gt; 0; p--)
+            {
+                z = v[p - 1];
+                y = v[p] -= MX;
+            }
+            z = v[n - 1];
+            y = v[0] -= MX;
+            sum -= DELTA;
+        } while (--rounds);
+    }
+}
+int main()
+{
+    unsigned int enc_flag[] = {0x9021A921,0x0F53B3060,0x8E88A84E,0x43635AD5,0x0AC119239};
+    char flag[40];
+    unsigned int key[] = {0x12, 0x34, 0x56, 0x78};
+    btea(enc_flag, -5, key);
+    for(int i = 0; i &lt; 20; i++){
+        flag[i] = *((char*)enc_flag + i);
+    }
+    puts(flag);
+}    
+// 3e90c91c02e9b40b78b}
+</code></pre>
+<ul>
+<li>flag<code>miniLctf{cbda59ff59e3e90c91c02e9b40b78b}</code></li>
+</ul>
+<h2 id="cyberserver">CyberServer</h2>
+<ul>
+<li>咕咕咕</li>
+<li>等我啥时候能写个这玩意再回来看吧</li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://blog.dx39061.top/2022/05/minilctf-2022-reverse-%E5%A4%8D%E7%9B%98-wp/" title="miniLCTF 2022 Reverse 复盘 &amp; wp" target="_blank" rel="external">https://blog.dx39061.top/2022/05/minilctf-2022-reverse-%E5%A4%8D%E7%9B%98-wp/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License: </strong>
+        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.dx39061.top/2022/04/2022dasctf-x-fate-re-crackme-wp/" title="2022DASCTF X FATE RE Crackme wp"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.dx39061.top/2022/06/python-tips/"
+                    title="Python tips"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2022  -
+    2022
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+    
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
+<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
+            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.19.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '309208aa79ed1d5c7a67',
+        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
+        repo: 'blog_gitalk',
+        owner: 'DX39061',
+        admin: ['[DX39061]'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+
+
+  </body>
+</html>

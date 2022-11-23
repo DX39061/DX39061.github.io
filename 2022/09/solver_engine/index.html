@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        angr文档翻译（四）Solver Engine - DX3906&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="如题" />
+    <meta name="generator" content="Hugo 0.105.0 with theme pure" />
+    <title>angr文档翻译（四）Solver Engine - DX3906&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="angr文档翻译（四）Solver Engine" />
+<meta property="og:description" content="如题" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/09/solver_engine/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-09-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-09-12T00:00:00+00:00" />
+
+<meta itemprop="name" content="angr文档翻译（四）Solver Engine">
+<meta itemprop="description" content="如题"><meta itemprop="datePublished" content="2022-09-12T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-09-12T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3921">
+<meta itemprop="keywords" content="reverse,angr," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="angr文档翻译（四）Solver Engine"/>
+<meta name="twitter:description" content="如题"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/DX39061" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello, hugo</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%AD%97%E7%9A%84%E6%AD%A7%E4%B9%89--%E6%B7%B1%E5%85%A5ptrace%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B/" class="title">“字”的歧义--深入ptrace返回值类型</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0%E4%B8%8Eptrace%E5%87%BD%E6%95%B0/" class="title">linux ptrace相关技术（一）基本概述与ptrace函数</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/" class="title">KCTF2022秋季赛第二题WriteUp</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-19</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="title">linux进程基础</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-17 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" class="title">linux下通过设置LD_PRELOAD环境变量hook动态链接库</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-14 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-14</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">8</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">6</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
+                    class="tag-list-count">7</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
+                    class="tag-list-count">17</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2022/09/solver_engine/"
+    >angr文档翻译（四）Solver Engine</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://blog.dx39061.top/2022/09/solver_engine/" class="article-date">
+  <time datetime="2022-09-12 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-09-12</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/angr/"> Angr </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/reverse/"> reverse </a>
+    <a class="article-tag-link" href="/tags/angr/"> angr </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/09/solver_engine/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3921字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h1 id="solver-engine">Solver Engine</h1>
+<p>angr的强大之处并不在于它是个模拟器，而在于它能够使用符号变量进行符号执行。与其说一个变量对应一个具体的数值，不如说一个变量对应着一个符号，实际上只是一个名字。使用这些变量执行算术运算将产生一棵操作树（在编译原理中称为抽象语法树或AST）。AST可以转化成SMT求解器（如z3）的约束，以便提出诸如“给定经过此造作序列之后的输出，输入必须是什么？”之类的问题，这一节里，你将学会如何用angr来回答这个问题。</p>
+<h2 id="使用bitvectorsworking-with-bitvectors">使用Bitvectors（Working with Bitvectors）</h2>
+<p>让我们加载得到project和state，开始我们的数字游戏。</p>
+<pre><code class="language-python">&gt;&gt;&gt; import angr, mokeyhex
+&gt;&gt;&gt; proj = angr.Project('/bin/true')
+&gt;&gt;&gt; state = proj.factory.entry_state()
+</code></pre>
+<p>bitvector只是一个比特序列，在进行算术时和有界整数有相同的语义。让我们试着创建几个bitvector</p>
+<pre><code class="language-python"># 具有具体值1和100的64位bitvector
+&gt;&gt;&gt; one = state.solver.BVV(1, 64)
+&gt;&gt;&gt; one
+ &lt;BV64 0x1&gt;
+&gt;&gt;&gt; one_hundred = state.solver.BVV(100, 64)
+&gt;&gt;&gt; one_hundred
+ &lt;BV64 0x64&gt;
+
+# 创建一个带有具体值9的27位bitvector
+&gt;&gt;&gt; weird_nine = state.solver.BVV(9, 27)
+&gt;&gt;&gt; weird_nine
+&lt;BV27 0x9&gt;
+</code></pre>
+<p>正如你所见，你可以使用任何长度的比特序列构造bitvector，你也可以用它们进行数学运算：</p>
+<pre><code class="language-python">&gt;&gt;&gt; one + one_hundred
+&lt;BV64 0x65&gt;
+
+# 你可以使用python整数来构造bitvector,它们将被强制转换为适当的类型
+&gt;&gt;&gt; one_hundred + 0x100
+&lt;BV64 0x164&gt;
+
+# 可以实现算法的正常语义适用
+&gt;&gt;&gt; one_hundred - one*200
+&lt;BV64 0xffffffffffffff9c&gt;
+</code></pre>
+<p>你不能把<code>one</code>和<code>weird_nine</code>相加，对不同长度的bitvector执行操作会产生类型错误。但是你可以扩展<code>weird_nine</code>，使它具有合适的位数：</p>
+<pre><code class="language-python">&gt;&gt;&gt; weird_nine.zero_extend(64 - 27)
+&lt;BV64 0x9&gt;
+&gt;&gt;&gt; one + weird_nine.zero_extend(64 - 27)
+&lt;BV64 0xa&gt;
+</code></pre>
+<p><code>zero_extend</code>会在bitvector的左侧填充给定数量的0进行扩展。你也可以使用<code>sign_extend</code>填充最高位获得bitvector的副本，将bitvector的语义转化为<code>二进制补码是有符号整数</code></p>
+<p>现在，让我们引入一些符号</p>
+<pre><code class="language-python"># 创建一个名为‘x'的bitvector,长度为64位
+&gt;&gt;&gt; x = state.solver.BVS(&quot;x&quot;, 64)
+&gt;&gt;&gt; x
+&lt;BV64 x_9_64&gt;
+&gt;&gt;&gt; y = state.solver.BVS(&quot;y&quot;, 64)
+&gt;&gt;&gt; y
+&lt;BV64 y_10_64&gt;
+</code></pre>
+<p><code>x</code>和<code>y</code>是符号变量，有点像你在代数中学习使用的变量。值得注意的是，你所提供的符号变量名会自动附加一个递增计数器，你可以对它们进行任意数量的算术运算，但你并不会得到一个数字，而是会得到一个AST</p>
+<pre><code class="language-python">&gt;&gt;&gt; x + one
+&lt;BV64 x_9_64 + 0x1&gt;
+
+&gt;&gt;&gt; (x + one) / 2
+&lt;BV64 (x_9_64 + 0x1) / 0x2&gt;
+
+&gt;&gt;&gt; x - y
+&lt;BV64 x_9_64 - y_10_64&gt;
+</code></pre>
+<p>从技术上讲，<code>x</code>和<code>y</code>甚至都是AST——任何一个bitvector都是一棵操作树，即使这棵树只有一层深。为了理解这一点，让我们学习如何处理AST</p>
+<p>每个AST都有<code>.op</code>和<code>.args</code>两个属性，<code>op</code>是一个字符串，命名正在执行的操作，<code>args</code>是参与操作所使用的数值。除非op是BVV或BVS（或其他一些），否则args是所有其他AST，树会以BVV或BVS终止。</p>
+<pre><code class="language-python">&gt;&gt;&gt; tree = (x + 1) / (y + 2)
+&gt;&gt;&gt; tree
+&lt;BV64 (x_9_64 + 0x1) / (y_10_64 + 0x2)&gt;
+&gt;&gt;&gt; tree.op
+'__floordiv__'
+&gt;&gt;&gt; tree.args
+(&lt;BV64 x_9_64 + 0x1&gt;, &lt;BV64 y_10_64 + 0x2&gt;)
+&gt;&gt;&gt; tree.args[0].op
+'__add__'
+&gt;&gt;&gt; tree.args[0].args
+(&lt;BV64 x_9_64&gt;, &lt;BV64 0x1&gt;)
+&gt;&gt;&gt; tree.args[0].args[1].op
+'BVV'
+&gt;&gt;&gt; tree.args[0].args[1].args
+(1, 64)
+</code></pre>
+<p>从这里开始，我们将使用<code>bitvector</code>一词来指代任何最高操作产生bitvector的AST.我们可以通过AST表示其他数据类型，包括浮点数和我们即将看到的布尔值。</p>
+<h2 id="符号约束symbolic-constraints">符号约束（Symbolic Constraints）</h2>
+<p>在任何两个类型类似的AST之间执行比较操作，将产生一个新的AST,一个符号布尔值，而不是bitvector。</p>
+<pre><code class="language-python">&gt;&gt;&gt; x == 1
+&lt;Bool x_9_64 == 0x1&gt;
+&gt;&gt;&gt; x == one
+&lt;Bool x_9_64 == 0x1&gt;
+&gt;&gt;&gt; x &gt; 2
+&lt;Bool x_9_64 &gt; 0x2&gt;
+&gt;&gt;&gt; x + y == one_hundred + 5
+&lt;Bool (x_9_64 + y_10_64) == 0x69&gt;
+&gt;&gt;&gt; one_hundred &gt; 5
+&lt;Bool True&gt;
+&gt;&gt;&gt; one_hundred &gt; -5
+&lt;Bool False&gt;
+</code></pre>
+<p>你可能会注意到，默认情况下的比较是无符号的，上面最后一个示例中的<code>-5</code>被强制转换为<code>&lt;BV64 0xfffffffffffffffb&gt;</code>，所以绝对不小于100。如果你想进行有符号数的比较，你可以使用<code>one)hundred.SGT(-5)</code>（signed greater-than）。本章末提供了完整的指令列表</p>
+<p>这个例子也说明了使用angr的一个重要注意事项——你不应该在if和while语句的条件中使用变量之间的比较，因为答案可能并没有一个具体的真值。即使有一个真值，<code>if one &gt; one_hundred</code>将会引发一个异常。你应该使用<code>solver.is_true</code>和<code>solver.is_false</code>在不执行约束求解的情况下测试真值是<code>true</code>还是<code>false</code></p>
+<pre><code class="language-python">&gt;&gt;&gt; yes = one == 1
+&gt;&gt;&gt; no = one == 2
+&gt;&gt;&gt; maybe = x == y
+&gt;&gt;&gt; state.solver.is_true(yes)
+True
+&gt;&gt;&gt; state.solver.is_false(yes)
+False
+&gt;&gt;&gt; state.solver.is_true(no)
+False
+&gt;&gt;&gt; state.solver.is_false(no)
+True
+&gt;&gt;&gt; state.solver.is_true(maybe)
+False
+&gt;&gt;&gt; state.solver.is_false(maybe)
+False
+</code></pre>
+<h2 id="约束求解constraint-solving">约束求解（Constraint Solving）</h2>
+<p>你可以将任何布尔符号表达式视为对于符号变量有效值的断言，然后对符号表达式求值求解出符号变量的有效值。</p>
+<p>用例子来解释可能会更清晰：</p>
+<pre><code class="language-python">&gt;&gt;&gt; state.solver.add(x &gt; y)
+&gt;&gt;&gt; state.solver.add(y &gt; 2)
+&gt;&gt;&gt; state.solver.add(10 &gt; x)
+&gt;&gt;&gt; state.solver.eval(x)
+4
+</code></pre>
+<p>通过将这些约束添加到状态中，我们强制约束求解器返回的有效值必须满足这些条件。如果你运行这些代码，可能会得到不同的x值，但这个值肯定大于3（因为x&gt;y且y&gt;2）且小于10。更进一步来说，如果你使用<code>state.solver.eval(y)</code>来求解y的值，你会发现得到的y值和x值相同。换句话说，如果你不在两次查询之间添加其他约束，那么两次查询得到的结果是一致的。</p>
+<p>根据以上所说，现在我们很容易能解决开头的问题——根据确定的输出找到合适的输入。</p>
+<pre><code class="language-python"># 获取一个没有约束的新状态
+&gt;&gt;&gt; state = proj.factory.entry_state()
+&gt;&gt;&gt; input = state.solver.BVS('input', 64)
+&gt;&gt;&gt; operation = (((input + 4) * 3) &gt;&gt; 1) + input
+&gt;&gt;&gt; output = 200
+&gt;&gt;&gt; state.solver.add(operation == output)
+&gt;&gt;&gt; state.solver.eval(input)
+0x3333333333333381
+</code></pre>
+<p>请注意这种求解方式仅适用于对于bitvector的运算，如果我们在整数域上运算，就会发现无解。</p>
+<p>如果我们添加冲突或矛盾的约束，这样就没有有效值能满足约束，state将变为unsatisfiable（即unsat），你可以使用<code>state.satisfiable()</code>检查state的可满足性。</p>
+<pre><code class="language-python">&gt;&gt;&gt; state.solver.add(input &lt; 2**32)
+&gt;&gt;&gt; state.satisfiable()
+False
+</code></pre>
+<p>你还可以计算更复杂的表达式，或者多个变量的表达式。</p>
+<pre><code class="language-python"># 新的state
+&gt;&gt;&gt; state = proj.factory.entry_state()
+&gt;&gt;&gt; state.solver.add(x - y &gt;= 4)
+&gt;&gt;&gt; state.solver.add(y &gt; 0)
+&gt;&gt;&gt; state.solver.eval(x)
+5
+&gt;&gt;&gt; state.solver.eval(y)
+1
+&gt;&gt;&gt; state.solver.eval(x + y)
+6
+</code></pre>
+<p>由此我们可以看出，<code>eval</code>是将bitvector转化为python格式的通用方法，转换的过程中同时确保state不会改变，这也是我们使用eval将bitvector转化为python整数的原因。</p>
+<p>另外注意，尽管x和y是使用旧状态创建的，但仍可以在新状态下使用，变量不依赖于某一种状态，可以自由存在。</p>
+<h2 id="浮点数floating-point-numbers">浮点数（Floating point numbers）</h2>
+<p>z3支持IEEE754浮点数标准，所以angr也支持浮点数操作。与一般浮点数相比主要的区别是，angr里的浮点数没有宽度的概念，而有一个排序（sort）的概念。你可以使用<code>FPV</code>和<code>FPS</code>来创建浮点值和浮点符号。</p>
+<pre><code class="language-python"># 新的state
+&gt;&gt;&gt; state = proj.factory.entry_state()
+&gt;&gt;&gt; a = state.solver.FPV(3.2, state.solver.fp.FSORT_DOUBLE)
+&gt;&gt;&gt; a
+&lt;FP64 FPV(3.2, DOUBLE)&gt;
+
+&gt;&gt;&gt; b = state.solver.FPS('b', state.solver.fp.FSORT_DOUBLE)
+&gt;&gt;&gt; b
+&lt;FP64 FPS('FP_b_0_64', DOUBLE)&gt;
+
+&gt;&gt;&gt; a + b
+&lt;FP64 fpAdd('RNE', FPV(3.2, DOUBLE), FPS('FP_b_0_64', DOUBLE))&gt;
+
+&gt;&gt;&gt; a + 4.4
+&lt;FP64 FPV(7.6000000000000005, DOUBLE)&gt;
+
+&gt;&gt;&gt; b + 2 &lt; 0
+&lt;Bool fpLT(fpAdd('RNE', FPS('FP_b_0_64', DOUBLE), FPV(2.0, DOUBLE)), FPV(0.0, DOUBLE))&gt;
+</code></pre>
+<p>这里有一些东西需要说明——对于初学者来说，浮点数的pretty-printing并不那么好看。但大多数操作实际上都有第三个参数，当你使用二元运算符时被隐式添加的——进位与舍位的模式（rounding mode）。IEEE754规范支持多种舍入模式（如舍入到最近位、舍入到0位、舍入到正位等），所以z3必须支持它们。如果你想指定舍入模式，请显示使用fp操作（如solver.fpAdd），并将舍入模式之一（solver.fp.RM_*)作为第一个参数</p>
+<p>浮点数相关的约束和求解和一般bitvector以相同的方式方式工作，不同的是eval操作返回一个浮点数。</p>
+<pre><code class="language-python">&gt;&gt;&gt; state.solver.add(b + 2 &lt; 0)
+&gt;&gt;&gt; state.solver.add(b + 2 &gt; -1)
+&gt;&gt;&gt; state.solver.eval(b)
+-2.4999999999999996
+</code></pre>
+<p>这很好，但有时我们需要直接将浮点数表示为bitvector。你可以使用<code>raw_to_bv</code>和<code>raw_to_fp</code>将一般的bitvector解释为浮点数或将浮点数转化为一般的bitvector</p>
+<pre><code class="language-python">&gt;&gt;&gt; a.raw_to_bv()
+&lt;BV64 0x400999999999999a&gt;
+&gt;&gt;&gt; b.raw_to_bv()
+&lt;BV64 fpToIEEEBV(FPS('FP_b_0_64', DOUBLE))&gt;
+
+&gt;&gt;&gt; state.solver.BVV(0, 64).raw_to_fp()
+&lt;FP64 FPV(0.0, DOUBLE)&gt;
+&gt;&gt;&gt; state.solver.BVS('x', 64).raw_to_fp()
+&lt;FP64 fpToFP(x_1_64, DOUBLE)&gt;
+</code></pre>
+<p>这些转换保持了每一位比特值（bit-pattern）不变，就像你将float指针转化为int指针一样。但是如果你想尽可能保留该值，就像将float类型值转化为int值一样，你可以使用<code>val_to_fp</code>和<code>val_to_bv</code>。由于浮点数的浮点特性，这些方法必须将目标值的大小或排序（sort）作为参数。</p>
+<pre><code class="language-python">&gt;&gt;&gt; a
+&lt;FP64 FPV(3.2, DOUBLE)&gt;
+&gt;&gt;&gt; a.val_to_bv(12)
+&lt;BV12 0x3&gt;
+&gt;&gt;&gt; a.val_to_bv(12).val_to_fp(state.solver.fp.FSORT_FLOAT)
+&lt;FP32 FPV(3.0, FLOAT)&gt;
+</code></pre>
+<p>这些方法还可以使用有符号参数，指定源或目标bitvector的符号。</p>
+<h2 id="更多求解方法more-solving-methods">更多求解方法（More Solving Methods）</h2>
+<p><code>eval</code>只会返回给你一个可能的有效值，但是，如果你想要不止一个呢？ 如果你想确保有效值唯一怎么办？求解器为你提供了几种常见的求解方法</p>
+<ul>
+<li>
+<p><code>solver.eval(expression)</code>会返回一个可能的有效值</p>
+</li>
+<li>
+<p><code>solver.eval_one(expression)</code>会返回一个有效值，若有效值不唯一将会抛出一个错误</p>
+</li>
+<li>
+<p><code>solver.eval_upto(expression, n)</code>会返回至多n个可能的有效值，如果可能的有效值不足n个，则返回所有有效值</p>
+</li>
+<li>
+<p><code>solver.eval_atleast(expression, n)</code>会返回n个可能的有效值，如果可能的有效值不足n个，则会抛出一个错误</p>
+</li>
+<li>
+<p><code>solver.eval_exact(expression, n)</code>会返回n个可能的有效值，若可能的有效值数量不是n个，则会抛出一个错误</p>
+</li>
+<li>
+<p><code>solver.min(expression)</code>会返回最小的可能有效值</p>
+</li>
+<li>
+<p><code>solver.max(expression)</code>会返回最大的可能有效值</p>
+</li>
+</ul>
+<p>另外，以上所有求解方法都可以采用以下关键字参数</p>
+<ul>
+<li>
+<p><code>extra_constraints</code>可以以一个元组的形式传递约束条件。这些约束将被考虑仅求解中，但不会被加入state中</p>
+</li>
+<li>
+<p><code>cast_to</code>可以传递一个数据类型，指定结果转换成某种形式，目前，这个参数只能是<code>int</code>或<code>bytes</code>，例如：<code>state.solver.eval(state.solver.BVV(0x41424344, 32), cast_to=bytes)</code>将会返回<code>b'ABCD'</code></p>
+</li>
+</ul>
+<h2 id="总结summary">总结（Summary）</h2>
+<p>你已经学到了很多！阅读本节后，你应该能够创建和操作bitvector、布尔值、浮点值构造操作树，然后查询附加在某个state的约束求解器，来获得约束条件下的可能解。希望到此为止，你能了解AST表示计算以及约束求解器的强大功能。</p>
+<p>在<a href="https://docs.angr.io/appendix/ops">附录</a>中，你可以找到应用于AST的所有操作的参考，当你需要时可以快速查阅。</p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://blog.dx39061.top/2022/09/solver_engine/" title="angr文档翻译（四）Solver Engine" target="_blank" rel="external">https://blog.dx39061.top/2022/09/solver_engine/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License: </strong>
+        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.dx39061.top/2022/09/loading_a_binary/" title="angr文档翻译（三）Loading a Binary"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.dx39061.top/2022/09/rc_algorithms/"
+                    title="逆向人学密码（三）RC algorithms"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2022  -
+    2022
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+    
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
+<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
+            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.19.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '309208aa79ed1d5c7a67',
+        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
+        repo: 'blog_gitalk',
+        owner: 'DX39061',
+        admin: ['[DX39061]'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+
+
+  </body>
+</html>

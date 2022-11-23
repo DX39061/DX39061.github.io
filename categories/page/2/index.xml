@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on DX3906&#39;s blog</title>
+    <link>https://blog.dx39061.top/categories/</link>
+    <description>Recent content in Categories on DX3906&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>CC BY 4.0 CN</copyright>
+    <lastBuildDate>Sun, 20 Nov 2022 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.dx39061.top/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>2022DASCTF X FATE RE Crackme wp</title>
+      <link>https://blog.dx39061.top/2022/04/2022dasctf-x-fate-re-crackme-wp/</link>
+      <pubDate>Thu, 28 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/04/2022dasctf-x-fate-re-crackme-wp/</guid>
+      <description>Crackme 运行一下看图标知道是MFC 拖进ida搜索字符串wrong就能找到事件处理函数 int __thiscall sub_1131E0(struct_this *this) { const void *key_addr; // eax const void *flag_addr; // eax int result; // eax unsigned int key_len; // [esp+18h] [ebp-230h] size_t flag_len; // [esp+20h] [ebp-228h] BYREF</description>
+    </item>
+    
+    <item>
+      <title>010Editor逆向-登陆绕过</title>
+      <link>https://blog.dx39061.top/2022/04/010editor%E9%80%86%E5%90%91-%E7%99%BB%E9%99%86%E7%BB%95%E8%BF%87/</link>
+      <pubDate>Tue, 05 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/04/010editor%E9%80%86%E5%90%91-%E7%99%BB%E9%99%86%E7%BB%95%E8%BF%87/</guid>
+      <description>010editor登陆绕过 patch__1.0 起因是30天试用期到了，又想白嫖，于是试试逆向搞它，确实不难 拖进ida静态分析就行 string窗口搜索licen</description>
+    </item>
+    
+    <item>
+      <title>buu misc wp</title>
+      <link>https://blog.dx39061.top/2022/04/buu-misc-wp/</link>
+      <pubDate>Tue, 05 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/04/buu-misc-wp/</guid>
+      <description>金三胖 下载附件是个gif 用gimp打开查看每一帧，其中夹杂着flag{he11ohongke} 二维码 附件是个二维码，扫描出文字secret is</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; OOP 学习笔记</title>
+      <link>https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Fri, 25 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/</guid>
+      <description>变量定义 - auto 由编译器根据上下文自动确定变量的类型 auto i = 3; //i是int型变量 auto k = 4.0f; //k是float型变量 - 指针变量的动态生成与删除 int* ptr =</description>
+    </item>
+    
+    <item>
+      <title>8086CPU汇编</title>
+      <link>https://blog.dx39061.top/2022/02/8086cpu%E6%B1%87%E7%BC%96/</link>
+      <pubDate>Wed, 23 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/02/8086cpu%E6%B1%87%E7%BC%96/</guid>
+      <description>8086CPU汇编 - 8086CPU有14个寄存器 数据寄存器：AX,BX,CX,DX 其他寄存器：CS:IP,SS:SP,DS,ES,SI,DI</description>
+    </item>
+    
+    <item>
+      <title>buu re wp</title>
+      <link>https://blog.dx39061.top/2022/02/buu-re-wp/</link>
+      <pubDate>Wed, 23 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/02/buu-re-wp/</guid>
+      <description>buuoj re wp CrackRTF ida定位main函数F5 int __cdecl main_0(int argc, const char **argv, const char **envp) { DWORD v3; // eax DWORD v4; // eax char Str[260]; // [esp+4Ch] [ebp-310h] BYREF int v7; // [esp+150h] [ebp-20Ch] char String1[260]; // [esp+154h] [ebp-208h] BYREF char Destination[260]; // [esp+258h] [ebp-104h] BYREF memset(Destination, 0, sizeof(Destination)); memset(String1, 0, sizeof(String1)); v7 = 0; printf(&amp;quot;pls input</description>
+    </item>
+    
+    <item>
+      <title>Regular Expression（linux）</title>
+      <link>https://blog.dx39061.top/2022/02/regular-expressionlinux/</link>
+      <pubDate>Wed, 23 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/02/regular-expressionlinux/</guid>
+      <description>Regular Expression（linux） - 基本正则表达式 ^：匹配开头内容 $：匹配结尾内容 ^$：表示空行 .：匹配一个任意字符 *：匹配出现次数为0次</description>
+    </item>
+    
+    <item>
+      <title>关于</title>
+      <link>https://blog.dx39061.top/about/</link>
+      <pubDate>Tue, 08 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/about/</guid>
+      <description>Hi there 👋 This is DX3906 A student from Xidian University, major in Cyberspace Security. CTFer(mainly Reverse Engineering) in XDSEC/L-team. Learning: binary security &amp;amp; web developing &amp;amp; Devops Blog: DX3906&amp;rsquo;s blog email: 21009201351@stu.xidian.edu.cn github: https://github.com/DX39061 吾辈所赴，是为星辰大海</description>
+    </item>
+    
+    <item>
+      <title>强壮逆向人wp</title>
+      <link>https://blog.dx39061.top/2022/02/%E5%BC%BA%E5%A3%AE%E9%80%86%E5%90%91%E4%BA%BA-wp/</link>
+      <pubDate>Tue, 08 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/02/%E5%BC%BA%E5%A3%AE%E9%80%86%E5%90%91%E4%BA%BA-wp/</guid>
+      <description>第九周 0x00 Hacking with Google: Beginner 做了一半卡住了，偷看了一下官方题解，然后复现一下 ida很容易定位到主函数 int __cdecl main(int argc, const char **argv, const char **envp) { int v3; // er12 __m128i v5; // [rsp+0h] [rbp-38h] BYREF __m128i s2[2]; // [rsp+10h] [rbp-28h]</description>
+    </item>
+    
+  </channel>
+</rss>

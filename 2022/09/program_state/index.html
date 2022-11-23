@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        angr文档翻译（五）Program State - DX3906&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="如题" />
+    <meta name="generator" content="Hugo 0.105.0 with theme pure" />
+    <title>angr文档翻译（五）Program State - DX3906&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="angr文档翻译（五）Program State" />
+<meta property="og:description" content="如题" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/09/program_state/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-09-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-09-14T00:00:00+00:00" />
+
+<meta itemprop="name" content="angr文档翻译（五）Program State">
+<meta itemprop="description" content="如题"><meta itemprop="datePublished" content="2022-09-14T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-09-14T00:00:00+00:00" />
+<meta itemprop="wordCount" content="5512">
+<meta itemprop="keywords" content="reverse,angr," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="angr文档翻译（五）Program State"/>
+<meta name="twitter:description" content="如题"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/DX39061" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello, hugo</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%AD%97%E7%9A%84%E6%AD%A7%E4%B9%89--%E6%B7%B1%E5%85%A5ptrace%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B/" class="title">“字”的歧义--深入ptrace返回值类型</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0%E4%B8%8Eptrace%E5%87%BD%E6%95%B0/" class="title">linux ptrace相关技术（一）基本概述与ptrace函数</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/" class="title">KCTF2022秋季赛第二题WriteUp</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-19</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="title">linux进程基础</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-17 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" class="title">linux下通过设置LD_PRELOAD环境变量hook动态链接库</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-14 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-14</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">8</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">6</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
+                    class="tag-list-count">7</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
+                    class="tag-list-count">17</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2022/09/program_state/"
+    >angr文档翻译（五）Program State</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://blog.dx39061.top/2022/09/program_state/" class="article-date">
+  <time datetime="2022-09-14 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-09-14</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/angr/"> Angr </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/reverse/"> reverse </a>
+    <a class="article-tag-link" href="/tags/angr/"> angr </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/09/program_state/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 5512字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 12分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h1 id="program-state">Program State</h1>
+<p>到目前为止，我们只使用了angr的程序状态模拟（<code>SimState</code> objects），以最简单的方式展示了有关angr的基本操作。这一节中，你将了解state对象的结构以及如何与state交互。</p>
+<h2 id="回顾读写内存和寄存器review-reading-and-writing-memory-and-registers">回顾：读写内存和寄存器（Review: Reading and writing memory and registers）</h2>
+<p>如果你按顺序读了该文档之前的内容（你也应该这样做，至少应该按顺序读完第一部分），你已经了解了访问内存和寄存器的基本操作，<code>state.regs</code>接受寄存器名称作为参数可以对寄存器进行读写，<code>state.mem</code>可以用地址作为索引获取相应地址的值，索引后可以指定数据类型。</p>
+<p>以下是一些示例：</p>
+<pre><code class="language-python">&gt;&gt;&gt; import angr, claripy
+&gt;&gt;&gt; proj = angr.Project('/bin/true')
+&gt;&gt;&gt; state = proj.factory.entry_state()
+
+# 把rsp的值复制到rbp
+&gt;&gt;&gt; state.regs.rbp = state.regs.rsp
+
+# 把rdx的值存到地址为0x1000内存中
+&gt;&gt;&gt; state.mem[0x1000].uint64_t = state.regs.rdx
+
+# 改变rbp所指向的地址
+&gt;&gt;&gt; state.regs.rbp = state.mem[state.regs.rbp].uint64_t.resolved
+
+# add rax, qword ptr [rsp + 8]
+&gt;&gt;&gt; state.regs.rax += state.mem[state.regs.rsp + 8].uint64_t.resolved
+</code></pre>
+<h2 id="基础执行basic-execution">基础执行（Basic Execution）</h2>
+<p>早些时候，我们展示了如何使用Simulation Manager来进行一些基本的执行。我们将在下一节展示Simulation Manager的全部功能，但我们现在可以使用一种各简单的接口<code>state.step()</code>来演示符号执行的工作原理。这个接口会进行一步符号执行，并返回一个<code>SimSuccessors</code>对象。与一般的模拟执行相比，符号执行可以产生多个可以按多种方式分类的后继状态。现在，我们关心的是这个对象的<code>.successors</code>属性，它会返回一个包含给定步骤的所有“正常”后续状态的列表。</p>
+<p>为什么返回的是一个列表，而不是一个唯一的后继状态？angr的符号执行过程只是将单个指令的操作编译到程序中并执行它们以改变SimState。当遇到像<code>if(x&gt;4)</code>这样的代码时，如果x是符号变量会发生什么呢？在angr的底层某个地方，会处理<code>x&gt;4</code>语句，结果将是<code>&lt;Bool x_32_1 &gt; 4&gt;</code></p>
+<p>这很好，但下一个问题是，我们是选择“true”分支还是“false”分支？答案是：两个分支都会被执行，产生两个完全独立的后继状态。在第一个state中，我们添加<code>x&gt;4</code>作为约束条件，在第二个state中，我们添加<code>!(x&gt;4)</code>作为约束条件。每当我们使用这些后继状态中的任何一个进行约束求解时，状态的条件确保我们得到的任何有效值都是有效的输入，这将导致重复执行遵循给定状态的路径</p>
+<p>为了证明这一点，让我们以<code>fake firmware images</code>为例，如果你查看这个二进制文件的源代码，你会发现固件的身份验证机制是存在后门的：任何用户名都可以通过密码“SOSNEAKY”获得管理员权限。更进一步来说，与用户输入的比较就是存在后门的，所以如果我们单步执行进行比较，获得多个后继状态。其中一种状态将包含将用户输入限制为后门密码的条件。以下代码片段实现了这一点：</p>
+<pre><code class="language-python">&gt;&gt;&gt; proj = angr.Project('examples/fauxware/fauxware')
+&gt;&gt;&gt; state = proj.factory.entry_state(stdin=angr.SimFile)  # 目前请忽略这个配置，为了教学，我们禁用了更复杂的默认配置
+&gt;&gt;&gt; while True:
+...     succ = state.step()
+...     if len(succ.successors) == 2:
+...         break
+...     state = succ.successors[0]
+
+&gt;&gt;&gt; state1, state2 = succ.successors
+&gt;&gt;&gt; state1
+&lt;SimState @ 0x400629&gt;
+&gt;&gt;&gt; state2
+&lt;SimState @ 0x400699
+</code></pre>
+<p>不要直接去看这些状态的约束——我们刚经过的分支涉及到<code>strcmp</code>的结果，这是一个难以用符号方式模拟的函数，由此产生的约束非常复杂。</p>
+<p>我们模拟的程序从标准输入获取数据，默认情况下将其视为无限的符号数据流。为了进行约束求解，我们需要stdin实际内容的引用，我们稍后将会讨论我们的文件和输入子系统是如何工作的，但现在，只需使用<code>state.posix.stdin.load(0, state.posix.stdin.size)</code>取得到目前为止从标准输入读取的所有内容构成的bitvector。</p>
+<pre><code class="language-python">&gt;&gt;&gt; input_data = state1.posix.stdin.load(0, state1.posix.stdin.size)
+
+&gt;&gt;&gt; state1.solver.eval(input_data, cast_to=bytes)
+b'\x00\x00\x00\x00\x00\x00\x00\x00\x00SOSNEAKY\x00\x00\x00'
+
+&gt;&gt;&gt; state2.solver.eval(input_data, cast_to=bytes)
+b'\x00\x00\x00\x00\x00\x00\x00\x00\x00S\x00\x80N\x00\x00 \x00\x00\x00\x00'
+</code></pre>
+<p>正如你所见，为了进入<code>state1</code>路径，你必须将后门字符串“SOSNEAKY”作为密码，为了进入<code>state2</code>路径，你必须输入后门字符串以外的内容。z3打印了数十亿个符合的字符串之一。</p>
+<p>Fauxware是第一个angr成功进行符号执行的程序，时间在2013年。通过使用angr找到它的后门，你正在参与一个伟大的传统，你已经对如何通过符号执行从二进制程序中获取有意义信息有了基本的了解！</p>
+<h2 id="预设状态state-presets">预设状态（State Presets）</h2>
+<p>在此之前，当我们操作state时，都会使用<code>project.factory.entry_state()</code>来创建一个新的状态，这只是angr可使用的几个构造函数之一：</p>
+<ul>
+<li>
+<p><code>.blank_state()</code>构造一个空白状态，它的大部分数据都未初始化，访问未初始化的数据时，会得到一个不带约束的符号值</p>
+</li>
+<li>
+<p><code>.entry_state()</code>构造一个在main函数入口点的状态</p>
+</li>
+<li>
+<p><code>.full_init_state()</code>构造一个准备好在main函数入口点之前运行的初始化程序执行。例如：共享库构造函数或预设初始化器，完成这些后，它将跳转到程序入口点</p>
+</li>
+<li>
+<p><code>.call_state()</code>构造一个准备好执行给定函数的状态</p>
+</li>
+</ul>
+<p>你可以通过以下构造函数参数自定义状态</p>
+<ul>
+<li>
+<p>上述所有构造函数都可以使用<code>addr</code>参数指定开始执行的确切地址</p>
+</li>
+<li>
+<p>如果你在符号执行过程中需要命令行参数或环境变量，可以使用<code>args</code>列表或<code>env</code>字典传递参数，只有<code>entry_state</code>和<code>full_init_state</code>可使用。这些参数中的值可以是字符串或bitvector，都会被序列化为state中的args和env。默认的args是个空列表，所以哪怕你的程序只需要<code>argv[0]</code>，你都需要自己提供</p>
+</li>
+<li>
+<p>如果你需要使用符号化的<code>argc</code>，你可以将一个bitvector传递给<code>argc</code>参数，只有<code>entry_state</code>和<code>full_init_state</code>可使用。但是要小心，如果你这样做，你要添加一个约束：argc的值不能大于args的数量</p>
+</li>
+<li>
+<p>要使用call state，你应该使用<code>.call_state(addr, arg1, arg2, ……)</code>，addr是你要调用的函数的地址，<code>argN</code>是该函数的第n个参数，无论是python 整数、字符串、列表还是bitvector都可以。如果你想得到内存中指向一个对象的实际的指针，你应该将其包装在<code>PointerWrapper</code>中，即<code>angr.PointerWrapper(&quot;point to me!&quot;)</code>，这个API结果可能存在问题，我们正在努力改善</p>
+</li>
+<li>
+<p>使用<code>call_state</code>时若要指定函数的调用约定，可以使用<code>cc</code>参数传递一个<code>SimCC实例</code>。一般情况下angr会选择一个合适的方式作为默认值，但在特殊情况下，需要你手动指定</p>
+</li>
+</ul>
+<p>在这些构造函数中还有更多的选项可以使用，更多详细信息，请参阅<a href="https://api.angr.io/angr">docs on the project.factory object (an AngrObjectFactory)</a></p>
+<h2 id="内存底层接口low-level-interface-for-memory">内存底层接口（Low level interface for memory）</h2>
+<p><code>state.mem</code>接口便于从内存中加载特定类型的数据，但是当你想要对一段内存进行原样的加载和存储时，它就显的十分繁琐。事实上，<code>state.mem</code>的底层使用了<code>state.memory</code>，<code>state.memory</code>表示一个填充了bitvector的平坦地址空间。你可以使用<code>state.memory.load(addr, size)</code>和<code>state.memory.store(addr, val)</code>直接操作内存：</p>
+<pre><code class="language-python">&gt;&gt;&gt; s = proj.factory.blank_state()
+&gt;&gt;&gt; s.memory.store(0x4000, s.solver.BVV(0x0123456789abcdef0123456789abcdef, 128))
+&gt;&gt;&gt; s.memory.load(0x4004, 6) # 加载大小以字节为单位
+&lt;BV48 0x89abcdef0123&gt;
+</code></pre>
+<p>正如你所见，数据以大端序进行加载和存储，因为<code>state.memory</code>的主要目的是加载没有附加语义的存储数据。但是，如果你想把它们转化为小端序，你可以设置<code>endness</code>为little-endian。endness的取值应该是<code>archinfo</code>包中<code>Endness</code>枚举量之一。此外，正在分析程序的字节序可以从<code>arch.memory_endness</code>得到，例如<code>state.arch.memory_endness</code></p>
+<pre><code class="language-python">&gt;&gt;&gt; import archinfo
+&gt;&gt;&gt; s.memory.load(0x4000, 4, endness=archinfo.Endness.LE)
+&lt;BV32 0x67452301&gt;
+</code></pre>
+<p>还有一个用于寄存器访问的底层接口<code>state.registers</code>，使用方法与<code>state.memory</code>完全相同，但解释它的行为需要深入了解angr用于无缝处理多架构的抽象。简单来说它是一个寄存器文件，寄存器和偏移量的映射在<a href="https://github.com/angr/archinfo">archinfo</a>中定义</p>
+<h2 id="状态选项state-options">状态选项（State Options）</h2>
+<p>你可以使用一些状态选项对angr的内部进行很多小调整，这些调整在某些情况下会优化angr的行为，而在其他情况下会有所损害。</p>
+<p>在每个SimState对象上，都有一组启用的选项（state.options）。每个选项（实际上只是一个字符串）都以某种微小的方式控制angr执行引擎的行为。可以在附录中找到完整的<a href="https://docs.angr.io/appendix/options">选项列表</a>及其默认值。你可以使用<code>angr.options</code>访问并向state添加某个选项。单个选项一般以大写字母命名，但也有一些你可能希望捆绑在一起使用的常用对象分组，以小写字母命名。</p>
+<p>无论用任何构造函数创建SimState时，你都可以使用参数<code>add_options</code>和<code>remove_options</code>传递从默认值修改的选项。</p>
+<pre><code class="language-python"># 例如: 启用lazy_solves, 这个选项会尽可能减少检查状态是否满足约束
+# 对此设置的更改会影响此行之后所有由此状态创建的后继状态
+&gt;&gt;&gt; s.options.add(angr.options.LAZY_SOLVES)
+
+# 创建一个state并且开启lazy_solves
+&gt;&gt;&gt; s = proj.factory.entry_state(add_options={angr.options.LAZY_SOLVES})
+
+# 创建一个不启用simplification选项的新状态
+&gt;&gt;&gt; s = proj.factory.entry_state(remove_options=angr.options.simplification)
+</code></pre>
+<h2 id="状态插件state-plugins">状态插件（State Plugins）</h2>
+<p>除了刚刚讨论的各种选项之外，存储在SimState中的所有内容实际上都存储在附加到state的各种插件中。到目前为止，我们讨论的几乎每个state属性（memory、registers、mem、regs、solver等等）都是可插拔的。这种设计允许代码模块化，以及模拟状态的其他方面轻松实现新型数据存储，或者使用其他插件替代实现。</p>
+<p>例如，普通的<code>memory</code>插件模拟了一个平坦的内存空间，但是分析时可以选择“abstract memory”插件，它使用地址的替代数据类型来模拟独立于地址的自由浮动内存映射，来提供<code>state.memory</code>。另一方面，插件可以降低代码复杂度：<code>state.memory</code>和<code>state.registers</code>实际上是同一个插件的两个不同实例，因为寄存器也是用地址空间模拟的。</p>
+<h2 id="全局插件the-global-plugin">全局插件（The global plugin）</h2>
+<p><code>state.globals</code>是一个非常简单的插件：它实现了python dict相关的接口，允许你在state上存储任意数据。</p>
+<h2 id="历史插件the-history-plugin">历史插件（The history plugin）</h2>
+<p><code>state.history</code>是一个非常重要的插件，用于存储符号执行过程中所采用路径的历史数据。它实际上是一些历史节点的链表，每一个节点代表一轮执行，你可以用<code>state.history.parent.parent……</code>来遍历这个列表</p>
+<p>为了让你更方便地访问历史数据，它还提供了针对某些值好用的迭代器。通常，这些值存储在<code>history.recent_NAME</code>，它们的迭代器可以通过<code>history.NAME</code>访问。例如，<code>for addr in state.history.bbl_addrs: print hex(addr)</code>会打印出经过的二进制基本块的地址，而<code>state,history.recent_bbl_addrs</code>是最近一步执行的基本块的列表，<code>state.history.parent.recent_bbl_addrs</code>是上一步执行的基本块列表。如果你需要快速访问这些值的平坦（flat）列表，可以使用<code>.hardcopy</code>，例如<code>state.history.bbl_addrs.hardcopy</code>。但请记住，基于索引的访问是在迭代器上实现的</p>
+<p>以下是存储在历史记录中的一些值的简要说明：</p>
+<ul>
+<li>
+<p><code>history.descriptions</code>是对每一轮执行的字符串描述列表</p>
+</li>
+<li>
+<p><code>history.bbl_addrs</code>是执行的基本块地址的列表。每轮执行可能不止一个，并且并非所有地址都对应于二进制代码，有些可能是hook的SimProcedures的地址</p>
+</li>
+<li>
+<p><code>history.jumpkinds</code>是历史中每个控制流处理的列表，以VEX枚举字符串形式展现</p>
+</li>
+<li>
+<p><code>history.jump_guards</code>是历史中遇到的每个分支的条件列表</p>
+</li>
+<li>
+<p><code>history.events</code>是执行期间发生的“有趣事件”的列表，例如符号跳转条件的存在、程序弹出消息框、退出代码终止程序执行</p>
+</li>
+<li>
+<p><code>history.actions</code>通常为空，但如果你在state中添加<code>state.options.refs</code>，它将记录程序执行时内存、寄存器和临时值被访问的日志</p>
+</li>
+</ul>
+<h2 id="调用栈插件the-callstack-plugin">调用栈插件（The callstack plugin）</h2>
+<p>angr会跟踪模拟程序的调用栈过程。在每条调用指令触发时，都会在调用栈的记录顶部添加一个帧（frame），而每当栈指针下降到最顶层帧以下时，就会弹出一个帧。这使angr能稳定地存储当前模拟函数的数据。</p>
+<p>和历史记录类似，调用栈记录也是由节点构成的链表，但angr并没有提供对节点内容的迭代器，取而代之的，你可以直接遍历<code>state.callstack</code>来获取每个活动帧的调用栈帧，按从最新到最旧排序，如果你想获取顶层帧，那么直接使用<code>state.callstack</code></p>
+<ul>
+<li>
+<p><code>callstack.func_addr</code>是当前正在执行的函数地址</p>
+</li>
+<li>
+<p><code>callstack.call_site_addr</code>是调用当前函数的基本块的地址</p>
+</li>
+<li>
+<p><code>callsack.stack_ptr</code>是从当前函数开始的栈指针的值</p>
+</li>
+<li>
+<p><code>callstack.ret_addr</code>是当前函数的返回地址</p>
+</li>
+</ul>
+<h2 id="更多关于io的信息文件文件系统网络套接字more-about-io-files-file-systems-and-network-sockets">更多关于I/O的信息：文件、文件系统、网络套接字（More about I/O: Files, file systems, and network sockets）</h2>
+<p>请参阅<a href="/advanced-topics/file_system">Working with File System, Sockets, and Pipes</a>获取详细的文档</p>
+<h2 id="复制和合并copying-and-merging">复制和合并（Copying and Merging）</h2>
+<p>state支持快速复制，以便你探索不同的分支</p>
+<pre><code class="language-python">&gt;&gt;&gt; proj = angr.Project('/bin/true')
+&gt;&gt;&gt; s = proj.factory.blank_state()
+&gt;&gt;&gt; s1 = s.copy()
+&gt;&gt;&gt; s2 = s.copy()
+
+&gt;&gt;&gt; s1.mem[0x1000].uint32_t = 0x41414141
+&gt;&gt;&gt; s2.mem[0x1000].uint32_t = 0x42424242
+</code></pre>
+<p>state也可以合并在一起</p>
+<pre><code class="language-python"># 合并会返回一个元组，第一个元素是合并状态
+# 第二个元素是描述状态标志的符号变量
+# 第三个元素是一个布尔值，描述是否进行过合并
+&gt;&gt;&gt; (s_merged, m, anything_merged) = s1.merge(s2)
+
+# 现在这是一个可以解析为“AAAA”或“BBBB”的表达式
+&gt;&gt;&gt; aaaa_or_bbbb = s_merged.mem[0x1000].uint32_t
+</code></pre>
+<p>TODO：描述合并的限制</p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://blog.dx39061.top/2022/09/program_state/" title="angr文档翻译（五）Program State" target="_blank" rel="external">https://blog.dx39061.top/2022/09/program_state/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License: </strong>
+        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.dx39061.top/2022/09/rc_algorithms/" title="逆向人学密码（三）RC algorithms"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.dx39061.top/2022/09/simulation_manager/"
+                    title="angr文档翻译（六）Simulation Managers"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2022  -
+    2022
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+    
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
+<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
+            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.19.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '309208aa79ed1d5c7a67',
+        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
+        repo: 'blog_gitalk',
+        owner: 'DX39061',
+        admin: ['[DX39061]'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+
+
+  </body>
+</html>

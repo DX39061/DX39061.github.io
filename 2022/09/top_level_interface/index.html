@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        angr文档翻译（二）Top Level Interface - DX3906&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="如题" />
+    <meta name="generator" content="Hugo 0.105.0 with theme pure" />
+    <title>angr文档翻译（二）Top Level Interface - DX3906&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="angr文档翻译（二）Top Level Interface" />
+<meta property="og:description" content="如题" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/09/top_level_interface/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-09-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-09-05T00:00:00+00:00" />
+
+<meta itemprop="name" content="angr文档翻译（二）Top Level Interface">
+<meta itemprop="description" content="如题"><meta itemprop="datePublished" content="2022-09-05T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-09-05T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3519">
+<meta itemprop="keywords" content="reverse,angr," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="angr文档翻译（二）Top Level Interface"/>
+<meta name="twitter:description" content="如题"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/DX39061" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello, hugo</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%AD%97%E7%9A%84%E6%AD%A7%E4%B9%89--%E6%B7%B1%E5%85%A5ptrace%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B/" class="title">“字”的歧义--深入ptrace返回值类型</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0%E4%B8%8Eptrace%E5%87%BD%E6%95%B0/" class="title">linux ptrace相关技术（一）基本概述与ptrace函数</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/" class="title">KCTF2022秋季赛第二题WriteUp</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-19</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="title">linux进程基础</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-17 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" class="title">linux下通过设置LD_PRELOAD环境变量hook动态链接库</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-14 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-14</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">8</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">6</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
+                    class="tag-list-count">7</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
+                    class="tag-list-count">17</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2022/09/top_level_interface/"
+    >angr文档翻译（二）Top Level Interface</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://blog.dx39061.top/2022/09/top_level_interface/" class="article-date">
+  <time datetime="2022-09-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-09-05</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/angr/"> Angr </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/reverse/"> reverse </a>
+    <a class="article-tag-link" href="/tags/angr/"> angr </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/09/top_level_interface/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3519字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h1 id="top-level-interface">Top Level Interface</h1>
+<h2 id="开始之前before-you-start">开始之前（Before You Start）</h2>
+<p>我们预期的angr主要的应用场景是Ipython（或者其他python命令行解释器）。当你不确定可以用什么接口时，tab键的 补全往往能帮助到你。</p>
+<p>有时Ipython中的tab补全会很慢。我们发现以下解决方法很有效且不会影响补全功能的完整性：</p>
+<pre><code class="language-python"># 将此文件放在Ipython配置文件的启动目录中可以避免每次都单独1运行它
+import IPython
+py = IPython.get_ipython()
+py.Completer.use_jedi = False
+</code></pre>
+<h2 id="核心概念core-concepts">核心概念（Core Concepts）</h2>
+<p>在开始使用angr之前，你将会对angr的基本概念和如何构造一个angr对象有一个基本的概览。我们将通过二进制程序加载后直接可用的接口来说明这些概念。</p>
+<p>你使用angr做的第一件事往往是把二进制程序加载到工程中，我们以<code>/bin/true</code>为例</p>
+<pre><code class="language-python">&gt;&gt;&gt; import angr
+&gt;&gt;&gt; proj = angr.Project('/bin/true')
+</code></pre>
+<p>在angr中，一个project是你所能控制的基本单元，通过project，你将能对刚刚加载的二进制程序进行分析和模拟。几乎你在angr项目中使用的每一个对象都依赖于某种形式的project而存在</p>
+<h3 id="基本属性basic-properties">基本属性（Basic properties）</h3>
+<p>首先，project有一些基本属性：它的CPU架构，它的文件名和程序入口点。</p>
+<pre><code class="language-python">&gt;&gt;&gt; import monkeyhex # 用来将数字结果转化为16进制
+&gt;&gt;&gt; proj.arch
+&lt;Arch AMD64(LE)&gt;
+&gt;&gt;&gt; proj.entry
+0x401670
+&gt;&gt;&gt; proj.filename
+'/bin/true'
+</code></pre>
+<ul>
+<li>
+<p><code>arch</code>是<code>archinfo.Arch</code>对象的实例，用来指明程序编译的架构，在这个例子中是little-endian amd64。它包含许多它所运行的CPU的信息，你可以在闲暇时细读。通常情况下你所关心的是<code>arch.bits</code>，<code>arch.bytes</code>（这个是main Arch class 的@property声明），<code>arch.name</code>和<code>arch.memory_endness</code></p>
+</li>
+<li>
+<p><code>entrry</code>是二进制程序的入口点</p>
+</li>
+<li>
+<p><code>filename</code>显然是二进制程序的文件名</p>
+</li>
+</ul>
+<h3 id="加载器the-loader">加载器（The loader）</h3>
+<p>从一个二进制程序到它在虚拟地址空间的映射是十分复杂的！我们有一个叫<code>CLE</code>(Christophe&rsquo;s Loader for Everything) 的模块去解决这个问题。CLE就是一种加载器，可以通过<code>.loader</code>属性调用。我们将在后面详细了解如何使用它，但现在你只需知道你可以用它查看angr随着你的程序加载的动态链接库（shared libraries）并且执行一些对于他们地址空间的基本的查询</p>
+<pre><code class="language-python">&gt;&gt;&gt; proj.loader
+&lt;loaded true, maps [0x400000:0x5004000]&gt;
+
+&gt;&gt;&gt; proj.loader.shared_objects # 或许和你的看起来有点不一样
+{'ld-linux-x86-64.so.2': &lt;ELF Object ld-2.24.so, maps [0x2000000:0x2227167]&gt;,
+ 'libc.so.6': &lt;ELF Object libc-2.24.so, maps [0x1000000:0x13c699f]&gt;}
+
+&gt;&gt;&gt; proj.loader.min_addr
+0x400000
+&gt;&gt;&gt; proj.loader.max_addr
+0x5004000
+
+&gt;&gt;&gt; proj.loader.main_object # 我们已经在项目中加载了几个二进制程序。这里是主要的一个
+&lt;ELF Object true, maps [0x400000:0x60721f]&gt;
+
+&gt;&gt;&gt; proj.loader.main_object.execstack # 查询示例：是否存在可执行栈段
+False
+&gt;&gt;&gt; proj.loader.main_object.pic # 查询示例：这个二进制程序是地址无关代码吗？
+# pic(position-independent code)指可在主存储器中任意位置正确执行，而不受其绝对地址影响的一种机器码，常用于动态链接库
+</code></pre>
+<h3 id="工厂the-factory">工厂（The Factory）</h3>
+<p>在angr中有许多类，而它们中的大多数需要一个project去把他们实例化。我们并不会让你到处传递project，而是提供了<code>project.factory</code>，其中包含了一些你会频繁使用到的、常见对象的构造器。</p>
+<p>本节还将介绍angr的一些基本概念。</p>
+<h4 id="块blocks">块（Blocks）</h4>
+<p>首先，我们有<code>project.factory.block()</code>，常常用来从给定地址提取基本代码块。这是一个重要的事实——angr以块为基本单位分析代码。你会得到一个block对象，其中包含了许多关于这个代码块的有趣的东西</p>
+<pre><code class="language-python">&gt;&gt;&gt; block = proj.factory.block(proj.entry) # 从程序的入口点取出一个代码块
+&lt;Block for 0x401670, 42 bytes&gt;
+
+&gt;&gt;&gt; block.pp() # pretty-print 向stdout输出相应反汇编代码
+0x401670:       xor     ebp, ebp
+0x401672:       mov     r9, rdx
+0x401675:       pop     rsi
+0x401676:       mov     rdx, rsp
+0x401679:       and     rsp, 0xfffffffffffffff0
+0x40167d:       push    rax
+0x40167e:       push    rsp
+0x40167f:       lea     r8, [rip + 0x2e2a]
+0x401686:       lea     rcx, [rip + 0x2db3]
+0x40168d:       lea     rdi, [rip - 0xd4]
+0x401694:       call    qword ptr [rip + 0x205866]
+
+&gt;&gt;&gt; block.instructions # 在这个代码块中共有多少条指令？
+0xb
+
+&gt;&gt;&gt; block.instruction_addrs # 这个代码块中指令的地址分别是多少？
+[0x401670, 0x401672, 0x401675, 0x401676, 0x401679, 0x40167d, 0x40167e, 0x40167f, 0x401686, 0x40168d, 0x401694]
+</code></pre>
+<p>更多的，你可以使用block对象获得块代码的其他表示形式</p>
+<pre><code class="language-python">&gt;&gt;&gt; block.capstone                       # capstone disassembly
+&lt;CapstoneBlock for 0x401670&gt;
+&gt;&gt;&gt; block.vex                            # VEX IRSB (这是python内部地址，而不是程序内部地址)
+&lt;pyvex.block.IRSB at 0x7706330&gt;
+</code></pre>
+<h4 id="状态states">状态（states）</h4>
+<p>关于angr的另一个事实是——project对象仅仅相当于程序的一个“初始化镜像”。当你使用angr执行运行程序时，你正在使用一个模拟程序运行状态的对象-<code>SimState</code>。比如：</p>
+<pre><code class="language-python">&gt;&gt;&gt; state = proj.factory.entry_state()
+&lt;SimState @ 0x401670&gt;
+</code></pre>
+<p>一个SimState记录着一个程序的内存、寄存器、文件信息&hellip;任何可以通过程序执行更改的“实时数据”健康都会被存储进去。稍后我们将会介绍如何与这些状态交互，但是现在，让我们用<code>state.regs</code>和<code>state.mem</code>来查看当前状态下的寄存器和内存</p>
+<pre><code class="language-python">&gt;&gt;&gt; state.regs.rip # 取得当前指令的地址
+&lt;BV64 0x401670&gt;
+&gt;&gt;&gt; state.regs.rax
+&lt;BV64 0x1c&gt;
+&gt;&gt;&gt; state.mem[proj.etry].int.resolved # 将入口点的内存以C语言中int类型显示
+&lt;BV32 0x8949ed31&gt;
+</code></pre>
+<p>这些并不是python的ints！这些是<code>bitvectors</code>。python中的integers与CPU层面的字（words）并不是一个概念，例如python不会产生整数溢出。所以我们使用<code>bitvectors</code>，可以将其视为一串bits构成的整数，angr中用它来代表CPU data。注意每个bitvector都有一个<code>.length</code>属性来描述它是多少bits宽</p>
+<p>我们在后面将会学习如何使用它们，但是现在，我们列出了如何将数字在python int和bitvector之间转换的方法</p>
+<pre><code class="language-python">&gt;&gt;&gt; bv = state.solver.BVV(0x1234, 32) # 创建一个32bit宽的bitvector,它的值是0x1234 
+&lt;BV32 0x1234&gt;                     # BVV：bitvector value
+&gt;&gt;&gt; state.solver.eval(bv)    # 将bitvector转化为python int
+0
+</code></pre>
+<p>你可以把bitvector存回寄存器和内存，或者直接存储python integer类型值，它会被自动转化成合适大小的bitvector</p>
+<pre><code class="language-python">&gt;&gt;&gt; state.regs.rsi = state.solver.BVV(3, 64)
+&gt;&gt;&gt; state.regs.rsi
+&lt;BV64 0x3&gt;
+
+&gt;&gt;&gt; state.mem[0x1000].long = 4
+&gt;&gt;&gt; state.mem[0x1000].long.resolved
+&lt;BV64 0x4&gt;
+</code></pre>
+<p><code>mem</code>接口刚开始看令人困惑，因为它使用了一些强大的python魔法，下面是简要的使用指南：</p>
+<ul>
+<li>
+<p>使用<code>array[index]</code>来指明确定的地址</p>
+</li>
+<li>
+<p>用<code>.&lt;type&gt;</code>来指定内存数据的类型（常用类型：char, short, int, long, size_t, uint8_t, uint16_t&hellip;)</p>
+</li>
+<li>
+<p>通过mem接口你可以：</p>
+<ul>
+<li>
+<p>存储一个值到内存，既可以是bitvector,也可以是python int</p>
+</li>
+<li>
+<p>用<code>.resolve</code>来获取内存值并转化为bitvector</p>
+</li>
+<li>
+<p>用<code>.concrete</code>来获取内存值并转化为python int</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>还有更多高级用法将在后面提到</p>
+<p>最终，如果你尝试读取更多寄存器的值，你可能会遇到一个长得十分奇怪的值</p>
+<pre><code class="language-python">&gt;&gt;&gt; state.regs.rdi
+&lt;BV64 reg_48_11_64{UNINITIALIZED}&gt;
+</code></pre>
+<p>这同样是一个64位bitvector，但是它并没有携带数值，相反的，它有一个名字！它被称为符号变量，也是符号执行的基础。不要恐慌！我们会在两章之后讨论它的细节</p>
+<h4 id="模拟管理器simulation-managers">模拟管理器（Simulation Managers）</h4>
+<p>如果程序在任意给定的时间点都有一个状态，那么必然有一种方法可以让它变成下一种状态。<code>simulation manager</code>是angr执行中的主要接口。模拟（simulation）无论你如何叫它，它都是带有状态的。作为一个简短的介绍，让我们看看如何在我们之前创建的代码块中标记状态。</p>
+<p>首先，我们要创建一个simulation manager，构造函数可以传入一个状态或状态列表</p>
+<pre><code class="language-python">&gt;&gt;&gt; simgr = proj.factory.simulation_manager(state)
+&lt;SimulationManager with 1 active&gt;
+&gt;&gt;&gt; simgr.active
+[&lt;SimState @ 0x401670&gt;]
+</code></pre>
+<p>一个simulation manager可以有多种状态的封装（stash），默认的stash是<code>active</code>，用我们传入的状态初始化。如果还不够的话，我们可以查看<code>simgr.active[0]</code>来进一步了解各种状态</p>
+<p>现在， 准备好，我们要进行一些程序的执行了。</p>
+<pre><code class="language-python">&gt;&gt;&gt; simgr.step()
+</code></pre>
+<p>我们刚刚进行了一个基本快的符号执行！</p>
+<p>我们可以再看看active stash，注意它已经被更新了，并且它并没有改变我们原来的状态。SimState对象在执行时被视为不可变，所以你可以安全地将单个状态作为多轮执行的开始（base）</p>
+<pre><code class="language-python">&gt;&gt;&gt; simgr.active
+[&lt;SimState @ 0x1020300&gt;]
+&gt;&gt;&gt; simgr.active[0].regs.rip                 # new and exciting!
+&lt;BV64 0x1020300&gt;
+&gt;&gt;&gt; state.regs.rip                           # still the same!
+&lt;BV64 0x401670&gt;
+</code></pre>
+<p>/bin/true不是一个很好的例子来描述如何用符号执行做有趣的事，所以我们现在就到此为止</p>
+<h3 id="分析analyse">分析（Analyse）</h3>
+<p>angr预先打包了一些内置分析方法，你可以利用它们从程序中提取一些有趣的信息。</p>
+<pre><code class="language-python">&gt;&gt;&gt; proj.analyses.            # 在这里按tab来列出所有内置的分析方法
+ proj.analyses.BackwardSlice        proj.analyses.CongruencyCheck      proj.analyses.reload_analyses       
+ proj.analyses.BinaryOptimizer      proj.analyses.DDG                  proj.analyses.StaticHooker          
+ proj.analyses.BinDiff              proj.analyses.DFG                  proj.analyses.VariableRecovery      
+ proj.analyses.BoyScout             proj.analyses.Disassembly          proj.analyses.VariableRecoveryFast  
+ proj.analyses.CDG                  proj.analyses.GirlScout            proj.analyses.Veritesting           
+ proj.analyses.CFG                  proj.analyses.Identifier           proj.analyses.VFG                   
+ proj.analyses.CFGEmulated          proj.analyses.LoopFinder           proj.analyses.VSA_DDG               
+ proj.analyses.CFGFast              proj.analyses.Reassembler
+</code></pre>
+<p>本手册后面会记录其中的一些方法，但总的来说，如果你想要找到如何使用内置的分析方法，你应该查看<a href="https://api.angr.io/angr">api文档</a>。作为一个简短的例子：下面说明了你应该怎样生成并使用一个快速的程序控制流图：</p>
+<pre><code class="language-python"># 刚开始时，当我们加载二进制文件时，它还将其所有依赖项加载到同一块虚拟内存中
+# 这对于大多数分析是不愿意看到的
+&gt;&gt;&gt; proj = angr.Project('/bin/true', auto_load_libs=False)
+&gt;&gt;&gt; cfg = proj.analyses.CFGFast()
+&lt;CFGFast Analysis Result at 0x2d85130&gt;
+
+# cfg.graph 是一个充满了CFGNode实例的 networkx DiGraph 
+# 你应该去看 networkx APIs 的文档去学习如何使用它
+&gt;&gt;&gt; cfg.graph
+&lt;networkx.classes.digraph.DiGraph at 0x2da43a0&gt;
+&gt;&gt;&gt; len(cfg.graph.nodes())
+951
+
+# 去获取指定地址的 CFGNode， 可以用 cfg.get_any_node
+&gt;&gt;&gt; entry_node = cfg.get_any_node(proj.entry)
+&gt;&gt;&gt; len(list(cfg.graph.successors(entry_node)))
+2
+</code></pre>
+<h3 id="now-what">Now what？</h3>
+<p>阅读完这一页之后，你应该熟悉了angr几个重要概念：basic blocks, states, bitvectors, simulation managers 和analyses。但是除了把angr作为美化的调试器以外，你还不能做任何事情。继续阅读，你将解锁更深层次的力量&hellip;</p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://blog.dx39061.top/2022/09/top_level_interface/" title="angr文档翻译（二）Top Level Interface" target="_blank" rel="external">https://blog.dx39061.top/2022/09/top_level_interface/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License: </strong>
+        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.dx39061.top/2022/09/readme/" title="angr文档翻译（一）README"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.dx39061.top/2022/09/%E7%AE%80%E6%9E%90%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%92%8C%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B/"
+                    title="简析可重定位目标文件和程序链接过程"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2022  -
+    2022
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+    
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
+<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
+            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.19.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '309208aa79ed1d5c7a67',
+        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
+        repo: 'blog_gitalk',
+        owner: 'DX39061',
+        admin: ['[DX39061]'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+
+
+  </body>
+</html>

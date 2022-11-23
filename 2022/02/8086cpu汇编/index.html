@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        8086CPU汇编 - DX3906&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="8086CPU汇编简单学习" />
+    <meta name="generator" content="Hugo 0.105.0 with theme pure" />
+    <title>8086CPU汇编 - DX3906&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="8086CPU汇编" />
+<meta property="og:description" content="8086CPU汇编简单学习" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/02/8086cpu%E6%B1%87%E7%BC%96/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-02-23T00:00:00+00:00" />
+
+<meta itemprop="name" content="8086CPU汇编">
+<meta itemprop="description" content="8086CPU汇编简单学习"><meta itemprop="datePublished" content="2022-02-23T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-02-23T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3531">
+<meta itemprop="keywords" content="assembly," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="8086CPU汇编"/>
+<meta name="twitter:description" content="8086CPU汇编简单学习"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/DX39061" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello, hugo</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%AD%97%E7%9A%84%E6%AD%A7%E4%B9%89--%E6%B7%B1%E5%85%A5ptrace%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B/" class="title">“字”的歧义--深入ptrace返回值类型</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0%E4%B8%8Eptrace%E5%87%BD%E6%95%B0/" class="title">linux ptrace相关技术（一）基本概述与ptrace函数</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-20 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/" class="title">KCTF2022秋季赛第二题WriteUp</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-19</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="title">linux进程基础</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-17 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" class="title">linux下通过设置LD_PRELOAD环境变量hook动态链接库</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-11-14 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-11-14</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">8</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">6</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
+                    class="tag-list-count">7</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
+                    class="tag-list-count">6</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
+                    class="tag-list-count">17</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2022/02/8086cpu%E6%B1%87%E7%BC%96/"
+    >8086CPU汇编</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://blog.dx39061.top/2022/02/8086cpu%E6%B1%87%E7%BC%96/" class="article-date">
+  <time datetime="2022-02-23 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-02-23</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/binary/"> Binary </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/assembly/"> assembly </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/02/8086cpu%E6%B1%87%E7%BC%96/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3531字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h1 id="8086cpu汇编">8086CPU汇编</h1>
+<h3 id="--8086cpu有14个寄存器">- 8086CPU有14个寄存器</h3>
+<ul>
+<li>
+<p>数据寄存器：AX,BX,CX,DX</p>
+</li>
+<li>
+<p>其他寄存器：CS:IP,SS:SP,DS,ES,SI,DI,BP,FLAG(PSW)</p>
+</li>
+<li>
+<p>8086CPU每一个寄存器都是16位的，存放2个字节</p>
+</li>
+<li>
+<p>通用寄存器都可以分为两个独立的8位寄存器使用，如AL（低8位）,AH（高8位）</p>
+</li>
+<li>
+<p>16位CPU特征：</p>
+<ul>
+<li>
+<p>运算器一次最多可以处理16位数据</p>
+</li>
+<li>
+<p>寄存器的最大宽度为16位</p>
+</li>
+<li>
+<p>寄存器和运算器之间的通路是16位的</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="--8086cpu有20根地址总线">- 8086CPU有20根地址总线</h3>
+<ul>
+<li>
+<p>8086CPU采用在内部用<strong>两个16位地址</strong>合成（地址加法器）的方法形成一个<strong>20位</strong>的物理地址</p>
+</li>
+<li>
+<p><strong>物理地址 = 段地址 * 16 + 偏移地址</strong>（16进制地址左移一位）</p>
+</li>
+<li>
+<p>推论：偏移地址为16位（0-FFFFH）&ndash;&gt;一个段最大长度位64kb（$2^{16}$)</p>
+</li>
+</ul>
+<h3 id="--cscode-segmentipinstruction-pointer">- CS(Code Segment):IP(Instruction Pointer)</h3>
+<ul>
+<li>
+<p>CS:IP指向CPU当前所要执行指令的地址</p>
+</li>
+<li>
+<p>IP递增器：执行完一条指令后，IP自动递增该指令的长度，跳到下一条指令</p>
+</li>
+<li>
+<p>8086CPU加电启动或复位后，设置CS=FFFFH，IP=0000H</p>
+</li>
+<li>
+<p>修改CS:IP寄存器的值</p>
+<ul>
+<li>
+<p>同时修改CS:IP的内容：<code>jmp 段地址：偏移地址</code></p>
+</li>
+<li>
+<p>仅修改IP的内容：<code>jmp 某一合法寄存器</code>（mov ax xxxx，jmp ax）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="--dsdata-segment和address偏移地址">- DS(Data Segment)和[address]（偏移地址）</h3>
+<ul>
+<li>
+<p>经由通用寄存器将数据送入DS寄存器</p>
+<pre><code class="language-nasm">mov ax, 1000H
+mov ds, ax
+</code></pre>
+</li>
+<li>
+<p>使用[address]读写内存（确定好ds）</p>
+<pre><code class="language-nasm">mov ax, [0]    //把偏移地址为0处内存的值送入ax
+mov [0], cx    //把cx中的值写入偏移地址为0的内存
+</code></pre>
+</li>
+</ul>
+<h3 id="--栈">- 栈</h3>
+<ul>
+<li>
+<p><code>push ax</code>：把ax中的值送入栈中</p>
+</li>
+<li>
+<p><code>pop ax</code>：把从栈顶取出数据送入ax</p>
+</li>
+<li>
+<p>8086CPU入栈和出栈都是以<strong>字</strong>（16位）为单位进行的</p>
+</li>
+</ul>
+<h3 id="--ssstack-segmentspstack-pointer">- SS(Stack Segment):SP(Stack Pointer)</h3>
+<ul>
+<li>
+<p><code>push ax</code></p>
+<ul>
+<li>
+<p>SP = SP - 2</p>
+</li>
+<li>
+<p>将ax中的内容送入SS:SP指向的内存单元处，此时SS:SP指向新栈顶</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>pop ax</code></p>
+<ul>
+<li>
+<p>将SS:SP指向的内存单元中数据取出送入ax中</p>
+</li>
+<li>
+<p>SP = SP + 2</p>
+</li>
+</ul>
+</li>
+<li>
+<p>栈空时SS:SP指向栈最高地址（栈底）的偏移地址+2</p>
+</li>
+</ul>
+<h3 id="--伪指令">- 伪指令</h3>
+<ul>
+<li>
+<p>编译器执行，无法汇编成机器码</p>
+</li>
+<li>
+<p>一个段</p>
+<ul>
+<li>
+<p>assume cs:段名&ndash;&gt;寄存器与段的关联假设</p>
+</li>
+<li>
+<p>段名 segment</p>
+</li>
+<li>
+<p>段名 ends</p>
+</li>
+</ul>
+</li>
+<li>
+<p>end：结束对源程序的编译</p>
+</li>
+</ul>
+<h3 id="--bs">- [BS]</h3>
+<ul>
+<li>
+<p>作为偏移地址索引内存，默认段地址在ds中</p>
+</li>
+<li>
+<p><code>mov ax [1000H]</code>只是将1000H作为值送入ax</p>
+</li>
+<li>
+<p>经由bx寄存器才能将偏移地址为1000H的内容送入ax</p>
+<pre><code class="language-nasm">mov bx, 1000H
+mov ax, [bx]
+</code></pre>
+</li>
+</ul>
+<h3 id="--loop指令">- loop指令</h3>
+<ul>
+<li>
+<p>loop实现循环，cx寄存器作为循环累加器</p>
+</li>
+<li>
+<p>格式</p>
+<ul>
+<li>
+<p>mov cx，循环次数</p>
+</li>
+<li>
+<p>标号：循环执行代码</p>
+</li>
+<li>
+<p>loop 标号</p>
+</li>
+</ul>
+</li>
+<li>
+<p>执行loop时<code>cx = cx - 1</code>，判断cx不为0则继续循环</p>
+</li>
+</ul>
+<h3 id="--sisource-indexdidestination-index">- SI（Source Index）DI（Destination Index）</h3>
+<ul>
+<li>
+<p>与bx功能相近，但不能拆为两个8位寄存器</p>
+</li>
+<li>
+<p>用ds;si指向源数据地址，用ds:di指向目标数据地址</p>
+</li>
+</ul>
+<h3 id="--bpbase-pointer">- BP（Base Pointer）</h3>
+<ul>
+<li>作为偏移地址指向内存，段地址默认在SS中</li>
+</ul>
+<h3 id="--divdivision指令">- div（division）指令</h3>
+<ul>
+<li>
+<p>除法指令</p>
+</li>
+<li>
+<p>除数：8位或16位，在寄存器或内存单元中</p>
+</li>
+<li>
+<p>被除数：（默认）放在<code>ax</code>或<code>ax和dx</code>中</p>
+<ul>
+<li>
+<p>除数8位，被除数16位&mdash;&raquo;ax</p>
+</li>
+<li>
+<p>除数16位，被除数32位&mdash;&raquo;ax（低16位）和dx（高16位）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>结果</p>
+<ul>
+<li>
+<p>商存放在ax中</p>
+</li>
+<li>
+<p>余数存放在dx中</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="--jmp指令">- jmp指令</h3>
+<ul>
+<li>
+<p>jmp short 标号</p>
+<ul>
+<li>
+<p>段内短转移</p>
+</li>
+<li>
+<p>8位地址偏移，而非指定跳转地址</p>
+</li>
+</ul>
+</li>
+<li>
+<p>jmp near 标号</p>
+<ul>
+<li>
+<p>段内近转移</p>
+</li>
+<li>
+<p>16位地址偏移，而非指定跳转地址</p>
+</li>
+</ul>
+</li>
+<li>
+<p>jmp far 标号</p>
+<ul>
+<li>
+<p>段间转移，远转移</p>
+</li>
+<li>
+<p>指定段地址和偏移地址，修改CS:IP的值</p>
+</li>
+</ul>
+</li>
+<li>
+<p>jmp 寄存器</p>
+<ul>
+<li>16位段内转移</li>
+</ul>
+</li>
+</ul>
+<h3 id="--jcxz指令">- jcxz指令</h3>
+<ul>
+<li>
+<p>有条件转移指令，短转移</p>
+</li>
+<li>
+<p>8位地址位移，而不是指定跳转地址</p>
+</li>
+<li>
+<p>jcxz 标号</p>
+</li>
+<li>
+<p>当<code>cx=0</code>时跳转，<code>cx!=0</code>时不跳转</p>
+</li>
+<li>
+<p>loop指令，cx=0时跳出循环，cx！=0时继续循环</p>
+</li>
+</ul>
+<h3 id="--callret指令">- call，ret指令</h3>
+<ul>
+<li>
+<p>ret：用栈中的值修改IP的值</p>
+</li>
+<li>
+<p>retf：用栈中的值修改CS:IP的值</p>
+</li>
+<li>
+<p>call指令</p>
+<ul>
+<li>
+<p>将当前的IP或CS:IP压入栈中</p>
+</li>
+<li>
+<p>转移（jmp）标号</p>
+</li>
+<li>
+<p>call不能实现短转移（可近转移和短转移），除此之外和jmp指令原理相同</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="--mul指令">- mul指令</h3>
+<ul>
+<li>
+<p>存储位置</p>
+<ul>
+<li>
+<p>都是8位：相乘的两个数存在al或内存中，结果存在ax中</p>
+</li>
+<li>
+<p>都是16位：相乘的两个数存在ax或内存中，结果存在dx（高位）和ax（低位）中</p>
+</li>
+</ul>
+</li>
+<li>
+<p>格式</p>
+<ul>
+<li>
+<p>mul 寄存器</p>
+</li>
+<li>
+<p>mul内存单元</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="--flag寄存器">- flag寄存器</h3>
+<ul>
+<li>
+<p>8086CPU中flag寄存器的1,3,5,12,13,14,15位没有使用</p>
+</li>
+<li>
+<p>记录上一条指令后的各种状态，随时改变</p>
+</li>
+<li>
+<p>ZF（Zero Flag）标志-6</p>
+<ul>
+<li>
+<p>表示结果是否为0,值为1则表示0,值为0则表示非0</p>
+</li>
+<li>
+<p>add、sub、mul、div、inc、or、and等运算指令会影响标志寄存器</p>
+</li>
+<li>
+<p>mov、push、pop等传送指令对标志寄存器没有影响</p>
+</li>
+</ul>
+</li>
+<li>
+<p>PF（Parity Flag）标志-2</p>
+<ul>
+<li>奇偶校验位，1为偶数，0为奇数</li>
+</ul>
+</li>
+<li>
+<p>SF（Sign Flag）标志-7</p>
+<ul>
+<li>符号（正负）标志位，1为负，0为正</li>
+</ul>
+</li>
+<li>
+<p>CF（Carry Flag）标志-0</p>
+<ul>
+<li>记录了进行<strong>无符号运算</strong>的时候运算结果的最高有效位<code>是否</code>向更高位的进位或借位，8位</li>
+</ul>
+</li>
+<li>
+<p>OF（Overflow Flag）标志-11</p>
+<ul>
+<li>进行<strong>有符号数运算</strong>时，超过了机器所能表达的范围，将产生溢出</li>
+</ul>
+</li>
+<li>
+<p>DF（Direction Flag）标志-10</p>
+<ul>
+<li>
+<p>方向标志位，在串处理指令中，控制每次操作后si,di的增减</p>
+</li>
+<li>
+<p>DF=0,每次操作后si,di递增，cld指令设置为0</p>
+</li>
+<li>
+<p>DF=1,每次操作后si,di递减，std指令设置为1</p>
+</li>
+</ul>
+</li>
+<li>
+<p>IF（Interrupt Flag）标志-9</p>
+<ul>
+<li>
+<p>是否响应外部可屏蔽中断请求</p>
+</li>
+<li>
+<p>1-允许响应，0-不允许响应</p>
+</li>
+</ul>
+</li>
+<li>
+<p>TF（Trace Flag）标志-8</p>
+<ul>
+<li>当TF为1时，CPU进入单步调试模式，执行完每一条指令后产生单步中断</li>
+</ul>
+</li>
+<li>
+<p>AF（Auxiliary Carry Flag）标志-4</p>
+<ul>
+<li>
+<p>辅助进位标志，进位（借位）标志</p>
+</li>
+<li>
+<p>与CF区别：4位运算有进位（借位）则置1,主要在BCD码时用到</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="--adc指令">- adc指令</h3>
+<ul>
+<li>
+<p>带进位加法指令，利用了 CF位上记录的进位值</p>
+</li>
+<li>
+<p>格式：adc ax, bx</p>
+</li>
+<li>
+<p>实际：ax = ax + bx + CF</p>
+<pre><code class="language-nasm">add ax, bx
+//等价于
+add al, bl
+adc ah, bh
+</code></pre>
+</li>
+</ul>
+<h3 id="--sbb指令">- sbb指令</h3>
+<ul>
+<li>
+<p>带借位减法指令，利用了CF上记录的借位值</p>
+</li>
+<li>
+<p>格式：sbb ax, bx</p>
+</li>
+<li>
+<p>实际：ax = ax -bx - CF</p>
+</li>
+</ul>
+<h3 id="--cmp指令">- cmp指令</h3>
+<ul>
+<li>
+<p>格式：cmp 对象1, 对象2</p>
+</li>
+<li>
+<p>功能：对象1-对象2，不保存结果，将对标志寄存器产生影响</p>
+</li>
+<li>
+<p>例：cmp ax，ax</p>
+<ul>
+<li>
+<p>ZF=1</p>
+</li>
+<li>
+<p>PF=1</p>
+</li>
+<li>
+<p>SF=0</p>
+</li>
+<li>
+<p>CF=0</p>
+</li>
+<li>
+<p>OF=0</p>
+</li>
+</ul>
+</li>
+<li>
+<p>例：mov ax,8 mov bx, 3 cmp ax, bx</p>
+<ul>
+<li>
+<p>ZF=0</p>
+</li>
+<li>
+<p>PF=1</p>
+</li>
+<li>
+<p>SF=0</p>
+</li>
+<li>
+<p>CF=0</p>
+</li>
+<li>
+<p>OF=0</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="--根据cmp结果的转移指令">- 根据cmp结果的转移指令</h3>
+<ul>
+<li>
+<p>//无符号数运算跳转</p>
+</li>
+<li>
+<p>je：等于则转移（ZF=1）</p>
+</li>
+<li>
+<p>jne：不等于则转移（ZF=0）</p>
+</li>
+<li>
+<p>jb：低于则转移（CF=1）</p>
+</li>
+<li>
+<p>jnb：不低于则转移（CF=0）</p>
+</li>
+<li>
+<p>ja：高于则转移（CF=0,ZF=0）</p>
+</li>
+<li>
+<p>jna：不高于则转移（CF=1或ZF=1）</p>
+</li>
+</ul>
+<h3 id="--movsb指令">- movsb指令</h3>
+<ul>
+<li>
+<p>以字节为单位传送字符串，将ds:si指向的内存单元中的字节送入es:di中，然后根据DF标志位同步递增或递减si,di的值</p>
+</li>
+<li>
+<p>以字为单位传送：movsw</p>
+</li>
+<li>
+<p>rep movsb：根据cx中的值，重复执行后面的串传送指令，循环实现cx个字符的传送</p>
+</li>
+</ul>
+<h3 id="--pushf和popf指令">- pushf和popf指令</h3>
+<ul>
+<li>
+<p>pushf：将标志寄存器的值压栈</p>
+</li>
+<li>
+<p>popf：从栈中弹出数据，送入标志寄存器中</p>
+</li>
+<li>
+<p>为直接访问标志寄存器提供了一种方法</p>
+</li>
+</ul>
+<h3 id="--中断">- 中断</h3>
+<ul>
+<li>
+<p>CPU处理突发事件的一个重要技术，处理完成后立即返回断点，继续工作</p>
+</li>
+<li>
+<p>硬件中断</p>
+<ul>
+<li>
+<p>外部中断：外部设备发出的中断请求，利用中断控制器可屏蔽</p>
+</li>
+<li>
+<p>内部中断：除法除数为0,溢出中断，不可屏蔽的中断</p>
+</li>
+</ul>
+</li>
+<li>
+<p>软件中断</p>
+<ul>
+<li>不是真正的中断，只是可被调用执行的一般程序以及DOS的系统功能调用（INT 21H）</li>
+</ul>
+</li>
+<li>
+<p>中断优先权</p>
+<ul>
+<li>
+<p>除法错误、溢出中断、软件中断</p>
+</li>
+<li>
+<p>不可屏蔽中断</p>
+</li>
+<li>
+<p>可屏蔽中断</p>
+</li>
+<li>
+<p>单步中断</p>
+</li>
+</ul>
+</li>
+<li>
+<p>中断类型码</p>
+<ul>
+<li>
+<p>8086CPU用8位中断类型码索引中断处理程序</p>
+</li>
+<li>
+<p>中断类型码对应中断向量表中的地址指向中断处理程序</p>
+</li>
+</ul>
+</li>
+<li>
+<p>8086CPU中断过程</p>
+<ul>
+<li>
+<p>（从中断信息中）取得中断类型码</p>
+</li>
+<li>
+<p>标志寄存器的值入栈（保护标志位）&ndash;&raquo;pushf</p>
+</li>
+<li>
+<p>设置标志寄存器8-TF和9-IF为0 &ndash;&raquo;TF=0,IF=0</p>
+</li>
+<li>
+<p>cs的内容入栈 &ndash;&raquo;push CS</p>
+</li>
+<li>
+<p>IP的内容入栈 &ndash;&raquo;push IP</p>
+</li>
+<li>
+<p>从内存地址为<code>中断类型码*4</code>和<code>中断类型码*4+2</code>的两个字单元中读取中断处理程序的入口地址设置IP和CS</p>
+</li>
+</ul>
+</li>
+<li>
+<p>中断处理程序</p>
+<ul>
+<li>
+<p>保存用到的寄存器</p>
+</li>
+<li>
+<p>处理中断</p>
+</li>
+<li>
+<p>恢复用到的寄存器</p>
+</li>
+<li>
+<p>用iret指令返回（pop IP pop CS popf）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="--int中断">- int中断</h3>
+<ul>
+<li>
+<p>内中断，引发中断过程</p>
+</li>
+<li>
+<p>格式：int 中断类型码</p>
+</li>
+<li>
+<p>int 21中断：</p>
+<ul>
+<li>int中断例程的4c号功能，即程序返回功能</li>
+</ul>
+<pre><code class="language-nasm">mov ax，4c00h
+//等价于
+mov ah, 4ch    ;程序返回
+mov al, 0      ;返回值，0表示正常返回
+int 21h
+</code></pre>
+</li>
+</ul>
+<h3 id="--cpu端口">- CPU端口</h3>
+<ul>
+<li>
+<p>利用<code>in</code>和<code>out</code>指令从指定端口中读或写数据</p>
+</li>
+<li>
+<p>8位端口用al寄存器，访问16位端口用ax寄存器</p>
+</li>
+</ul>
+<h3 id="--shl和shr指令">- shl和shr指令</h3>
+<ul>
+<li>
+<p>逻辑移位指令</p>
+</li>
+<li>
+<p>将一个寄存器或内存单元中的数据向左（右）移</p>
+</li>
+<li>
+<p>将最后多余的一位写入CF中</p>
+</li>
+<li>
+<p>最低位以0来补充</p>
+</li>
+<li>
+<p>如果移动位数大于1,必须将移动位数放在cl中</p>
+</li>
+</ul>
+<h3 id="--cmos-ram">- CMOS RAM</h3>
+<ul>
+<li>
+<p>70H是CMOS RAM地址（读取）端口，71H是写入端口</p>
+</li>
+<li>
+<p>CMOS RAM中存放着当前时间，以下信息长度均为1个字节</p>
+<ul>
+<li>
+<p>秒：00H</p>
+</li>
+<li>
+<p>分：02H</p>
+</li>
+<li>
+<p>时：04H</p>
+</li>
+<li>
+<p>日：07H</p>
+</li>
+<li>
+<p>月：08H</p>
+</li>
+<li>
+<p>年：09H</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="--bcd码">- bcd码</h3>
+<ul>
+<li>
+<p>每4位表示一个十进制位</p>
+</li>
+<li>
+<p>4位内部用二进制0000&ndash;1001表示0-9</p>
+</li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://blog.dx39061.top/2022/02/8086cpu%E6%B1%87%E7%BC%96/" title="8086CPU汇编" target="_blank" rel="external">https://blog.dx39061.top/2022/02/8086cpu%E6%B1%87%E7%BC%96/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License: </strong>
+        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.dx39061.top/2022/02/buu-re-wp/" title="buu re wp"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/"
+                    title="C&#43;&#43; OOP 学习笔记"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2022  -
+    2022
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+    
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
+<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
+            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.19.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '309208aa79ed1d5c7a67',
+        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
+        repo: 'blog_gitalk',
+        owner: 'DX39061',
+        admin: ['[DX39061]'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+
+
+  </body>
+</html>
