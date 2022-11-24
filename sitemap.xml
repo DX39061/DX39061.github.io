@@ -388,6 +388,11 @@
   </url>
   
   <url>
+    <loc>https://blog.dx39061.top/links/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.dx39061.top/series/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

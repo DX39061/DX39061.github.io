@@ -80,7 +80,7 @@
       <pubDate>Tue, 08 Feb 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.dx39061.top/about/</guid>
-      <description>Hi there 👋 This is DX3906 A student from Xidian University, major in Cyberspace Security. CTFer(mainly Reverse Engineering) in XDSEC/L-team. Learning: binary security &amp;amp; web developing &amp;amp; Devops Blog: DX3906&amp;rsquo;s blog email: 21009201351@stu.xidian.edu.cn github: https://github.com/DX39061 吾辈所赴，是为星辰大海</description>
+      <description>Hi there 👋 This is DX3906 A student from Xidian University, major in Cyberspace Security. CTFer(mainly Reverse Engineering) in XDSEC/L-team. Learning: binary security &amp;amp; web developing &amp;amp; Devops Blog: DX3906&amp;rsquo;s blog email: dx3906@stu.xidian.edu.cn github: https://github.com/DX39061 吾辈所赴，是为星辰大海</description>
     </item>
     
     <item>
@@ -90,6 +90,24 @@
       
       <guid>https://blog.dx39061.top/2022/02/%E5%BC%BA%E5%A3%AE%E9%80%86%E5%90%91%E4%BA%BA-wp/</guid>
       <description>第九周 0x00 Hacking with Google: Beginner 做了一半卡住了，偷看了一下官方题解，然后复现一下 ida很容易定位到主函数 int __cdecl main(int argc, const char **argv, const char **envp) { int v3; // er12 __m128i v5; // [rsp+0h] [rbp-38h] BYREF __m128i s2[2]; // [rsp+10h] [rbp-28h]</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.dx39061.top/links/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/links/</guid>
+      <description>Friends Reverier-Xu
+云之君
+track
+果果
+含树
+d33b4t0
+Frank
+P.Z.
+shallow
+想交换友链的师傅欢迎到github仓库提一个issue</description>
     </item>
     
   </channel>
