@@ -11,6 +11,87 @@
     
     
     <item>
+      <title>angr文档翻译（三）Loading a Binary</title>
+      <link>https://blog.dx39061.top/2022/09/loading_a_binary/</link>
+      <pubDate>Thu, 08 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/loading_a_binary/</guid>
+      <description>Loading a Binary 在之前的文档中，你仅仅对angr的加载功能进行了一个简单的使用——你加载了/bin/true，然后在没有动态连接库的情况下再次加载了它</description>
+    </item>
+    
+    <item>
+      <title>简析可重定位目标文件和程序链接过程</title>
+      <link>https://blog.dx39061.top/2022/09/%E7%AE%80%E6%9E%90%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%92%8C%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Thu, 08 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/%E7%AE%80%E6%9E%90%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%92%8C%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B/</guid>
+      <description>C源代码到可执行文件 回顾一下从源代码到可执行文件的基本过程 预处理（pre-processor) 作用：删除注释、文件包含、文本替换、展开宏定义</description>
+    </item>
+    
+    <item>
+      <title>angr文档翻译（二）Top Level Interface</title>
+      <link>https://blog.dx39061.top/2022/09/top_level_interface/</link>
+      <pubDate>Mon, 05 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/top_level_interface/</guid>
+      <description>Top Level Interface 开始之前（Before You Start） 我们预期的angr主要的应用场景是Ipython（或者其他python命令行解释器）。当你不确定可</description>
+    </item>
+    
+    <item>
+      <title>angr文档翻译（一）README</title>
+      <link>https://blog.dx39061.top/2022/09/readme/</link>
+      <pubDate>Mon, 05 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/readme/</guid>
+      <description>README angr是一个多架构二进制分析工具包，能够实现对二进制程序的动态符号执行（像Mayhem, KLEE, 等等）和各种静态分析。如果你想要学习如何使用a</description>
+    </item>
+    
+    <item>
+      <title>堆栈对齐——关于64位程序ret2text失败的溯源</title>
+      <link>https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/</link>
+      <pubDate>Sun, 04 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/</guid>
+      <description>起 以一道简单的pwn题说明，题目参见BUU-rip 查看保护信息，啥都没开，amd64 ❯ checksec ./pwn1 [*] &#39;/home/dx3906/CTF/problem/pwn/buu/rip/pwn1&#39; Arch: amd64-64-little RELRO: Partial RELRO Stack: No canary found NX: NX disabled PIE: No PIE (0x400000) RWX: Has RWX segments 运行 ❯</description>
+    </item>
+    
+    <item>
+      <title>逆向人学密码（二）TEA</title>
+      <link>https://blog.dx39061.top/2022/07/tea/</link>
+      <pubDate>Fri, 29 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/07/tea/</guid>
+      <description>TEA 算法简介 TEA：微型加密算法（Tiny Encryption Algorithm，TEA）是一种易于描述和执行的块密码，通常只需要很少的代码就可实现。 块密码：在</description>
+    </item>
+    
+    <item>
+      <title>逆向人学密码（一）base64编码</title>
+      <link>https://blog.dx39061.top/2022/07/base64/</link>
+      <pubDate>Sun, 10 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/07/base64/</guid>
+      <description>base64编码 编码原理 Base64是一种基于64个可打印字符来表示二进制数据的表示方法 由于$\log_{2}{64}=6$，所以每6个比特</description>
+    </item>
+    
+    <item>
+      <title>Python tips</title>
+      <link>https://blog.dx39061.top/2022/06/python-tips/</link>
+      <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/06/python-tips/</guid>
+      <description>基本输入输出 - 输入 python2： input：希望读取一个合法的python表达式 raw_input：以字符串形式读取输入 python3： 只</description>
+    </item>
+    
+    <item>
+      <title>miniLCTF 2022 Reverse 复盘 &amp; wp</title>
+      <link>https://blog.dx39061.top/2022/05/minilctf-2022-reverse-%E5%A4%8D%E7%9B%98-wp/</link>
+      <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/05/minilctf-2022-reverse-%E5%A4%8D%E7%9B%98-wp/</guid>
+      <description>not RC4 RISC-V 逆向，有找到ida的插件，但装上一直报错，放弃 又找到Ghidra，反编译很丑但能用，使劲看发现是个vm 大致流程及指令 0 0xf1 6 LAB_00100b7e 8 { int i; for</description>
+    </item>
+    
+    <item>
       <title>2022DASCTF X FATE RE Crackme wp</title>
       <link>https://blog.dx39061.top/2022/04/2022dasctf-x-fate-re-crackme-wp/</link>
       <pubDate>Thu, 28 Apr 2022 00:00:00 +0000</pubDate>

@@ -1,0 +1,461 @@
+[PicGo INFO]: Before transform
+[PicGo INFO]: Transforming... Current transformer is [path]
+[PicGo INFO]: Before upload
+[PicGo INFO]: Uploading... Current uploader is [github]
+[PicGo WARN]: failed
+[PicGo ERROR]: RequestError: Error: Client network socket disconnected before secure TLS connection was established
+    at new RequestError (/home/dx3906/.config/yarn/global/node_modules/request-promise-core/lib/errors.js:14:15)
+    at Request.plumbing.callback (/home/dx3906/.config/yarn/global/node_modules/request-promise-core/lib/plumbing.js:87:29)
+    at Request.RP$callback [as _callback] (/home/dx3906/.config/yarn/global/node_modules/request-promise-core/lib/plumbing.js:46:31)
+    at self.callback (/home/dx3906/.config/yarn/global/node_modules/request/request.js:185:22)
+    at Request.emit (node:events:513:28)
+    at Request.onRequestError (/home/dx3906/.config/yarn/global/node_modules/request/request.js:877:8)
+    at ClientRequest.emit (node:events:513:28)
+    at TLSSocket.socketErrorListener (node:_http_client:494:9)
+    at TLSSocket.emit (node:events:513:28)
+    at emitErrorNT (node:internal/streams/destroy:157:8) {
+  cause: Error: Client network socket disconnected before secure TLS connection was established
+      at connResetException (node:internal/errors:705:14)
+      at TLSSocket.onConnectEnd (node:_tls_wrap:1594:19)
+      at TLSSocket.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1358:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21) {
+    code: 'ECONNRESET',
+    path: undefined,
+    host: undefined,
+    port: 0,
+    localAddress: undefined
+  },
+  error: Error: Client network socket disconnected before secure TLS connection was established
+      at connResetException (node:internal/errors:705:14)
+      at TLSSocket.onConnectEnd (node:_tls_wrap:1594:19)
+      at TLSSocket.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1358:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21) {
+    code: 'ECONNRESET',
+    path: undefined,
+    host: undefined,
+    port: 0,
+    localAddress: undefined
+  },
+  options: {
+    method: 'PUT',
+    url: 'https://api.github.com/repos/DX39061/files/contents/imgs/1.png',
+    headers: {
+      Authorization: 'token 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',
+      'User-Agent': 'PicGo'
+    },
+    body: {
+      message: 'Upload by PicGo',
+      branch: 'main',
+      content: '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',
+      path: 'imgs/1.png'
+    },
+    json: true,
+    callback: [Function: RP$callback],
+    transform: undefined,
+    simple: true,
+    resolveWithFullResponse: false,
+    transform2xxOnly: false
+  },
+  response: undefined
+}
+[PicGo INFO]: Before transform
+[PicGo INFO]: Transforming... Current transformer is [path]
+[PicGo INFO]: Before upload
+[PicGo INFO]: Uploading... Current uploader is [github]
+[PicGo WARN]: failed
+[PicGo ERROR]: StatusCodeError: 401 - {"message":"Bad credentials","documentation_url":"https://docs.github.com/rest"}
+    at new StatusCodeError (/home/dx3906/.config/yarn/global/node_modules/request-promise-core/lib/errors.js:32:15)
+    at Request.plumbing.callback (/home/dx3906/.config/yarn/global/node_modules/request-promise-core/lib/plumbing.js:104:33)
+    at Request.RP$callback [as _callback] (/home/dx3906/.config/yarn/global/node_modules/request-promise-core/lib/plumbing.js:46:31)
+    at Request.self.callback (/home/dx3906/.config/yarn/global/node_modules/request/request.js:185:22)
+    at Request.emit (node:events:513:28)
+    at Request.<anonymous> (/home/dx3906/.config/yarn/global/node_modules/request/request.js:1154:10)
+    at Request.emit (node:events:513:28)
+    at IncomingMessage.<anonymous> (/home/dx3906/.config/yarn/global/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (node:events:627:28)
+    at IncomingMessage.emit (node:events:525:35) {
+  statusCode: 401,
+  error: {
+    message: 'Bad credentials',
+    documentation_url: 'https://docs.github.com/rest'
+  },
+  options: {
+    method: 'PUT',
+    url: 'https://api.github.com/repos/DX39061/files/contents/imgs/1.png',
+    headers: {
+      Authorization: 'token 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',
+      'User-Agent': 'PicGo'
+    },
+    body: {
+      message: 'Upload by PicGo',
+      branch: 'main',
+      content: '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',
+      path: 'imgs/1.png'
+    },
+    json: true,
+    callback: [Function: RP$callback],
+    transform: undefined,
+    simple: true,
+    resolveWithFullResponse: false,
+    transform2xxOnly: false
+  },
+  response: <ref *1> IncomingMessage {
+    _readableState: ReadableState {
+      objectMode: false,
+      highWaterMark: 16384,
+      buffer: BufferList { head: null, tail: null, length: 0 },
+      length: 0,
+      pipes: [],
+      flowing: true,
+      ended: true,
+      endEmitted: true,
+      reading: false,
+      constructed: true,
+      sync: true,
+      needReadable: false,
+      emittedReadable: false,
+      readableListening: false,
+      resumeScheduled: false,
+      errorEmitted: false,
+      emitClose: true,
+      autoDestroy: true,
+      destroyed: true,
+      errored: null,
+      closed: true,
+      closeEmitted: true,
+      defaultEncoding: 'utf8',
+      awaitDrainWriters: null,
+      multiAwaitDrain: false,
+      readingMore: true,
+      dataEmitted: true,
+      decoder: null,
+      encoding: null,
+      [Symbol(kPaused)]: false
+    },
+    _events: [Object: null prototype] {
+      end: [Array],
+      close: [Array],
+      data: [Function (anonymous)],
+      error: [Function (anonymous)]
+    },
+    _eventsCount: 4,
+    _maxListeners: undefined,
+    socket: TLSSocket {
+      _tlsOptions: [Object],
+      _secureEstablished: true,
+      _securePending: false,
+      _newSessionPending: false,
+      _controlReleased: true,
+      secureConnecting: false,
+      _SNICallback: null,
+      servername: 'api.github.com',
+      alpnProtocol: false,
+      authorized: true,
+      authorizationError: null,
+      encrypted: true,
+      _events: [Object: null prototype],
+      _eventsCount: 8,
+      connecting: false,
+      _hadError: false,
+      _parent: [Socket],
+      _host: null,
+      _closeAfterHandlingError: false,
+      _readableState: [ReadableState],
+      _maxListeners: undefined,
+      _writableState: [WritableState],
+      allowHalfOpen: false,
+      _sockname: null,
+      _pendingData: null,
+      _pendingEncoding: '',
+      server: undefined,
+      _server: null,
+      ssl: [TLSWrap],
+      _requestCert: true,
+      _rejectUnauthorized: true,
+      parser: null,
+      _httpMessage: [ClientRequest],
+      [Symbol(res)]: [TLSWrap],
+      [Symbol(verified)]: true,
+      [Symbol(pendingSession)]: null,
+      [Symbol(async_id_symbol)]: 27,
+      [Symbol(kHandle)]: [TLSWrap],
+      [Symbol(lastWriteQueueSize)]: 0,
+      [Symbol(timeout)]: null,
+      [Symbol(kBuffer)]: null,
+      [Symbol(kBufferCb)]: null,
+      [Symbol(kBufferGen)]: null,
+      [Symbol(kCapture)]: false,
+      [Symbol(kSetNoDelay)]: false,
+      [Symbol(kSetKeepAlive)]: false,
+      [Symbol(kSetKeepAliveInitialDelay)]: 0,
+      [Symbol(kBytesRead)]: 0,
+      [Symbol(kBytesWritten)]: 0,
+      [Symbol(connect-options)]: [Object],
+      [Symbol(RequestTimeout)]: undefined
+    },
+    httpVersionMajor: 1,
+    httpVersionMinor: 1,
+    httpVersion: '1.1',
+    complete: true,
+    rawHeaders: [
+      'Server',
+      'GitHub.com',
+      'Date',
+      'Tue, 13 Dec 2022 18:13:03 GMT',
+      'Content-Type',
+      'application/json; charset=utf-8',
+      'Content-Length',
+      '80',
+      'X-GitHub-Media-Type',
+      'github.v3',
+      'X-RateLimit-Limit',
+      '60',
+      'X-RateLimit-Remaining',
+      '59',
+      'X-RateLimit-Reset',
+      '1670958783',
+      'X-RateLimit-Used',
+      '1',
+      'X-RateLimit-Resource',
+      'core',
+      'Access-Control-Expose-Headers',
+      'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset',
+      'Access-Control-Allow-Origin',
+      '*',
+      'Strict-Transport-Security',
+      'max-age=31536000; includeSubdomains; preload',
+      'X-Frame-Options',
+      'deny',
+      'X-Content-Type-Options',
+      'nosniff',
+      'X-XSS-Protection',
+      '0',
+      'Referrer-Policy',
+      'origin-when-cross-origin, strict-origin-when-cross-origin',
+      'Content-Security-Policy',
+      "default-src 'none'",
+      'Vary',
+      'Accept-Encoding, Accept, X-Requested-With',
+      'X-GitHub-Request-Id',
+      'C87E:9371:17DD474:18CD499:6398C0AF',
+      'connection',
+      'close'
+    ],
+    rawTrailers: [],
+    aborted: false,
+    upgrade: false,
+    url: '',
+    method: null,
+    statusCode: 401,
+    statusMessage: 'Unauthorized',
+    client: TLSSocket {
+      _tlsOptions: [Object],
+      _secureEstablished: true,
+      _securePending: false,
+      _newSessionPending: false,
+      _controlReleased: true,
+      secureConnecting: false,
+      _SNICallback: null,
+      servername: 'api.github.com',
+      alpnProtocol: false,
+      authorized: true,
+      authorizationError: null,
+      encrypted: true,
+      _events: [Object: null prototype],
+      _eventsCount: 8,
+      connecting: false,
+      _hadError: false,
+      _parent: [Socket],
+      _host: null,
+      _closeAfterHandlingError: false,
+      _readableState: [ReadableState],
+      _maxListeners: undefined,
+      _writableState: [WritableState],
+      allowHalfOpen: false,
+      _sockname: null,
+      _pendingData: null,
+      _pendingEncoding: '',
+      server: undefined,
+      _server: null,
+      ssl: [TLSWrap],
+      _requestCert: true,
+      _rejectUnauthorized: true,
+      parser: null,
+      _httpMessage: [ClientRequest],
+      [Symbol(res)]: [TLSWrap],
+      [Symbol(verified)]: true,
+      [Symbol(pendingSession)]: null,
+      [Symbol(async_id_symbol)]: 27,
+      [Symbol(kHandle)]: [TLSWrap],
+      [Symbol(lastWriteQueueSize)]: 0,
+      [Symbol(timeout)]: null,
+      [Symbol(kBuffer)]: null,
+      [Symbol(kBufferCb)]: null,
+      [Symbol(kBufferGen)]: null,
+      [Symbol(kCapture)]: false,
+      [Symbol(kSetNoDelay)]: false,
+      [Symbol(kSetKeepAlive)]: false,
+      [Symbol(kSetKeepAliveInitialDelay)]: 0,
+      [Symbol(kBytesRead)]: 0,
+      [Symbol(kBytesWritten)]: 0,
+      [Symbol(connect-options)]: [Object],
+      [Symbol(RequestTimeout)]: undefined
+    },
+    _consuming: false,
+    _dumped: false,
+    req: ClientRequest {
+      _events: [Object: null prototype],
+      _eventsCount: 5,
+      _maxListeners: undefined,
+      outputData: [],
+      outputSize: 0,
+      writable: true,
+      destroyed: false,
+      _last: true,
+      chunkedEncoding: false,
+      shouldKeepAlive: false,
+      maxRequestsOnConnectionReached: false,
+      _defaultKeepAlive: true,
+      useChunkedEncodingByDefault: true,
+      sendDate: false,
+      _removedConnection: false,
+      _removedContLen: false,
+      _removedTE: false,
+      strictContentLength: false,
+      _contentLength: 3998,
+      _hasBody: true,
+      _trailer: '',
+      finished: true,
+      _headerSent: true,
+      _closed: false,
+      socket: [TLSSocket],
+      _header: 'PUT /repos/DX39061/files/contents/imgs/1.png HTTP/1.1\r\n' +
+        'Authorization: token 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\r\n' +
+        'User-Agent: PicGo\r\n' +
+        'host: api.github.com\r\n' +
+        'accept: application/json\r\n' +
+        'content-type: application/json\r\n' +
+        'content-length: 3998\r\n' +
+        'Connection: close\r\n' +
+        '\r\n',
+      _keepAliveTimeout: 0,
+      _onPendingData: [Function: nop],
+      agent: [TunnelingAgent],
+      socketPath: undefined,
+      method: 'PUT',
+      maxHeaderSize: undefined,
+      insecureHTTPParser: undefined,
+      path: '/repos/DX39061/files/contents/imgs/1.png',
+      _ended: true,
+      res: [Circular *1],
+      aborted: false,
+      timeoutCb: null,
+      upgradeOrConnect: false,
+      parser: null,
+      maxHeadersCount: null,
+      reusedSocket: false,
+      host: 'api.github.com',
+      protocol: 'https:',
+      [Symbol(kCapture)]: false,
+      [Symbol(kBytesWritten)]: 0,
+      [Symbol(kEndCalled)]: true,
+      [Symbol(kNeedDrain)]: false,
+      [Symbol(corked)]: 0,
+      [Symbol(kOutHeaders)]: [Object: null prototype],
+      [Symbol(kUniqueHeaders)]: null
+    },
+    request: Request {
+      _events: [Object: null prototype],
+      _eventsCount: 5,
+      _maxListeners: undefined,
+      method: 'PUT',
+      headers: [Object],
+      body: '{"message":"Upload by PicGo","branch":"main","content":"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","path":"imgs/1.png"}',
+      readable: true,
+      writable: true,
+      explicitMethod: true,
+      _qs: [Querystring],
+      _auth: [Auth],
+      _oauth: [OAuth],
+      _multipart: [Multipart],
+      _redirect: [Redirect],
+      _tunnel: [Tunnel],
+      _rp_resolve: [Function (anonymous)],
+      _rp_reject: [Function (anonymous)],
+      _rp_promise: [Promise],
+      _rp_callbackOrig: undefined,
+      callback: [Function (anonymous)],
+      _rp_options: [Object],
+      setHeader: [Function (anonymous)],
+      hasHeader: [Function (anonymous)],
+      getHeader: [Function (anonymous)],
+      removeHeader: [Function (anonymous)],
+      localAddress: undefined,
+      pool: {},
+      dests: [],
+      __isRequestRequest: true,
+      _callback: [Function: RP$callback],
+      uri: [Url],
+      proxy: [Url],
+      tunnel: true,
+      agent: [TunnelingAgent],
+      setHost: true,
+      originalCookieHeader: undefined,
+      _disableCookies: true,
+      _jar: undefined,
+      port: 443,
+      host: 'api.github.com',
+      path: '/repos/DX39061/files/contents/imgs/1.png',
+      _json: true,
+      httpModule: [Object],
+      _started: true,
+      href: 'https://api.github.com/repos/DX39061/files/contents/imgs/1.png',
+      req: [ClientRequest],
+      ntick: true,
+      response: [Circular *1],
+      originalHost: 'api.github.com',
+      originalHostHeaderName: 'host',
+      responseContent: [Circular *1],
+      _destdata: true,
+      _ended: true,
+      _callbackCalled: true,
+      [Symbol(kCapture)]: false
+    },
+    toJSON: [Function: responseToJSON],
+    caseless: Caseless { dict: [Object] },
+    body: {
+      message: 'Bad credentials',
+      documentation_url: 'https://docs.github.com/rest'
+    },
+    [Symbol(kCapture)]: false,
+    [Symbol(kHeaders)]: {
+      server: 'GitHub.com',
+      date: 'Tue, 13 Dec 2022 18:13:03 GMT',
+      'content-type': 'application/json; charset=utf-8',
+      'content-length': '80',
+      'x-github-media-type': 'github.v3',
+      'x-ratelimit-limit': '60',
+      'x-ratelimit-remaining': '59',
+      'x-ratelimit-reset': '1670958783',
+      'x-ratelimit-used': '1',
+      'x-ratelimit-resource': 'core',
+      'access-control-expose-headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset',
+      'access-control-allow-origin': '*',
+      'strict-transport-security': 'max-age=31536000; includeSubdomains; preload',
+      'x-frame-options': 'deny',
+      'x-content-type-options': 'nosniff',
+      'x-xss-protection': '0',
+      'referrer-policy': 'origin-when-cross-origin, strict-origin-when-cross-origin',
+      'content-security-policy': "default-src 'none'",
+      vary: 'Accept-Encoding, Accept, X-Requested-With',
+      'x-github-request-id': 'C87E:9371:17DD474:18CD499:6398C0AF',
+      connection: 'close'
+    },
+    [Symbol(kHeadersCount)]: 42,
+    [Symbol(kTrailers)]: null,
+    [Symbol(kTrailersCount)]: 0,
+    [Symbol(RequestTimeout)]: undefined
+  }
+}

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        版本控制（git） - DX3906&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="XDSEC 2022 Dev组 第二次组会" />
+    <meta name="generator" content="Hugo 0.108.0 with theme pure" />
+    <title>版本控制（git） - DX3906&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="版本控制（git）" />
+<meta property="og:description" content="XDSEC 2022 Dev组 第二次组会" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/12/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6git/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-12-03T00:00:00+00:00" />
+<meta itemprop="name" content="版本控制（git）">
+<meta itemprop="description" content="XDSEC 2022 Dev组 第二次组会"><meta itemprop="datePublished" content="2022-12-03T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-12-03T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1530">
+<meta itemprop="keywords" content="git," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="版本控制（git）"/>
+<meta name="twitter:description" content="XDSEC 2022 Dev组 第二次组会"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/DX39061" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-links">
+                <a href="/links/">
+                    <i class="icon icon-friendship"></i>
+                  <span class="menu-title">Links</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello, hugo</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" class="title">NepnepxCatCTF Reverse CatFly WriteUp</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2023-01-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2023-01-01</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/12/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9Bgodeep-wp/" class="title">春秋杯冬季赛godeep wp</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-12-26 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-12-26</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" class="title">可执行文件概述和ssh使用简介</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-12-23 00:28:04 &#43;0800 CST" itemprop="datePublished">2022-12-23</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/12/%E5%88%A9%E7%94%A8%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80%E8%BF%9B%E8%A1%8Cret%E8%B7%B3%E8%BD%AC%E7%9A%84%E7%AE%80%E5%8D%95%E6%8E%A7%E5%88%B6%E6%B5%81%E6%B7%B7%E6%B7%86/" class="title">ret跳转的简单控制流混淆</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-12-14 02:27:58 &#43;0800 CST" itemprop="datePublished">2022-12-14</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://blog.dx39061.top/2022/12/nctf2022-ccccha-wp/" class="title">NCTF2022 ccccha 花指令/混淆 详解</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-12-10 02:51:35 &#43;0800 CST" itemprop="datePublished">2022-12-10</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">11</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">10</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
+                    class="tag-list-count">7</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
+                    class="tag-list-count">10</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/executable/" class="tag-list-link">executable</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/git/" class="tag-list-link">git</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/obfuscation/" class="tag-list-link">obfuscation</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
+                    class="tag-list-count">24</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ssh/" class="tag-list-link">ssh</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/windows/" class="tag-list-link">windows</a><span
+                    class="tag-list-count">1</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2022/12/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6git/"
+    >版本控制（git）</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://blog.dx39061.top/2022/12/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6git/" class="article-date">
+  <time datetime="2022-12-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-12-03</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/dev/"> Dev </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/git/"> git </a>
+  </span>
+
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/12/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6git/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1530字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h1 id="版本控制git">版本控制（git）</h1>
+<h2 id="为什么需要版本控制">为什么需要版本控制</h2>
+<ul>
+<li>
+<p>方便管理不同功能的多个版本</p>
+</li>
+<li>
+<p>方便出问题后回滚</p>
+</li>
+<li>
+<p>方便多人协作</p>
+</li>
+</ul>
+<h2 id="git数据模型">git数据模型</h2>
+<h3 id="要存什么">#要存什么？</h3>
+<ul>
+<li>
+<p>目录结构（tree）</p>
+</li>
+<li>
+<p>文件详细内容（blob对象/数据对象）</p>
+</li>
+<li>
+<p>各个版本/提交的历史记录（snap快照）</p>
+</li>
+<li>
+<p>历史记录关联/先后顺序（有向无环图）</p>
+</li>
+</ul>
+<pre><code>o &lt;-- o &lt;-- o &lt;-- o &lt;---- o
+            ^            /
+             \          v
+              --- o &lt;-- o
+</code></pre>
+<h3 id="伪代码表示">#伪代码表示</h3>
+<pre><code>// 文件就是一组数据
+type blob = array&lt;byte&gt;
+
+// 一个包含文件和目录的目录
+type tree = map&lt;string, tree | blob&gt;
+
+// 每个提交都包含一个父辈，元数据和顶层树
+type commit = struct {
+    parent: array&lt;commit&gt;    // 父节点
+    author: string           // 作者
+    message: string          // 提交信息
+    snapshot: tree           // 目录结构
+}
+</code></pre>
+<h3 id="对象和内存寻址">#对象和内存寻址</h3>
+<ul>
+<li>
+<p>在git中blob、tree、commit都是object（对象）</p>
+</li>
+<li>
+<p>git在存储数据时，所有的对象都会基于他们的<code>SHA1</code>散列值（通常为40位16进制值）进行寻址，由此任意一个提交都会被一串字符串唯一标识</p>
+</li>
+</ul>
+<h3 id="一些特殊的引用">#一些特殊的引用</h3>
+<p>SHA1运算的结果40位16进制数难以记忆，所以为了更加方便的获取一些对象的地址，git对一些哈希赋予了人类可读的名字，叫做对象的<code>引用</code>，常见的引用有：</p>
+<ul>
+<li>
+<p>HEAD：指向当前工作区所在的分支/提交</p>
+</li>
+<li>
+<p>master/main：仓库主分支</p>
+</li>
+<li>
+<p>origin：远程仓库</p>
+</li>
+</ul>
+<h2 id="明确git和github的关系">明确git和github的关系</h2>
+<ul>
+<li>
+<p>git 不依赖于 github 存在。</p>
+</li>
+<li>
+<p>github可以作为一个远程git仓库，进行代码托管，方便多人协作</p>
+</li>
+</ul>
+<h2 id="git本地基本工作流">git本地基本工作流</h2>
+<h3 id="三个区域">#三个区域</h3>
+<ul>
+<li>本地目录（工作区）</li>
+</ul>
+<p>    打开文件夹实际看到的</p>
+<ul>
+<li>暂存区（索引区）</li>
+</ul>
+<p>    在文件被提交至本地仓库之前所处的位置</p>
+<ul>
+<li>本地仓库（.git文件夹）</li>
+</ul>
+<p>    存储着各种历史版本</p>
+<h3 id="操作流程">#操作流程</h3>
+<ul>
+<li>初始化git仓库</li>
+</ul>
+<p>    <code>git init</code></p>
+<ul>
+<li>新建/修改/删除文件</li>
+</ul>
+<p>    <code>vim/rm/...</code></p>
+<p>    <code>git status</code>：查看git仓库状态</p>
+<ul>
+<li>把文件添加到暂存区</li>
+</ul>
+<p>    <code>git add</code></p>
+<p> 为什么需要暂存区？</p>
+<blockquote>
+<p>您开发了两个独立的特性，然后您希望创建两个独立的提交，其中第一个提交仅包含第一个特性，而第二个提交仅包含第二个特性。</p>
+</blockquote>
+<p>简单来说就是可以自由地控制提交的内容，使用更灵活</p>
+<ul>
+<li>
+<p>将暂存区中的文件提交到本地仓库</p>
+<p><code>git commit</code> </p>
+<p><code>git log</code>：查看commit信息</p>
+</li>
+<li>
+<p>etc&hellip;</p>
+</li>
+</ul>
+<h2 id="git-branch分支">git branch（分支）</h2>
+<h3 id="为什么需要分支">#为什么需要分支？</h3>
+<ul>
+<li>
+<p>隔离开发主线，确认无误后再进行分支合并</p>
+</li>
+<li>
+<p>分离不同功能，使版本管理更有条理</p>
+</li>
+<li>
+<p>多人协作更方便</p>
+</li>
+</ul>
+<h3 id="命令行操作">#命令行操作</h3>
+<ul>
+<li>
+<p>详细请看<code>git help branch</code>，这里仅进行简单罗列</p>
+</li>
+<li>
+<p>git branch -v：查看现有分支</p>
+</li>
+<li>
+<p>git branch <!-- raw HTML omitted -->：创建分支</p>
+</li>
+<li>
+<p>git checkout <!-- raw HTML omitted -->：切换分支</p>
+</li>
+<li>
+<p>git merge <!-- raw HTML omitted -->：合并分支</p>
+</li>
+</ul>
+<h2 id="git-remote远程仓库">git remote（远程仓库）</h2>
+<p>将代码保存在远程仓库，方便多人协作，方便他人拉取代码</p>
+<h3 id="明确">#明确</h3>
+<ul>
+<li>
+<p>git remote仓库与 本地仓库 是完全一样的结构，一样有commit/branch等概念</p>
+</li>
+<li>
+<p>注意如果在本地创建了新分支，远程仓库也需要创建新分支（一般是push同时创建新分支）</p>
+</li>
+</ul>
+<h3 id="命令行操作-1">#命令行操作</h3>
+<ul>
+<li>
+<p>git remote -v：查看远程仓库信息</p>
+</li>
+<li>
+<p>git remote add <!-- raw HTML omitted --> <!-- raw HTML omitted -->：添加一个远程仓库</p>
+</li>
+<li>
+<p>git remote rm <!-- raw HTML omitted -->：删除一个远程仓库</p>
+</li>
+<li>
+<p>git clone <!-- raw HTML omitted -->：克隆一个远程仓库到本地</p>
+</li>
+<li>
+<p>git push <!-- raw HTML omitted --> <!-- raw HTML omitted -->:<!-- raw HTML omitted -->：向远程仓库推送代码</p>
+</li>
+<li>
+<p>git fetch <!-- raw HTML omitted --> <!-- raw HTML omitted -->：从远程仓库拉取代码</p>
+</li>
+<li>
+<p>git pull = git fetch + git merge</p>
+</li>
+</ul>
+<h2 id="git常见场景">git常见场景</h2>
+<h3 id="本地初始化仓库提交到github">#本地初始化仓库提交到github</h3>
+<ul>
+<li>
+<p><code>git init</code>初始化git仓库</p>
+</li>
+<li>
+<p>注意添加<code>.gitignore</code>文件忽略隐私文件、多余文件</p>
+</li>
+<li>
+<p><code>git add</code>、<code>git commit</code>&hellip;</p>
+</li>
+<li>
+<p><code>git push</code> 到远程仓库</p>
+</li>
+</ul>
+<h3 id="clone远程仓库并在本地编辑">#clone远程仓库并在本地编辑</h3>
+<ul>
+<li>
+<p>复制远程仓库url</p>
+</li>
+<li>
+<p>本地进行<code>git clone</code></p>
+</li>
+<li>
+<p>进行开发</p>
+</li>
+<li>
+<p>push到远程仓库</p>
+</li>
+</ul>
+<h3 id="fork仓库并发起prpull-request">#fork仓库并发起pr(pull request)</h3>
+<ul>
+<li>
+<p>本地拉取github仓库</p>
+</li>
+<li>
+<p>创建新分支，在新分支上进行开发</p>
+</li>
+<li>
+<p>push到github仓库</p>
+</li>
+<li>
+<p>提交pr, 等待原仓库管理员合并</p>
+</li>
+</ul>
+<h2 id="tips">tips</h2>
+<h3 id="撤销commit">#撤销commit</h3>
+<ul>
+<li>
+<p>未push到remote</p>
+<ul>
+<li>git reset &ndash;soft</li>
+</ul>
+<p>   把commit撤销到暂存区</p>
+<ul>
+<li>
+<p>git reset &ndash;mixed</p>
+<p>把commit撤销到工作区（同时撤销git commit和git add）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>已push到remote</p>
+<ul>
+<li>
+<p>git reset &ndash;hard</p>
+<p>清除撤销commit的一切记录</p>
+</li>
+<li>
+<p>git revert</p>
+<p>生成新的撤销commit</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="merge和rebase">#merge和rebase</h3>
+<ul>
+<li>
+<p>merge：合并两分支，保留所有提交记录</p>
+</li>
+<li>
+<p>rebase：<strong>变基</strong>，改变一部分commit记录，使git log更加简洁</p>
+</li>
+<li>
+<p>rebase -i：常用于重排commit</p>
+</li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://blog.dx39061.top/2022/12/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6git/" title="版本控制（git）" target="_blank" rel="external">https://blog.dx39061.top/2022/12/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6git/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License: </strong>
+        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.dx39061.top/2022/11/flare-on9-wp/" title="[TODO]Flare-On9 Challenges WriteUp"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.dx39061.top/2022/12/python%E5%AD%97%E8%8A%82%E7%A0%81%E8%8A%B1%E6%8C%87%E4%BB%A4/"
+                    title="pyc、字节码与花指令"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2022  -
+    2023
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+    
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
+<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
+            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.13.0/js/md5.min.js"></script>
+<script type="text/javascript">
+      const gitalk = new Gitalk({
+        clientID: '309208aa79ed1d5c7a67',
+        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
+        repo: 'DX39061.github.io',
+        owner: 'DX39061',
+        admin: ['DX39061'],
+        id: md5(location.pathname), 
+        distractionFreeMode: false 
+      });
+
+    gitalk.render('comments');
+</script>
+
+
+  </body>
+</html>
