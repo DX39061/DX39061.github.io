@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>hugo-theme - Tag - DX3906&#39;s blog</title>
+        <link>https://blog.dx39061.top/tags/hugo-theme/</link>
+        <description>hugo-theme - Tag - DX3906&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>dx390611@gmail.com (DX3906)</managingEditor>
+            <webMaster>dx390611@gmail.com (DX3906)</webMaster><lastBuildDate>Thu, 05 Jan 2023 18:29:10 &#43;0800</lastBuildDate><atom:link href="https://blog.dx39061.top/tags/hugo-theme/" rel="self" type="application/rss+xml" /><item>
+    <title>Hello, LoveIt</title>
+    <link>https://blog.dx39061.top/2023/01/hello-loveit/</link>
+    <pubDate>Thu, 05 Jan 2023 18:29:10 &#43;0800</pubDate>
+    <author>DX3906</author>
+    <guid>https://blog.dx39061.top/2023/01/hello-loveit/</guid>
+    <description><![CDATA[生命在于折腾]]></description>
+</item>
+</channel>
+</rss>

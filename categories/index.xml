@@ -6,10 +6,19 @@
     <description>Recent content in Categories on DX3906&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>CC BY 4.0 CN</copyright>
-    <lastBuildDate>Sun, 01 Jan 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 04 Jan 2023 17:13:09 +0800</lastBuildDate>
     
         <atom:link href="https://blog.dx39061.top/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Archlinux Grub引导抢救实录</title>
+      <link>https://blog.dx39061.top/2023/01/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95/</link>
+      <pubDate>Wed, 04 Jan 2023 17:13:09 +0800</pubDate>
+      
+      <guid>https://blog.dx39061.top/2023/01/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95/</guid>
+      <description>我只想扬了系统更新报错 刚开始其实并没想折腾内核，只是想解决系统更新一些看不懂的报错 archlinux在每次进行系统更新时，如果涉及内核相关，</description>
+    </item>
     
     <item>
       <title>NepnepxCatCTF Reverse CatFly WriteUp</title>
@@ -57,21 +66,21 @@
     </item>
     
     <item>
+      <title>[TODO]pyc、字节码与花指令</title>
+      <link>https://blog.dx39061.top/2022/12/python%E5%AD%97%E8%8A%82%E7%A0%81%E8%8A%B1%E6%8C%87%E4%BB%A4/</link>
+      <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/12/python%E5%AD%97%E8%8A%82%E7%A0%81%E8%8A%B1%E6%8C%87%E4%BB%A4/</guid>
+      <description>pyc文件简析 pyc是什么？ 当我们在代码中import另外的python文件时，就会生成一个相应的pyc文件（python3会将其放在__p</description>
+    </item>
+    
+    <item>
       <title>[TODO]windows R3 常见hook方式</title>
       <link>https://blog.dx39061.top/2022/12/windows-r3%E5%B8%B8%E8%A7%81hook%E6%80%BB%E7%BB%93/</link>
       <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.dx39061.top/2022/12/windows-r3%E5%B8%B8%E8%A7%81hook%E6%80%BB%E7%BB%93/</guid>
       <description>Rreference https://bbs.pediy.com/thread-270901.htm#msg_header_h1_1</description>
-    </item>
-    
-    <item>
-      <title>pyc、字节码与花指令</title>
-      <link>https://blog.dx39061.top/2022/12/python%E5%AD%97%E8%8A%82%E7%A0%81%E8%8A%B1%E6%8C%87%E4%BB%A4/</link>
-      <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.dx39061.top/2022/12/python%E5%AD%97%E8%8A%82%E7%A0%81%E8%8A%B1%E6%8C%87%E4%BB%A4/</guid>
-      <description>pyc文件简析 pyc是什么？ 当我们在代码中import另外的python文件时，就会生成一个相应的pyc文件（python3会将其放在__p</description>
     </item>
     
     <item>
@@ -180,15 +189,6 @@
       
       <guid>https://blog.dx39061.top/2022/09/rc_algorithms/</guid>
       <description>RC algorithms RC algorithms 是由Ron Rivest设计的一系列加密算法，在逆向中常见到的RC4属于其中的一个，下面引自维基百科 RC1 was never published. RC2 was a 64-bit block cipher developed in 1987. RC3 was broken before</description>
-    </item>
-    
-    <item>
-      <title>angr文档翻译（四）Solver Engine</title>
-      <link>https://blog.dx39061.top/2022/09/solver_engine/</link>
-      <pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.dx39061.top/2022/09/solver_engine/</guid>
-      <description>Solver Engine angr的强大之处并不在于它是个模拟器，而在于它能够使用符号变量进行符号执行。与其说一个变量对应一个具体的数值，不如说一个变量对应着一个</description>
     </item>
     
   </channel>

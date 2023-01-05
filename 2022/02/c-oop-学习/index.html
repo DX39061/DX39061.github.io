@@ -1,399 +1,298 @@
 <!DOCTYPE html>
-<html lang="zh">
-  <head>
-    <title>
-        C&#43;&#43; OOP 学习笔记 - DX3906&#39;s blog
-      </title>
+<html lang="zh-CN">
+    <head>
         <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-transform" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    
-    <meta name="theme-color" content="#000000" />
-    
-    <meta http-equiv="window-target" content="_top" />
-    
-    
-    <meta name="description" content="C&#43;&#43; OOP 学习笔记" />
-    <meta name="generator" content="Hugo 0.108.0 with theme pure" />
-    <title>C&#43;&#43; OOP 学习笔记 - DX3906&#39;s blog</title>
-    
-    
-    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
-    
-    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="C&#43;&#43; OOP 学习笔记" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>C&#43;&#43; OOP 学习笔记 - DX3906&#39;s blog</title><meta name="Description" content="DX3906&#39;s blog"><meta property="og:title" content="C&#43;&#43; OOP 学习笔记" />
 <meta property="og:description" content="C&#43;&#43; OOP 学习笔记" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/" /><meta property="og:image" content="https://blog.dx39061.top/images/avatar.jpg"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-02-25T00:00:00+00:00" />
-<meta itemprop="name" content="C&#43;&#43; OOP 学习笔记">
-<meta itemprop="description" content="C&#43;&#43; OOP 学习笔记"><meta itemprop="datePublished" content="2022-02-25T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-02-25T00:00:00+00:00" />
-<meta itemprop="wordCount" content="4485">
-<meta itemprop="keywords" content="cpp,oop," /><meta name="twitter:card" content="summary"/>
+<meta property="article:modified_time" content="2022-02-25T00:00:00+00:00" /><meta property="og:site_name" content="DX3906&#39;s blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.dx39061.top/images/avatar.jpg"/>
+
 <meta name="twitter:title" content="C&#43;&#43; OOP 学习笔记"/>
 <meta name="twitter:description" content="C&#43;&#43; OOP 学习笔记"/>
+<meta name="application-name" content="DX3906&#39;s blog">
+<meta name="apple-mobile-web-app-title" content="DX3906&#39;s blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/" /><link rel="prev" href="https://blog.dx39061.top/2022/02/8086cpu%E6%B1%87%E7%BC%96/" /><link rel="next" href="https://blog.dx39061.top/2022/04/buu-misc-wp/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "C++ OOP 学习笔记",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.dx39061.top\/2022\/02\/c-oop-%E5%AD%A6%E4%B9%A0\/"
+        },"genre": "posts","keywords": "cpp, oop","wordcount":  1660 ,
+        "url": "https:\/\/blog.dx39061.top\/2022\/02\/c-oop-%E5%AD%A6%E4%B9%A0\/","datePublished": "2022-02-25T00:00:00+00:00","dateModified": "2022-02-25T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "dx3906"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-    <!--[if lte IE 9]>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-      <![endif]-->
-
-    <!--[if lt IE 9]>
-        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-      <![endif]-->
-  </head>
-
-  
-  
-
-  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
-    <div class="slimContent">
-      <div class="navbar-header">
-        <div class="profile-block text-center">
-          <a id="avatar" href="https://github.com/DX39061" target="_blank">
-            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
-          </a>
-          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
-          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
-          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
-        </div><div class="search" id="search-form-wrap">
-    <form class="search-form sidebar-form">
-        <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="搜索" />
-            <span class="input-group-btn">
-                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
-                        class="icon icon-search"></i></button>
-            </span>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="DX3906&#39;s blog"><span id="id-1" class="typeit"></span></a>
         </div>
-        <div class="ins-search">
-            <div class="ins-search-mask"></div>
-            <div class="ins-search-container">
-                <div class="ins-input-wrapper">
-                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
-                        x-webkit-speech />
-                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
-                        aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="ins-section-wrapper">
-                    <div class="ins-section-container"></div>
-                </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/">< 归档 ></a><a class="menu-item" href="/tags/">< 标签 ></a><a class="menu-item" href="/categories/">< 分类 ></a><a class="menu-item" href="/links">< 友链 ></a><a class="menu-item" href="/about">< 关于 ></a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="DX3906&#39;s blog"><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
             </div>
         </div>
-    </form>
-</div>
-        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-        <ul class="nav navbar-nav main-nav">
-            <li class="menu-item menu-item-home">
-                <a href="/">
-                    <i class="icon icon-home-fill"></i>
-                  <span class="menu-title">Home</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-archives">
-                <a href="/posts/">
-                    <i class="icon icon-archives-fill"></i>
-                  <span class="menu-title">Archives</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-categories">
-                <a href="/categories/">
-                    <i class="icon icon-folder"></i>
-                  <span class="menu-title">Categories</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-tags">
-                <a href="/tags/">
-                    <i class="icon icon-tags"></i>
-                  <span class="menu-title">Tags</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-about">
-                <a href="/about/">
-                    <i class="icon icon-cup-fill"></i>
-                  <span class="menu-title">About</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-links">
-                <a href="/links/">
-                    <i class="icon icon-friendship"></i>
-                  <span class="menu-title">Links</span>
-                </a>
-            </li>
-        </ul>
-      </nav>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title=""><归档></a><a class="menu-item" href="/tags/" title=""><标签></a><a class="menu-item" href="/categories/" title=""><分类></a><a class="menu-item" href="/links" title=""><友链></a><a class="menu-item" href="/about" title=""><关于></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
     </div>
-  </header>
-
-<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    
-      <div class="widget">
-    <h3 class="widget-title">公告</h3>
-    <div class="widget-body">
-        <div id="board">
-            <div class="content"><p>hello, hugo</p>
-            </div>
-        </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
     </div>
-</div>
-
-      
-<div class="widget">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget-body">
-        <ul class="recent-post-list list-unstyled no-thumbnail">
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" class="title">NepnepxCatCTF Reverse CatFly WriteUp</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2023-01-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2023-01-01</time>
-                    </p>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">C++ OOP 学习笔记</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/DX39061" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>dx3906</a></span>&nbsp;<span class="post-category">included in <a href="/categories/dev/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Dev</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-02-25">2022-02-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1660 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9Bgodeep-wp/" class="title">春秋杯冬季赛godeep wp</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-26 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-12-26</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" class="title">可执行文件概述和ssh使用简介</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-23 00:28:04 &#43;0800 CST" itemprop="datePublished">2022-12-23</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E5%88%A9%E7%94%A8%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80%E8%BF%9B%E8%A1%8Cret%E8%B7%B3%E8%BD%AC%E7%9A%84%E7%AE%80%E5%8D%95%E6%8E%A7%E5%88%B6%E6%B5%81%E6%B7%B7%E6%B7%86/" class="title">ret跳转的简单控制流混淆</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-14 02:27:58 &#43;0800 CST" itemprop="datePublished">2022-12-14</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/nctf2022-ccccha-wp/" class="title">NCTF2022 ccccha 花指令/混淆 详解</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-10 02:51:35 &#43;0800 CST" itemprop="datePublished">2022-12-10</time>
-                    </p>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
-      <div class="widget">
-    <h3 class="widget-title"> 分类</h3>
-    <div class="widget-body">
-        <ul class="category-list">
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">11</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">4</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">10</span></li>
-        </ul>
-    </div>
-</div>
-      <div class="widget">
-    <h3 class="widget-title"> 标签</h3>
-    <div class="widget-body">
-        <ul class="tag-list">
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
-                    class="tag-list-count">7</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
-                    class="tag-list-count">3</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
-                    class="tag-list-count">10</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/executable/" class="tag-list-link">executable</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/git/" class="tag-list-link">git</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
-                    class="tag-list-count">4</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/obfuscation/" class="tag-list-link">obfuscation</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
-                    class="tag-list-count">2</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
-                    class="tag-list-count">24</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ssh/" class="tag-list-link">ssh</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/windows/" class="tag-list-link">windows</a><span
-                    class="tag-list-count">1</span></li>
-            
-        </ul>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--auto">- auto</a></li>
+        <li><a href="#--指针变量的动态生成与删除">- 指针变量的动态生成与删除</a></li>
+        <li><a href="#--左值引用">- 左值引用</a></li>
+        <li><a href="#--右值引用">- 右值引用</a></li>
+      </ul>
+    </li>
+  </ul>
 
-    </div>
-</div>
-  </div>
-</aside>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--初始化列表">- 初始化列表</a></li>
+        <li><a href="#--初始化变量">- 初始化变量</a></li>
+        <li><a href="#--类型推导">- 类型推导</a></li>
+        <li><a href="#--基于范围的循环">- 基于范围的循环</a></li>
+      </ul>
+    </li>
+  </ul>
 
-    
-    
-<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    <h4 class="toc-title">文章目录</h4>
-    <nav id="toc" class="js-toc toc">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--函数参数缺省值默认值">- 函数参数缺省值（默认值）</a></li>
+        <li><a href="#-追踪返回类型的函数">-追踪返回类型的函数</a></li>
+      </ul>
+    </li>
+  </ul>
 
-    </nav>
-  </div>
-</aside>
-<main class="main" role="main"><div class="content">
-  <article id="-" class="article article-type-" itemscope
-    itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/"
-    >C&#43;&#43; OOP 学习笔记</a
-  >
-</h1>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--基本概念">- 基本概念</a></li>
+        <li><a href="#--this指针">- This指针</a></li>
+      </ul>
+    </li>
+  </ul>
 
-      <div class="article-meta">
-        
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/" class="article-date">
-  <time datetime="2022-02-25 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-02-25</time>
-</a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/dev/"> Dev </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/cpp/"> cpp </a>
-    <a class="article-tag-link" href="/tags/oop/"> oop </a>
-  </span>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--类成员的访问权限">- 类成员的访问权限</a></li>
+        <li><a href="#--友元">- 友元</a></li>
+      </ul>
+    </li>
+  </ul>
 
-	<span class="article-read hidden-xs">
-	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
-	    <span id="busuanzi_container_page_pv">
-			<span id="busuanzi_value_page_pv">0</span>
-		</span>
-	</span>
-        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/#comments"
-            class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4485字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 9分 </span>
-      </div>
-    </div>
-    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
-      <h1 id="变量定义">变量定义</h1>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--构造函数">- 构造函数</a></li>
+        <li><a href="#--析构函数">- 析构函数</a></li>
+        <li><a href="#--拷贝构造函数">- 拷贝构造函数</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--赋值运算符重载">- 赋值运算符重载</a></li>
+        <li><a href="#--流运算符重载">- 流运算符重载</a></li>
+        <li><a href="#--函数运算符重载">- 函数运算符<code>()</code>重载</a></li>
+        <li><a href="#--下标运算符重载">- 下标运算符<code>[]</code>重载</a></li>
+        <li><a href="#--自增减运算符--重载">- 自增减运算符<code>++--</code>重载</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--静态成员">- 静态成员</a></li>
+        <li><a href="#--常量成员">- 常量成员</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--编译器自动生成的成员函数">- 编译器自动生成的成员函数</a></li>
+        <li><a href="#--同时使用编译器提供的成员函数">- 同时使用编译器提供的成员函数</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--含义">- 含义</a></li>
+        <li><a href="#--继承方式">- 继承方式</a></li>
+        <li><a href="#--继承基类构造函数">- 继承基类构造函数</a></li>
+        <li><a href="#--派生类中的基类成员">- 派生类中的基类成员</a></li>
+        <li><a href="#--派生类中函数重写override">- 派生类中函数重写（override）</a></li>
+        <li><a href="#--向上映射和向下映射">- 向上映射和向下映射</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--在源类中定义目标类型转换运算符">- 在源类中定义“目标类型转换运算符“</a></li>
+        <li><a href="#--在目标类中定义源类对象做参数的构造函数">- 在目标类中定义“源类对象做参数的构造函数”</a></li>
+        <li><a href="#--禁止自动类型转换">- 禁止自动类型转换</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--dynamic_castdst_typesrc_var">- dynamic_cast&lt;Dst_Type&gt;(Src_var)</a></li>
+        <li><a href="#--static_castdst_typesrc_var">- static_cast&lt;Dst_Type&gt;(Src_var)</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--函数模板的定义">- 函数模板的定义</a></li>
+        <li><a href="#--函数模板参数可赋默认值">- 函数模板参数可赋默认值</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--函数模板特化">- 函数模板特化</a></li>
+        <li><a href="#--类模板特化">- 类模板特化</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="变量定义">变量定义</h1>
 <h3 id="--auto">- auto</h3>
 <ul>
 <li>由编译器根据上下文自动确定变量的类型</li>
 </ul>
-<pre><code class="language-cpp">auto i = 3;    //i是int型变量
-auto k = 4.0f;  //k是float型变量
-</code></pre>
-<h3 id="--指针变量的动态生成与删除">- 指针变量的动态生成与删除</h3>
-<pre><code class="language-cpp">int* ptr = new int;       //单个变量
-int* array = new int[10];    //10元素数组
-delete ptr;        //删除指针变量所指的单个内存单元
-delete[] ptr        //删除多个内存单元组成的内存块
-</code></pre>
-<h3 id="--左值引用">- 左值引用</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span><span class="err">    </span><span class="c1">//i是int型变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span> <span class="n">k</span> <span class="o">=</span> <span class="mf">4.0f</span><span class="p">;</span><span class="err">  </span><span class="c1">//k是float型变量
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--指针变量的动态生成与删除">- 指针变量的动态生成与删除</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span><span class="err">       </span><span class="c1">//单个变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span><span class="err">    </span><span class="c1">//10元素数组
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">delete</span> <span class="n">ptr</span><span class="p">;</span><span class="err">        </span><span class="c1">//删除指针变量所指的单个内存单元
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">delete</span><span class="p">[]</span> <span class="n">ptr</span><span class="err">        </span><span class="c1">//删除多个内存单元组成的内存块
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--左值引用">- 左值引用</h3>
 <ul>
 <li>具名变量的别名：类型名 &amp; 引用名 变量名</li>
 </ul>
-<pre><code class="language-cpp">int v0; int &amp; v1 = v0 //v1是v0的别名，它们是内存中是同一单元的两个不同名字
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">v0</span><span class="p">;</span> <span class="kt">int</span> <span class="o">&amp;</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">v0</span> <span class="c1">//v1是v0的别名，它们是内存中是同一单元的两个不同名字
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>
 <p>引用变量必须在定义时初始化（赋初值）</p>
 </li>
@@ -402,13 +301,23 @@ delete[] ptr        //删除多个内存单元组成的内存块
 </li>
 <li>
 <p>函数参数可以是引用类型，表示函数的形参和实参是同一个变量，改变形参将改变实参</p>
-<pre><code class="language-cpp">void swap（int &amp; a; int &amp; b){
-    int temp = b;
-    b = a;
-    a = temp;
-}
-</code></pre>
-</li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">swap</span><span class="err">（</span><span class="kt">int</span> <span class="o">&amp;</span> <span class="n">a</span><span class="p">;</span> <span class="kt">int</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">a</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
 <li>
 <p>函数返回值可以是引用类型，但不能是临时变量（函数内部定义）</p>
 </li>
@@ -420,86 +329,180 @@ delete[] ptr        //删除多个内存单元组成的内存块
 </li>
 <li>
 <p>匿名变量（临时变量）的别名：类型名 &amp;&amp; 引用名 表达式</p>
-<pre><code class="language-cpp">int &amp;&amp; sum = 3 + 4;
-float &amp;&amp; res = ReturnRvalue(f1,f2);
-</code></pre>
-</li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="o">&amp;&amp;</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">float</span> <span class="o">&amp;&amp;</span> <span class="n">res</span> <span class="o">=</span> <span class="n">ReturnRvalue</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span><span class="n">f2</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
 <li>
 <p>函数参数引用，减少临时变量拷贝的开销</p>
-<pre><code class="language-cpp">void AcceptRvalueRef(T &amp;&amp; s){……}
-</code></pre>
-</li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">AcceptRvalueRef</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">){</span><span class="err">……</span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
 </ul>
 <h1 id="变量的初始化类型推导与基于范围的循环">变量的初始化、类型推导与基于范围的循环</h1>
 <h3 id="--初始化列表">- 初始化列表</h3>
-<pre><code class="language-cpp">int a[] = {1,3,5};
-int a[] {1,3,5};    //c++11支持
-</code></pre>
-<h3 id="--初始化变量">- 初始化变量</h3>
-<pre><code class="language-cpp">int a = 3+5;
-int a = {3+5};
-int a (3+5);
-int a {3+5};    //以上全部等效
-int* i = new int (10);    //int* i =new int *
-double* d = new double{1.2f}; //同上，赋初值
-</code></pre>
-<h3 id="--类型推导">- 类型推导</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">a</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">a</span><span class="p">[]</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">};</span>    <span class="c1">//c++11支持
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--初始化变量">- 初始化变量</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="o">+</span><span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">3</span><span class="o">+</span><span class="mi">5</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">a</span> <span class="p">(</span><span class="mi">3</span><span class="o">+</span><span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">a</span> <span class="p">{</span><span class="mi">3</span><span class="o">+</span><span class="mi">5</span><span class="p">};</span>    <span class="c1">//以上全部等效
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span> <span class="p">(</span><span class="mi">10</span><span class="p">);</span>    <span class="c1">//int* i =new int *
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span><span class="o">*</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">{</span><span class="mf">1.2f</span><span class="p">};</span> <span class="c1">//同上，赋初值
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--类型推导">- 类型推导</h3>
 <p>使用decltype可以对变量或表达式结果的类型进行推导</p>
-<pre><code class="language-cpp">struct{char* name;} anon_u;
-struct{
-    int d;
-    decltype(anon_u) id;
-} anon_s[100];
-int main(){
-    decltype(anon_s) as;
-    cin&gt;&gt;as[0].id.name;
-    ……
-}
-</code></pre>
-<h3 id="--基于范围的循环">- 基于范围的循环</h3>
-<pre><code class="language-cpp">int main(){
-    int arr[3] = {1,2,3};
-    for(int e : arr) //auto e也可以
-        cout&lt;&lt;e;
-    return 0;
-}
-</code></pre>
-<h1 id="函数重载">函数重载</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span><span class="p">{</span><span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">;}</span> <span class="n">anon_u</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">decltype</span><span class="p">(</span><span class="n">anon_u</span><span class="p">)</span> <span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">anon_s</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">decltype</span><span class="p">(</span><span class="n">anon_s</span><span class="p">)</span> <span class="n">as</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">as</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">id</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">……</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--基于范围的循环">- 基于范围的循环</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">arr</span><span class="p">)</span> <span class="c1">//auto e也可以
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">e</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="函数重载">函数重载</h1>
 <ul>
 <li>同名函数两种实现，必须保证参数不同，返回值，参数名称不能作为区分标准</li>
 </ul>
-<pre><code class="language-cpp">void print(char* msg){
-    cout&lt;&lt;msg&lt;&lt;endl;
-}
-void print(int score){
-    cout&lt;&lt;score&lt;&lt;endl;
-}
-int main(){
-    print(&quot;Hello&quot;);
-    print(1);
-    return 0;
-}
-</code></pre>
-<h1 id="函数参数缺省值与追踪返回类型的函数">函数参数缺省值与追踪返回类型的函数</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">msg</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">msg</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="n">score</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">score</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="err">    </span><span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="函数参数缺省值与追踪返回类型的函数">函数参数缺省值与追踪返回类型的函数</h1>
 <h3 id="--函数参数缺省值默认值">- 函数参数缺省值（默认值）</h3>
 <ul>
 <li>缺省值必须从最后一个开始向前排列</li>
 </ul>
-<pre><code class="language-cpp">void print(char* msg = &quot;hello&quot;){
-    cout&lt;&lt;msg&lt;&lt;endl;
-}
-int main(){
-    print(&quot;Beijing...&quot;);
-    print();
-    return 0;
-}//输出Beijing...hello
-</code></pre>
-<h3 id="-追踪返回类型的函数">-追踪返回类型的函数</h3>
-<pre><code class="language-cpp">int func(char* ptr, int val);    //普通函数声明
-auto func(char* ptr, int val)-&gt;int;    //追踪返回类型的函数声明
-auto func(char* ptr, int val)-&gt;decltype(……)    //常用方法
-</code></pre>
-<h1 id="类的定义">类的定义</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">msg</span> <span class="o">=</span> <span class="s">&#34;hello&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">msg</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s">&#34;Beijing...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="c1">//输出Beijing...hello
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="-追踪返回类型的函数">-追踪返回类型的函数</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">func</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">);</span>    <span class="c1">//普通函数声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span> <span class="nf">func</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">)</span><span class="o">-&gt;</span><span class="kt">int</span><span class="p">;</span>    <span class="c1">//追踪返回类型的函数声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span> <span class="n">func</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">)</span><span class="o">-&gt;</span><span class="k">decltype</span><span class="p">(</span><span class="err">……</span><span class="p">)</span>    <span class="c1">//常用方法
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="类的定义">类的定义</h1>
 <h3 id="--基本概念">- 基本概念</h3>
 <ul>
 <li>
@@ -510,18 +513,33 @@ auto func(char* ptr, int val)-&gt;decltype(……)    //常用方法
 </li>
 <li>
 <p>类中函数既可以在类中定义，也可以在类外给出定义（类名::函数名，其中::称为“域运算符）</p>
-<pre><code class="language-cpp">class Matrix{
-    public:
-            void fill(char dir){
-                    ……;    //在类中定义成员函数
-            }
-};
-------------------------------------------------------------
-void Matrix::fill(char dir){
-    ……;    //在类外定义成员函数
-}
-</code></pre>
-</li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Matrix</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">void</span> <span class="n">fill</span><span class="p">(</span><span class="kt">char</span> <span class="n">dir</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="err">……</span><span class="p">;</span>    <span class="c1">//在类中定义成员函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="o">------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Matrix</span><span class="o">::</span><span class="n">fill</span><span class="p">(</span><span class="kt">char</span> <span class="n">dir</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="err">……</span><span class="p">;</span>    <span class="c1">//在类外定义成员函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
 <li>
 <p>类的成员（数据、函数）可以根据需要分成组，不同组设置不同的访问权限</p>
 </li>
@@ -533,61 +551,115 @@ void Matrix::fill(char dir){
 <ul>
 <li>指向当前对象的指针变量</li>
 </ul>
-<pre><code class="language-cpp">class Matrix{
-    public:
-            void fill{
-                ……
-                this-&gt;data[0][0] = 1;
-                //data[0][0] = 1; 二者等价
-            }
-};
-</code></pre>
-<h1 id="heading"></h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Matrix</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">void</span> <span class="n">fill</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="err">……</span>
+</span></span><span class="line"><span class="cl">                <span class="k">this</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//data[0][0] = 1; 二者等价
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="heading"></h1>
 <h1 id="类的访问权限与友元">类的访问权限与友元</h1>
 <h3 id="--类成员的访问权限">- 类成员的访问权限</h3>
 <ul>
 <li>class中成员缺省属性为private</li>
 </ul>
-<pre><code class="language-cpp">class Matrix{
-    public：
-            void fill(char dir);
-    private:
-            int data[6][6];
-};
-//等价于
-class Matrix{
-    int data[6][6];
-public：
-    void fill(char dir);
-};
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Matrix</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">void</span> <span class="n">fill</span><span class="p">(</span><span class="kt">char</span> <span class="n">dir</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">6</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//等价于
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Matrix</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">6</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">fill</span><span class="p">(</span><span class="kt">char</span> <span class="n">dir</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>在类的外部不能用<code>.</code>操作符访问对对象的私有成员或保护成员，只能访问公有属性</li>
 </ul>
-<pre><code class="language-cpp">int main(){
-    Matrix obj;          //定义变量（对象）
-    obj.fill('u');        //访问公有成员
-    obj.data[1][1] = 23;    //Error！不能访问私有成员
-    return 0;
-}
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Matrix</span> <span class="n">obj</span><span class="p">;</span>          <span class="c1">//定义变量（对象）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">obj</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="sc">&#39;u&#39;</span><span class="p">);</span>        <span class="c1">//访问公有成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">obj</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">23</span><span class="p">;</span>    <span class="c1">//Error！不能访问私有成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>保护成员（protected）可以在派生类（即子类）中访问</li>
 </ul>
 <h3 id="--友元">- 友元</h3>
 <ul>
 <li>可以通过声明函数为类的<code>友元</code>来实现访问对象的私有成员</li>
 </ul>
-<pre><code class="language-cpp">class Test{
-    int id;
-public:
-    friend void print(Test obj);
-};
-void print(Test obj){
-    cout&lt;&lt;obj.id&lt;&lt;endl;
-}
-</code></pre>
-<h1 id="构造函数与析构函数">构造函数与析构函数</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Test</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">Test</span> <span class="n">obj</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="n">Test</span> <span class="n">obj</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">obj</span><span class="p">.</span><span class="n">id</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="构造函数与析构函数">构造函数与析构函数</h1>
 <h3 id="--构造函数">- 构造函数</h3>
 <ul>
 <li>
@@ -600,16 +672,29 @@ void print(Test obj){
 <p>类的构造函数可以重载，即可以使用不同的函数参数进行对象初始化</p>
 </li>
 </ul>
-<pre><code class="language-cpp">class Student{
-    long ID;
-public:
-    Student(long id){ID = id;}
-    Student(int year, int order){
-            ID = year * 10000 + order;
-    }
-};
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Student</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">ID</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Student</span><span class="p">(</span><span class="kt">long</span> <span class="n">id</span><span class="p">){</span><span class="n">ID</span> <span class="o">=</span> <span class="n">id</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Student</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span><span class="p">,</span> <span class="kt">int</span> <span class="n">order</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ID</span> <span class="o">=</span> <span class="n">year</span> <span class="o">*</span> <span class="mi">10000</span> <span class="o">+</span> <span class="n">order</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="err">    </span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>
 <p>默认构造函数</p>
 <ul>
@@ -628,30 +713,58 @@ public:
 </ul>
 </li>
 </ul>
-<pre><code class="language-cpp">class Student{
-    long ID;
-public:
-    Student(long id):ID(id){}
-    Student(int year,int order){
-        ID = year * 10000 +order;
-    }
-};
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Student</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">ID</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Student</span><span class="p">(</span><span class="kt">long</span> <span class="n">id</span><span class="p">)</span><span class="o">:</span><span class="n">ID</span><span class="p">(</span><span class="n">id</span><span class="p">){}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Student</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span><span class="p">,</span><span class="kt">int</span> <span class="n">order</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ID</span> <span class="o">=</span> <span class="n">year</span> <span class="o">*</span> <span class="mi">10000</span> <span class="o">+</span><span class="n">order</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>在构造函数中调用其他构造函数（委派构造函数）</li>
 </ul>
-<pre><code class="language-cpp">class Info{
-public:
-    Info() {Init();}
-    Info(int i) : Info() {id = i;}
-    Info(char c) : Info() {gender = c;}
-private:
-    void Init() {……}
-    int id {2016};
-    char gender {'M'};
-};
-</code></pre>
-<h3 id="--析构函数">- 析构函数</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Info</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Info</span><span class="p">()</span> <span class="p">{</span><span class="n">Init</span><span class="p">();}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Info</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="o">:</span> <span class="n">Info</span><span class="p">()</span> <span class="p">{</span><span class="n">id</span> <span class="o">=</span> <span class="n">i</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Info</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span> <span class="o">:</span> <span class="n">Info</span><span class="p">()</span> <span class="p">{</span><span class="n">gender</span> <span class="o">=</span> <span class="n">c</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">Init</span><span class="p">()</span> <span class="p">{</span><span class="err">……</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">id</span> <span class="p">{</span><span class="mi">2016</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">gender</span> <span class="p">{</span><span class="sc">&#39;M&#39;</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--析构函数">- 析构函数</h3>
 <ul>
 <li>
 <p>一个类只有一个析构函数，名称是<code>～类名</code>，没有函数返回值，没有函数参数</p>
@@ -660,18 +773,33 @@ private:
 <p>编译器在对象生命期结束后自动调用析构函数， 以便释放对象占用的资源</p>
 </li>
 </ul>
-<pre><code class="language-cpp">class ClassRoom{
-    int num;
-    long* ID_list;
-public:
-    ClassRoom() : num(0), ID_list(0) {}
-    ……
-    ~ClassRoom(){
-        if(ID_list) delete[] ID_list;
-    }
-};
-</code></pre>
-<h3 id="--拷贝构造函数">- 拷贝构造函数</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ClassRoom</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span><span class="o">*</span> <span class="n">ID_list</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ClassRoom</span><span class="p">()</span> <span class="o">:</span> <span class="n">num</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">ID_list</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="err">……</span>
+</span></span><span class="line"><span class="cl">    <span class="o">~</span><span class="n">ClassRoom</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">ID_list</span><span class="p">)</span> <span class="k">delete</span><span class="p">[]</span> <span class="n">ID_list</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--拷贝构造函数">- 拷贝构造函数</h3>
 <ul>
 <li>
 <p>函数调用时以类的对象为形参或返回类的对象时，编译器自动生成调用<code>拷贝构造函数</code>，在已有对象基础上生成新对象</p>
@@ -680,73 +808,147 @@ public:
 <p>拷贝构造函数是一种特殊的构造函数，它的参数是语言规定的，是同类对象的常量引用</p>
 </li>
 </ul>
-<pre><code class="language-cpp">class Person{
-    int id;
-    ……
-public:
-    Person(const Person&amp; src) { id = src.id; ……}
-    ……
-};
-</code></pre>
-<h1 id="运算符重载">运算符重载</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">……</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Person</span><span class="p">(</span><span class="k">const</span> <span class="n">Person</span><span class="o">&amp;</span> <span class="n">src</span><span class="p">)</span> <span class="p">{</span> <span class="n">id</span> <span class="o">=</span> <span class="n">src</span><span class="p">.</span><span class="n">id</span><span class="p">;</span> <span class="err">……</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="err">……</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="运算符重载">运算符重载</h1>
 <h3 id="--赋值运算符重载">- 赋值运算符重载</h3>
-<pre><code class="language-cpp">ClassName&amp; operator= (const ClassName&amp; right){
-    if (this != &amp;right){   //避免自己赋值给自己
-        //将right对象中的内容复制到当前对象中
-    }
-    return *this;
-}
-</code></pre>
-<h3 id="--流运算符重载">- 流运算符重载</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">ClassName</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="n">ClassName</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">!=</span> <span class="o">&amp;</span><span class="n">right</span><span class="p">){</span>   <span class="c1">//避免自己赋值给自己
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//将right对象中的内容复制到当前对象中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--流运算符重载">- 流运算符重载</h3>
 <ul>
 <li>重载函数的声明（作为友元）</li>
 </ul>
-<pre><code class="language-cpp">class Test{
-    int id;
-public:
-    friend istream&amp; operator&gt;&gt; (istream&amp; in, Test&amp; dst);
-    friend ostream&amp; operator&lt;&lt; (ostream&amp; out, const Test&amp; src);
-};
-</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Test</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="n">istream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">in</span><span class="p">,</span> <span class="n">Test</span><span class="o">&amp;</span> <span class="n">dst</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Test</span><span class="o">&amp;</span> <span class="n">src</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>重载函数实现</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">istream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">in</span><span class="p">,</span> <span class="n">Test</span><span class="o">&amp;</span> <span class="n">dst</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">in</span> <span class="o">&gt;&gt;</span> <span class="n">dst</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">in</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="n">Test</span><span class="o">&amp;</span> <span class="n">src</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">src</span><span class="p">.</span><span class="n">id</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--函数运算符重载">- 函数运算符<code>()</code>重载</h3>
 <ul>
 <li>重载函数实现</li>
 </ul>
-<pre><code class="language-cpp">istream&amp; operator&gt;&gt; (istream&amp; in, Test&amp; dst){
-    in &gt;&gt; dst.id;
-    return in;
-}
-ostream&amp; operator&lt;&lt; (ostream&amp; out, Test&amp; src){
-    out &lt;&lt; src.id &lt;&lt; endl;
-    return out;
-}
-</code></pre>
-<h3 id="--函数运算符重载">- 函数运算符<code>()</code>重载</h3>
-<ul>
-<li>重载函数实现</li>
-</ul>
-<pre><code class="language-cpp">ReturnType operator() (Parameters){
-    ……
-}
-className obj;
-obj(Real_parameters);
-//obj.operator() (Real_parameters);
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">ReturnType</span> <span class="nf">operator</span><span class="p">()</span> <span class="p">(</span><span class="n">Parameters</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="err">……</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">className</span> <span class="n">obj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="p">(</span><span class="n">Real_parameters</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//obj.operator() (Real_parameters);
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>重载示例</li>
 </ul>
-<pre><code class="language-cpp">class Test{
-public:
-    int operator() (int a, int b){
-        return a + b;
-    }
-};
-int main(){
-    Test sum;
-    cout&lt;&lt;sum(1,2);
-    return 0;
-}
-</code></pre>
-<h3 id="--下标运算符重载">- 下标运算符<code>[]</code>重载</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Test</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="k">operator</span><span class="p">()</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Test</span> <span class="n">sum</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="err">    </span><span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--下标运算符重载">- 下标运算符<code>[]</code>重载</h3>
 <ul>
 <li>
 <p>重载函数返回类型</p>
@@ -763,41 +965,80 @@ int main(){
 <p>重载函数示例</p>
 </li>
 </ul>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;string&gt; //strcmp
-using namespace std;
-
-char week_name[7][4] = {&quot;mon&quot;, &quot;tu&quot;, &quot;wed&quot;, &quot;thu&quot;, &quot;fri&quot;, &quot;sat&quot;, &quot;sun&quot;};
-class WeekTemp{
-    int temp[7];
-public:
-    int&amp; operator[] (const char* name){
-        for(int i = 0; i &lt; 7; i++){
-            if (strcmp (week_name[i], name) == 0) return temp[i];
-        }
-    }
-};
-int main(){
-    WeekTemp beijing;
-    beijing[&quot;mon&quot;] = -3;
-    beijing[&quot;tu&quot;] = -1;
-    return 0;
-}
-</code></pre>
-<h3 id="--自增减运算符--重载">- 自增减运算符<code>++--</code>重载</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string&gt; //strcmp</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">week_name</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#34;mon&#34;</span><span class="p">,</span> <span class="s">&#34;tu&#34;</span><span class="p">,</span> <span class="s">&#34;wed&#34;</span><span class="p">,</span> <span class="s">&#34;thu&#34;</span><span class="p">,</span> <span class="s">&#34;fri&#34;</span><span class="p">,</span> <span class="s">&#34;sat&#34;</span><span class="p">,</span> <span class="s">&#34;sun&#34;</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">WeekTemp</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">temp</span><span class="p">[</span><span class="mi">7</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">&amp;</span> <span class="k">operator</span><span class="p">[]</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span> <span class="p">(</span><span class="n">week_name</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WeekTemp</span> <span class="n">beijing</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">beijing</span><span class="p">[</span><span class="s">&#34;mon&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">beijing</span><span class="p">[</span><span class="s">&#34;tu&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--自增减运算符--重载">- 自增减运算符<code>++--</code>重载</h3>
 <ul>
 <li>前缀运算符重载声明</li>
 </ul>
-<pre><code class="language-cpp">ReturnType operator++()
-ReturnType operator--()
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">ReturnType</span> <span class="k">operator</span><span class="o">++</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">ReturnType</span> <span class="k">operator</span><span class="o">--</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>后缀运算符重载声明</li>
 </ul>
-<pre><code class="language-cpp">ReturnType operator++(int dummy);//dummy为哑元，无实际意义，只为区分
-ReturnType operator--(int dummy);
-</code></pre>
-<h1 id="静态成员与常量成员">静态成员与常量成员</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">ReturnType</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span> <span class="n">dummy</span><span class="p">);</span><span class="c1">//dummy为哑元，无实际意义，只为区分
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ReturnType</span> <span class="k">operator</span><span class="o">--</span><span class="p">(</span><span class="kt">int</span> <span class="n">dummy</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="静态成员与常量成员">静态成员与常量成员</h1>
 <h3 id="--静态成员">- 静态成员</h3>
 <ul>
 <li>
@@ -840,15 +1081,27 @@ ReturnType operator--(int dummy);
 <p>示例</p>
 </li>
 </ul>
-<pre><code class="language-cpp">class Test{
-public:
-    int* buf;
-    Test(Test&amp;&amp; t) : buf(t.buf){
-        t.buf = nullptr;
-    }
-}
-</code></pre>
-<h1 id="类中成员函数default">类中成员函数default</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Test</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">*</span> <span class="n">buf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Test</span><span class="p">(</span><span class="n">Test</span><span class="o">&amp;&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="o">:</span> <span class="n">buf</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">buf</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="p">.</span><span class="n">buf</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="类中成员函数default">类中成员函数default</h1>
 <h3 id="--编译器自动生成的成员函数">- 编译器自动生成的成员函数</h3>
 <ul>
 <li>
@@ -871,14 +1124,25 @@ public:
 </li>
 </ul>
 <h3 id="--同时使用编译器提供的成员函数">- 同时使用编译器提供的成员函数</h3>
-<pre><code class="language-cpp">class T{
-    int data;
-public:
-    T() = default;
-    T(int i) : data(i) {}
-};
-</code></pre>
-<h1 id="继承">继承</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">T</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="o">:</span> <span class="n">data</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="继承">继承</h1>
 <h3 id="--含义">- 含义</h3>
 <ul>
 <li>在已有类(Base class)的基础上，通过继承来定义新的类(Derived class)</li>
@@ -887,25 +1151,51 @@ public:
 <ul>
 <li>private继承（缺省继承）</li>
 </ul>
-<pre><code class="language-cpp">class Derived : [private] Base{……};
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="p">[</span><span class="k">private</span><span class="p">]</span> <span class="n">Base</span><span class="p">{</span><span class="err">……</span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>public继承</li>
 </ul>
-<pre><code class="language-cpp">class Derived : public Base{……};
-</code></pre>
-<h3 id="--继承基类构造函数">- 继承基类构造函数</h3>
-<pre><code class="language-cpp">class Base{
-    int data;
-public:
-    Base(int i) : data(i) {……}
-};
-class Derive : public Base{
-    int data;
-    using Base::Base;    //继承基类构造函数
-}
-</code></pre>
-<h3 id="--派生类中的基类成员">- 派生类中的基类成员</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span><span class="p">{</span><span class="err">……</span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--继承基类构造函数">- 继承基类构造函数</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Base</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="o">:</span> <span class="n">data</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span><span class="err">……</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derive</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">Base</span><span class="o">::</span><span class="n">Base</span><span class="p">;</span>    <span class="c1">//继承基类构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--派生类中的基类成员">- 派生类中的基类成员</h3>
 <ul>
 <li>
 <p>派生类中包含从基类继承来的数据成员，它们构成了“基类子对象”</p>
@@ -965,25 +1255,47 @@ class Derive : public Base{
 </ul>
 </li>
 </ul>
-<pre><code class="language-cpp">class Base{
-    public:
-        void print(){cout &lt;&lt; &quot;Base::print()&quot; &lt;&lt; endl;}
-};
-class Derive : public Base{
-    public:
-        void print(){cout &lt;&lt; &quot;Derive::print()&quot; &lt;&lt; endl;}
-};
-void fun(Base obj){
-    obj.print();
-}
-int main(){
-    Derive d;
-    d.print();    //Derive::print()
-    fun(d);    //Base::print()发生了向上映射
-    return 0;
-}
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">void</span> <span class="n">print</span><span class="p">(){</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Base::print()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derive</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">void</span> <span class="n">print</span><span class="p">(){</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Derive::print()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="n">Base</span> <span class="n">obj</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">obj</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Derive</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">d</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>    <span class="c1">//Derive::print()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">fun</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>    <span class="c1">//Base::print()发生了向上映射
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>
 <p>向下映射：由基类对象转换为派生类对象</p>
 <ul>
@@ -991,68 +1303,131 @@ int main(){
 </ul>
 </li>
 </ul>
-<pre><code class="language-cpp">class Base{
-    public:
-        virtual void print(){cout &lt;&lt; &quot;Base::print()&quot; &lt;&lt; endl;}
-};
-class Derive : public Base{
-    public:
-        void print(){cout &lt;&lt; &quot;Derive::print()&quot; &lt;&lt; endl;}
-};
-void fun(Base&amp; obj){    //obj 必须是对Base类的引用
-    obj.print();
-}
-int main(){
-    Derive d;
-    d.print();    //Derive::print()
-    fun(d);    //Derive::print()编译器根据d的类型选择了合适的函数
-    return 0;
-}
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">virtual</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(){</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Base::print()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derive</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">void</span> <span class="n">print</span><span class="p">(){</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Derive::print()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="n">Base</span><span class="o">&amp;</span> <span class="n">obj</span><span class="p">){</span>    <span class="c1">//obj 必须是对Base类的引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">obj</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Derive</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">d</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>    <span class="c1">//Derive::print()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">fun</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>    <span class="c1">//Derive::print()编译器根据d的类型选择了合适的函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>
 <ul>
 <li>虚析构函数</li>
 </ul>
 </li>
 </ul>
-<pre><code class="language-cpp">class B{
-    public:
-        virtual void show(){cout &lt;&lt; &quot;B.show()&quot;;}
-        virtual ~B(){cout &lt;&lt; &quot;~B()&quot;;}
-};
-class D : public B{
-    public:
-        void show(){cout &lt;&lt; &quot;D.show()&quot;;}
-        ~D(){cout &lt;&lt; &quot;~D()&quot;;}
-};
-void test(B* ptr){                                    //若删除virtual
-    ptr -&gt; show();                //运行结果            运行结果
-}                                //D.show()            D.show()
-int main(){                      //~D()                ~B()
-    B* ptr = new D;              //~B()
-    test(ptr);
-    delete ptr;
-    return 0;
-}
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">B</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">virtual</span> <span class="kt">void</span> <span class="n">show</span><span class="p">(){</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;B.show()&#34;</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">virtual</span> <span class="o">~</span><span class="n">B</span><span class="p">(){</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;~B()&#34;</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">B</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">void</span> <span class="n">show</span><span class="p">(){</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;D.show()&#34;</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">~</span><span class="n">D</span><span class="p">(){</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;~D()&#34;</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">test</span><span class="p">(</span><span class="n">B</span><span class="o">*</span> <span class="n">ptr</span><span class="p">){</span>                                    <span class="c1">//若删除virtual
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">ptr</span> <span class="o">-&gt;</span> <span class="n">show</span><span class="p">();</span>                <span class="c1">//运行结果            运行结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>                                <span class="c1">//D.show()            D.show()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>                      <span class="c1">//~D()                ~B()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">B</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">D</span><span class="p">;</span>              <span class="c1">//~B()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">test</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>禁止重写的虚函数（final关键字）</li>
 </ul>
-<pre><code class="language-cpp">class A{
-    public:
-        virtual void fun() = 0;
-};
-class B : public A{
-    public:
-        void fun() final;    //后续子类不可重写此接口函数
-};
-class C ：public B{
-    public:
-        void fun();    //编译错误
-};
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">virtual</span> <span class="kt">void</span> <span class="n">fun</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">B</span> <span class="o">:</span> <span class="k">public</span> <span class="n">A</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">void</span> <span class="n">fun</span><span class="p">()</span> <span class="k">final</span><span class="p">;</span>    <span class="c1">//后续子类不可重写此接口函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">C</span> <span class="err">：</span><span class="k">public</span> <span class="n">B</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">void</span> <span class="n">fun</span><span class="p">();</span>    <span class="c1">//编译错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>
 <p>纯虚函数</p>
 <ul>
@@ -1067,80 +1442,165 @@ class C ：public B{
 </ul>
 <h1 id="不同类之间自动类型转换">不同类之间自动类型转换</h1>
 <h3 id="--在源类中定义目标类型转换运算符">- 在源类中定义“目标类型转换运算符“</h3>
-<pre><code class="language-cpp">class Dst{
-    public:
-        Dst(){cout &lt;&lt; &quot;Dst::Dst()&quot; &lt;&lt; endl;}
-};
-class Src{
-    public:
-        Src(cout &lt;&lt; &quot;Src::Src() &lt;&lt; endl&quot; &lt;&lt; endl;)
-        operator Dst() const{
-            cout &lt;&lt; &quot;src::operator Dst() called&quot; &lt;&lt; endl;
-            return Dst();
-        }
-};
-</code></pre>
-<h3 id="--在目标类中定义源类对象做参数的构造函数">- 在目标类中定义“源类对象做参数的构造函数”</h3>
-<pre><code class="language-cpp">class Src;    //前置类型声明
-class Dst{
-    public:
-        Dst() {cout &lt;&lt; &quot;Dst::Dst()&quot; &lt;&lt; endl;}
-        Dst(const Src&amp; s){
-            cout &lt;&lt; &quot;Dst::Dst(const Src&amp;)&quot; &lt;&lt;endl;
-        }
-};
-class Src{
-    public:
-        Src(){cout &lt;&lt; &quot;Src::Src()&quot; &lt;&lt; endl;}
-}
-</code></pre>
-<h3 id="--禁止自动类型转换">- 禁止自动类型转换</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Dst</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Dst</span><span class="p">(){</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Dst::Dst()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Src</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Src</span><span class="p">(</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Src::Src() &lt;&lt; endl&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">operator</span> <span class="n">Dst</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;src::operator Dst() called&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nf">Dst</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--在目标类中定义源类对象做参数的构造函数">- 在目标类中定义“源类对象做参数的构造函数”</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Src</span><span class="p">;</span>    <span class="c1">//前置类型声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Dst</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Dst</span><span class="p">()</span> <span class="p">{</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Dst::Dst()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Dst</span><span class="p">(</span><span class="k">const</span> <span class="n">Src</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Dst::Dst(const Src&amp;)&#34;</span> <span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Src</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Src</span><span class="p">(){</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Src::Src()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--禁止自动类型转换">- 禁止自动类型转换</h3>
 <ul>
 <li>分别对应以上两种方法，加关键词<code>explicit</code></li>
 </ul>
-<pre><code class="language-cpp">class Dst{
-    public:
-        Dst(){cout &lt;&lt; &quot;Dst::Dst()&quot; &lt;&lt; endl;}
-};
-class Src{
-    public:
-        Src(cout &lt;&lt; &quot;Src::Src() &lt;&lt; endl&quot; &lt;&lt; endl;)
-        explicit
-        operator Dst() const{
-            cout &lt;&lt; &quot;src::operator Dst() called&quot; &lt;&lt; endl;
-            return Dst();
-        }
-};
-</code></pre>
-<pre><code class="language-cpp">class Src;    //前置类型声明
-class Dst{
-    public:
-        Dst() {cout &lt;&lt; &quot;Dst::Dst()&quot; &lt;&lt; endl;}
-        explicit
-        Dst(const Src&amp; s){
-            cout &lt;&lt; &quot;Dst::Dst(const Src&amp;)&quot; &lt;&lt;endl;
-        }
-};
-class Src{
-    public:
-        Src(){cout &lt;&lt; &quot;Src::Src()&quot; &lt;&lt; endl;}
-}
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Dst</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Dst</span><span class="p">(){</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Dst::Dst()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Src</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Src</span><span class="p">(</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Src::Src() &lt;&lt; endl&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">explicit</span>
+</span></span><span class="line"><span class="cl">        <span class="k">operator</span> <span class="n">Dst</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;src::operator Dst() called&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nf">Dst</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Src</span><span class="p">;</span>    <span class="c1">//前置类型声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Dst</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Dst</span><span class="p">()</span> <span class="p">{</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Dst::Dst()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">explicit</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">Dst</span><span class="p">(</span><span class="k">const</span> <span class="n">Src</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Dst::Dst(const Src&amp;)&#34;</span> <span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Src</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Src</span><span class="p">(){</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Src::Src()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>利用<code>=delete</code>禁止自动类型转换</li>
 </ul>
-<pre><code class="language-cpp">class T{
-    public:
-        T (int){}
-        T (char) = delete;
-}
-void fun(T t) {}
-int main(){
-    fun(1);
-    fun('x');    //编译不通过
-}
-</code></pre>
-<h1 id="强制类型转换">强制类型转换</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">T</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">T</span> <span class="p">(</span><span class="kt">int</span><span class="p">){}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">T</span> <span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="n">T</span> <span class="n">t</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fun</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fun</span><span class="p">(</span><span class="sc">&#39;x&#39;</span><span class="p">);</span>    <span class="c1">//编译不通过
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="强制类型转换">强制类型转换</h1>
 <h3 id="--dynamic_castdst_typesrc_var">- dynamic_cast&lt;Dst_Type&gt;(Src_var)</h3>
 <ul>
 <li>
@@ -1164,30 +1624,60 @@ int main(){
 </ul>
 <h1 id="函数模板">函数模板</h1>
 <h3 id="--函数模板的定义">- 函数模板的定义</h3>
-<pre><code class="language-cpp">template&lt;typename T&gt;
-返回类型 函数名称（函数参数）
-template&lt;typename T&gt;
-T sum(T a, T b){return a + b;}
-</code></pre>
-<h3 id="--函数模板参数可赋默认值">- 函数模板参数可赋默认值</h3>
-<pre><code class="language-cpp">template&lt;typename T0 = float, typename T1, typename T2 = float, 
-typename T3, typename T4&gt;
-T0 fun(T1 v1, T2 v2, T3 v3, T4 v4){……}
-……
-fun(1,2,3);
-fun('a','b','cdf');
-</code></pre>
-<h1 id="类模板">类模板</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="err">返回类型</span> <span class="err">函数名称（函数参数）</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="n">sum</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">){</span><span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--函数模板参数可赋默认值">- 函数模板参数可赋默认值</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T0</span> <span class="o">=</span> <span class="kt">float</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span> <span class="o">=</span> <span class="kt">float</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"><span class="k">typename</span> <span class="n">T3</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T4</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">T0</span> <span class="n">fun</span><span class="p">(</span><span class="n">T1</span> <span class="n">v1</span><span class="p">,</span> <span class="n">T2</span> <span class="n">v2</span><span class="p">,</span> <span class="n">T3</span> <span class="n">v3</span><span class="p">,</span> <span class="n">T4</span> <span class="n">v4</span><span class="p">){</span><span class="err">……</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="err">……</span>
+</span></span><span class="line"><span class="cl"><span class="n">fun</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">fun</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="sc">&#39;b&#39;</span><span class="p">,</span><span class="err">&#39;</span><span class="n">cdf</span><span class="err">&#39;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="类模板">类模板</h1>
 <ul>
 <li>基本定义</li>
 </ul>
-<pre><code class="language-cpp">template&lt;typename T&gt;class A{
-    T data; 
-public:
-    void print(){cout &lt;&lt; data;}
-};
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span><span class="k">class</span> <span class="nc">A</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span> <span class="n">data</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">print</span><span class="p">(){</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">data</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>
 <p>类模板使用流程</p>
 <ul>
@@ -1206,211 +1696,135 @@ public:
 </ul>
 </li>
 </ul>
-<pre><code class="language-cpp">template&lt;typename T, unsigned size&gt;
-class array{
-    T elems[size];
-    ……
-};
-array&lt;char,10&gt; array0;    //用类模板实例定义对象
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">size</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">array</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span> <span class="n">elems</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="err">……</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">array</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="mi">10</span><span class="o">&gt;</span> <span class="n">array0</span><span class="p">;</span>    <span class="c1">//用类模板实例定义对象
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>
 <ul>
 <li>模板参数是另一个类模板</li>
 </ul>
 </li>
 </ul>
-<pre><code class="language-cpp">template&lt;typename T,
-template&lt;typename TT0, typename TT1&gt; class A&gt;
-struct Foo{
-    A &lt;T,T&gt;bar;
-};
-</code></pre>
-<h1 id="模板特化">模板特化</h1>
-<h3 id="--函数模板特化">- 函数模板特化</h3>
-<pre><code class="language-cpp">template&lt;typename T&gt;
-T sum(T a, T b){
-    return a+b;
-}
-template&lt;&gt;
-char* sum(char* a, char* b){
-    char* p = new char[strlen(a) + strlen(b) + 1];
-    strcpy(p, a);
-    strcat(p, b);
-    return p;
-}
-</code></pre>
-<h3 id="--类模板特化">- 类模板特化</h3>
-<pre><code class="language-cpp">//通用类模板
-template&lt;class T1, class T2&gt; class A{……};
-//部分特化的模板类：第二个参数指定为int（偏特化）
-template&lt;class T1&gt; class A &lt;T1, int&gt;{……};
-//指定所有类型
-template&lt;&gt; class A &lt;int, int&gt; {……};
-</code></pre>
-
-    </div>
-    <div class="article-footer">
-<blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接: </strong>
-      <a href="https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/" title="C&#43;&#43; OOP 学习笔记" target="_blank" rel="external">https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>License: </strong>
-        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
-    </li>
-  </ul>
-</blockquote>
-
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
-        <div></div>
-      </div>
-    </figure>
-  </div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">TT0</span><span class="p">,</span> <span class="k">typename</span> <span class="n">TT1</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">A</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Foo</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="n">T</span><span class="o">&gt;</span><span class="n">bar</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
-
-    </div>
-  </article>
-<section id="comments">
-</section>
-
-</div><nav class="bar bar-footer clearfix" data-stick-bottom>
-    <div class="bar-inner">
-        <ul class="pager pull-left">
-            <li class="prev">
-                <a href="https://blog.dx39061.top/2022/02/8086cpu%E6%B1%87%E7%BC%96/" title="8086CPU汇编"><i
-                        class="icon icon-angle-left"
-                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
-            </li>
-            <li class="next">
-                <a href="https://blog.dx39061.top/2022/04/buu-misc-wp/"
-                    title="buu misc wp"><span>上一篇&nbsp;&nbsp;</span><i
-                        class="icon icon-angle-right" aria-hidden="true"></i></a>
-            </li>
-            
-            <li class="toggle-toc">
-                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
-                    title="文章目录" role="button">
-                    <span>[&nbsp;</span><span>文章目录</span>
-                    <i class="text-collapsed icon icon-anchor"></i>
-                    <i class="text-in icon icon-close"></i>
-                    <span>]</span>
-                </a>
-            </li>
-        </ul>
-        <div class="bar-right">
-            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
-                data-mobile-sites="weibo,qq,qzone"></div>
+</div><h1 id="模板特化">模板特化</h1>
+<h3 id="--函数模板特化">- 函数模板特化</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="n">sum</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span><span class="o">*</span> <span class="n">sum</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">a</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">b</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">strlen</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">strlen</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="err">    </span><span class="n">strcpy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="err">    </span><span class="n">strcat</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="err">    </span><span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="--类模板特化">- 类模板特化</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//通用类模板
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T1</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T2</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">A</span><span class="p">{</span><span class="err">……</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//部分特化的模板类：第二个参数指定为int（偏特化）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T1</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">A</span> <span class="o">&lt;</span><span class="n">T1</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">{</span><span class="err">……</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//指定所有类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;&gt;</span> <span class="k">class</span> <span class="nc">A</span> <span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="p">{</span><span class="err">……</span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-02-25</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/" data-title="C&#43;&#43; OOP 学习笔记" data-hashtags="cpp,oop"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/" data-hashtag="cpp"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/" data-title="C&#43;&#43; OOP 学习笔记"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/" data-title="C&#43;&#43; OOP 学习笔记"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.dx39061.top/2022/02/c-oop-%E5%AD%A6%E4%B9%A0/" data-title="C&#43;&#43; OOP 学习笔记"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
         </div>
     </div>
-</nav>
 
-
-</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-<ul class="social-links">
-    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
-            <i class="icon icon-github"></i></a></li>
-    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
-            <i class="icon icon-rss"></i></a></li>
-</ul>
-  <div class="copyright">
-    &copy;2022  -
-    2023
-    <div class="publishby">
-        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/cpp/">cpp</a>,&nbsp;<a href="/tags/oop/">oop</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
     </div>
-    
-  </div>
-</footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-            showMathMenu: false, //disables context menu
-            tex2jax: {
-            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
-           }
-    });
-</script>
+    <div class="post-nav"><a href="/2022/02/8086cpu%E6%B1%87%E7%BC%96/" class="prev" rel="prev" title="8086CPU汇编"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>8086CPU汇编</a>
+            <a href="/2022/04/buu-misc-wp/" class="next" rel="next" title="buu misc wp">buu misc wp<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/DX39061" target="_blank">DX3906</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-<script>
-    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
-</script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
-    hljs.configure({
-        tabReplace: '    ', 
-        classPrefix: ''     
-        
-    })
-    hljs.initHighlightingOnLoad();
-</script>
-<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
-<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
-
-<script>
-    (function (window) {
-        var INSIGHT_CONFIG = {
-            TRANSLATION: {
-                POSTS: '文章',
-                PAGES: '页面',
-                CATEGORIES: '分类',
-                TAGS: '标签',
-                UNTITLED: '(未命名)',
-            },
-            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
-            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
-        };
-        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-    })(window);
-</script>
-<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
-<script>
-    tocbot.init({
-        
-        tocSelector: '.js-toc',
-        
-        contentSelector: '.js-toc-content',
-        
-        headingSelector: 'h1, h2, h3',
-        
-        hasInnerContainers: true,
-    });
-</script>
-
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<script src="https://cdn.bootcss.com/blueimp-md5/2.13.0/js/md5.min.js"></script>
-<script type="text/javascript">
-      const gitalk = new Gitalk({
-        clientID: '309208aa79ed1d5c7a67',
-        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
-        repo: 'DX39061.github.io',
-        owner: 'DX39061',
-        admin: ['DX39061'],
-        id: md5(location.pathname), 
-        distractionFreeMode: false 
-      });
-
-    gitalk.render('comments');
-</script>
-
-
-  </body>
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/index.umd.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":70},"comment":{"giscus":{"category":"General","categoryId":"DIC_kwDOIfJDVM4CTZ0v","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"DX39061/DX39061.github.io","repoId":"R_kgDOIfJDVA"}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"DX3906's blog","id-2":"DX3906's blog"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

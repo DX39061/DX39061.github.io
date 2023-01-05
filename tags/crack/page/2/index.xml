@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>angr文档翻译（四）Solver Engine</title>
+      <link>https://blog.dx39061.top/2022/09/solver_engine/</link>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/solver_engine/</guid>
+      <description>Solver Engine angr的强大之处并不在于它是个模拟器，而在于它能够使用符号变量进行符号执行。与其说一个变量对应一个具体的数值，不如说一个变量对应着一个</description>
+    </item>
+    
+    <item>
       <title>angr文档翻译（三）Loading a Binary</title>
       <link>https://blog.dx39061.top/2022/09/loading_a_binary/</link>
       <pubDate>Thu, 08 Sep 2022 00:00:00 +0000</pubDate>

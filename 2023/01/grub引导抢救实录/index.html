@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Archlinux Grub引导抢救实录 - DX3906&#39;s blog</title><meta name="Description" content="DX3906&#39;s blog"><meta property="og:title" content="Archlinux Grub引导抢救实录" />
+<meta property="og:description" content="折腾linux-zen内核grub爆炸的抢救历程" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.dx39061.top/2023/01/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95/" /><meta property="og:image" content="https://blog.dx39061.top/images/avatar.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-04T17:13:09+08:00" />
+<meta property="article:modified_time" content="2023-01-04T17:13:09+08:00" /><meta property="og:site_name" content="DX3906&#39;s blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.dx39061.top/images/avatar.jpg"/>
+
+<meta name="twitter:title" content="Archlinux Grub引导抢救实录"/>
+<meta name="twitter:description" content="折腾linux-zen内核grub爆炸的抢救历程"/>
+<meta name="application-name" content="DX3906&#39;s blog">
+<meta name="apple-mobile-web-app-title" content="DX3906&#39;s blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.dx39061.top/2023/01/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95/" /><link rel="prev" href="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" /><link rel="next" href="https://blog.dx39061.top/2023/01/hello-loveit/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Archlinux Grub引导抢救实录",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.dx39061.top\/2023\/01\/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95\/"
+        },"genre": "posts","keywords": "linux, grub","wordcount":  70 ,
+        "url": "https:\/\/blog.dx39061.top\/2023\/01\/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95\/","datePublished": "2023-01-04T17:13:09+08:00","dateModified": "2023-01-04T17:13:09+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "DX3906"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="DX3906&#39;s blog"><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/">< 归档 ></a><a class="menu-item" href="/tags/">< 标签 ></a><a class="menu-item" href="/categories/">< 分类 ></a><a class="menu-item" href="/links">< 友链 ></a><a class="menu-item" href="/about">< 关于 ></a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="DX3906&#39;s blog"><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title=""><归档></a><a class="menu-item" href="/tags/" title=""><标签></a><a class="menu-item" href="/categories/" title=""><分类></a><a class="menu-item" href="/links" title=""><友链></a><a class="menu-item" href="/about" title=""><关于></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Archlinux Grub引导抢救实录</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/DX39061" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>DX3906</a></span>&nbsp;<span class="post-category">included in <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-04">2023-01-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;70 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#我只想扬了系统更新报错">我只想扬了系统更新报错</a></li>
+    <li><a href="#grub直接进bios反复鬼畜">grub直接进bios反复鬼畜</a></li>
+    <li><a href="#windows删grub配置进grub-shell">windows删grub配置进grub-shell</a></li>
+    <li><a href="#手动引导进入系统以及重装grub">手动引导进入系统以及重装grub</a></li>
+    <li><a href="#题外话">题外话</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="我只想扬了系统更新报错">我只想扬了系统更新报错</h2>
+<p>刚开始其实并没想折腾内核，只是想解决系统更新一些看不懂的报错</p>
+<p>archlinux在每次进行系统更新时，如果涉及内核相关，就会触发pacman钩子，调用mkinitcpio脚本重新构建内核镜像，这部分详见 <a href="https://wiki.archlinuxcn.org/wiki/Mkinitcpio" target="_blank" rel="noopener noreffer ">https://wiki.archlinuxcn.org/wiki/Mkinitcpio</a> （这也是我在排错时才知道的），但我的机器每次都会输出几行Error，看得人十分不爽：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-v" data-lang="v"><span class="line"><span class="cl"><span class="o">==</span><span class="p">&gt;</span> <span class="nc">ERROR</span><span class="p">:</span> <span class="kn">module</span> <span class="nv">not</span> <span class="nv">found</span><span class="p">:</span> <span class="sc">`nvidia&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sc">==&gt; ERROR: module not found: `</span><span class="nv">nvidia_modeset</span><span class="s1">&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">==&gt; ERROR: module not found: `nvidia_uvm&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">==</span><span class="p">&gt;</span> <span class="nc">ERROR</span><span class="p">:</span> <span class="kn">module</span> <span class="nv">not</span> <span class="nv">found</span><span class="p">:</span> <span class="sc">`nvidia_drm&#39;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>有过之前两次搞崩显卡无法开机的经历，以及一切都还能用，之前一直没管过它，但这次想刨根问底了，经过一段时间google，在archwiki上找到了<a href="https://bbs.archlinux.org/viewtopic.php?id=277580" target="_blank" rel="noopener noreffer ">这一篇文章</a>，问题几乎和我一模一样。</p>
+<p>最后发现我之前不知道什么时候安装过<code>linux-zen</code>这个包，同时我一直在使用的是<code>linux</code>这个包的主线内核，在上述调用mkinitcpio脚本的过程中，会同时尝试构建linux和linux-zen两种内核的镜像，linux镜像一直能够正常构建，出问题的只是linux-zen镜像的构建。</p>
+<p>到这反而激起了我的兴趣，去了解了一下各种内核，贴一个<a href="https://wiki.archlinuxcn.org/wiki/%E5%86%85%E6%A0%B8" target="_blank" rel="noopener noreffer ">archwiki的介绍</a>，发现linux-zen内核可能会有更好的性能表现，且对wine的某些体验会有较大的提升。于是我抱着好奇的心态准备换个内核</p>
+<h2 id="grub直接进bios反复鬼畜">grub直接进bios反复鬼畜</h2>
+<p>先装好了<code>linux-zen</code>和<code>linux-zen-headers</code>两个包，然后为了解决上面找不到nvidia模块的问题需要把<code>nvidia</code>换成<code>nvidia-dkms</code>，装完之后就没有ERROR了</p>
+<p>然后尝试reboot进入zen内核，发现grub菜单并没有zen内核的选项，查了查发现需要重新生成grub配置，即<code>sudo grub-mkconfig -o /boot/grub/grub.cfg</code>。从这，噩梦开始</p>
+<p>reboot之<code>Welcome to grub</code>一闪而过，然后电脑关机，再开机直接进入了bios。bios里选择继续启动，就会重复上面的动作，一闪而过、关机、开机、进bios，反复鬼畜</p>
+<p>wiki上发现了和我相同的<a href="https://bbs.archlinuxcn.org/viewtopic.php?id=12560" target="_blank" rel="noopener noreffer ">遭遇</a>，但是并没有解决，不了了之了。到处搜索发现基本都是教你grub引导出错进入<code>grub shell</code>该怎么办，但我能用的只有bios，连能执行命令的地方都没有。另外的办法还可以使用装系统的启动盘引导启动，但我手边根本没有，只有一个装在移动硬盘里的windows，它能救我吗？</p>
+<h2 id="windows删grub配置进grub-shell">windows删grub配置进grub-shell</h2>
+<p>在bios选择移动硬盘启动成功了开起来了windows。第一想法是grub.cfg有问题，想要修改grub.cfg，但其实这个文件只能用<code>sudo grub-mkconfig -o /boot/grub/grub.cfg</code>生成，但在windows上显然无法执行命令。</p>
+<p>这时突然想到前面看过很多误删grub.cfg的解决方案，直接死马当活马医，使用<code>linuxReader</code>挂载了linux的硬盘，给grub.cfg扬了。重新reboot成功进入了grub shell，但这时我也发现了另一个问题：我进不了bios了。这意味着如果我无法在grub shell解决问题，恐怕就只能重装系统了</p>
+<h2 id="手动引导进入系统以及重装grub">手动引导进入系统以及重装grub</h2>
+<p>又是查了半天，学会了如何手动引导，archwiki上有简略的命令可以<a href="https://wiki.archlinuxcn.org/zh-hans/GRUB" target="_blank" rel="noopener noreffer ">参考</a>，但如果想我一样对<code>linux``initrd</code>等命令不熟悉还需要多查查才能搞明白。其中需要避坑的是有些文章时间久远，写的是grub1的命令，而现在大家用的基本都是grub2，grub1的命令诸如<code>root``kernel</code>等在grub2中被启用或替代</p>
+<p>这里放一篇比较详细的<a href="https://zhuanlan.zhihu.com/p/412008178" target="_blank" rel="noopener noreffer ">介绍</a>，看完基本就能理解如何使用这几条命令了，在这就不赘述。至此，我的arch终于活过来了，成功进入系统。</p>
+<p>至于如何修复grub，由于我没有耐心去看grub的文档了，索性重装。重新安装了grub包，然后重新执行了<code>sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=archlinux</code>，然后生成配置文件<code>sudo grub-mkconfig -o /boot/grub/grub.cfg</code>。reboot之后成功进入了grub菜单，并能够选择linux和linux-zen内核。</p>
+<p>到底grub为什么会出错不想再深究了，总有很多玄学问题没有答案。</p>
+<h2 id="题外话">题外话</h2>
+<p>深刻地感受到了arch社区的强大、wiki的细致</p>
+<p>能够自己动手一步步探索、解决问题，算是终于成了一个合格的arch用户</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-01-04</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2023/01/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.dx39061.top/2023/01/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95/" data-title="Archlinux Grub引导抢救实录" data-hashtags="linux,grub"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.dx39061.top/2023/01/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95/" data-hashtag="linux"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.dx39061.top/2023/01/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95/" data-title="Archlinux Grub引导抢救实录"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.dx39061.top/2023/01/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95/" data-title="Archlinux Grub引导抢救实录"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.dx39061.top/2023/01/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95/" data-title="Archlinux Grub引导抢救实录"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">linux</a>,&nbsp;<a href="/tags/grub/">grub</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2023/01/catctf-catfly-wp/" class="prev" rel="prev" title="NepnepxCatCTF Reverse CatFly WriteUp"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>NepnepxCatCTF Reverse CatFly WriteUp</a>
+            <a href="/2023/01/hello-loveit/" class="next" rel="next" title="Hello, LoveIt">Hello, LoveIt<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/DX39061" target="_blank">DX3906</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/index.umd.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":70},"comment":{"giscus":{"category":"General","categoryId":"DIC_kwDOIfJDVM4CTZ0v","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"DX39061/DX39061.github.io","repoId":"R_kgDOIfJDVA"}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"DX3906's blog","id-2":"DX3906's blog"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

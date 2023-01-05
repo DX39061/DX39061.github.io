@@ -1,680 +1,450 @@
 <!DOCTYPE html>
-<html lang="zh">
-  <head>
-    <title>
-        NepnepxCatCTF Reverse CatFly WriteUp - DX3906&#39;s blog
-      </title>
+<html lang="zh-CN">
+    <head>
         <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-transform" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    
-    <meta name="theme-color" content="#000000" />
-    
-    <meta http-equiv="window-target" content="_top" />
-    
-    
-    <meta name="description" content="如题" />
-    <meta name="generator" content="Hugo 0.108.0 with theme pure" />
-    <title>NepnepxCatCTF Reverse CatFly WriteUp - DX3906&#39;s blog</title>
-    
-    
-    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
-    
-    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="NepnepxCatCTF Reverse CatFly WriteUp" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>NepnepxCatCTF Reverse CatFly WriteUp - DX3906&#39;s blog</title><meta name="Description" content="DX3906&#39;s blog"><meta property="og:title" content="NepnepxCatCTF Reverse CatFly WriteUp" />
 <meta property="og:description" content="如题" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" /><meta property="og:image" content="https://blog.dx39061.top/images/avatar.jpg"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-01-01T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-01-01T00:00:00+00:00" />
-<meta itemprop="name" content="NepnepxCatCTF Reverse CatFly WriteUp">
-<meta itemprop="description" content="如题"><meta itemprop="datePublished" content="2023-01-01T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-01-01T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1132">
-<meta itemprop="keywords" content="CTF,reverse," /><meta name="twitter:card" content="summary"/>
+<meta property="article:modified_time" content="2023-01-01T00:00:00+00:00" /><meta property="og:site_name" content="DX3906&#39;s blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.dx39061.top/images/avatar.jpg"/>
+
 <meta name="twitter:title" content="NepnepxCatCTF Reverse CatFly WriteUp"/>
 <meta name="twitter:description" content="如题"/>
+<meta name="application-name" content="DX3906&#39;s blog">
+<meta name="apple-mobile-web-app-title" content="DX3906&#39;s blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" /><link rel="prev" href="https://blog.dx39061.top/2022/12/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9Bgodeep-wp/" /><link rel="next" href="https://blog.dx39061.top/2023/01/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "NepnepxCatCTF Reverse CatFly WriteUp",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.dx39061.top\/2023\/01\/catctf-catfly-wp\/"
+        },"genre": "posts","keywords": "CTF, reverse","wordcount":  637 ,
+        "url": "https:\/\/blog.dx39061.top\/2023\/01\/catctf-catfly-wp\/","datePublished": "2023-01-01T00:00:00+00:00","dateModified": "2023-01-01T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "DX3906"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-    <!--[if lte IE 9]>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-      <![endif]-->
-
-    <!--[if lt IE 9]>
-        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-      <![endif]-->
-  </head>
-
-  
-  
-
-  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
-    <div class="slimContent">
-      <div class="navbar-header">
-        <div class="profile-block text-center">
-          <a id="avatar" href="https://github.com/DX39061" target="_blank">
-            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
-          </a>
-          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
-          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
-          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
-        </div><div class="search" id="search-form-wrap">
-    <form class="search-form sidebar-form">
-        <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="搜索" />
-            <span class="input-group-btn">
-                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
-                        class="icon icon-search"></i></button>
-            </span>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="DX3906&#39;s blog"><span id="id-1" class="typeit"></span></a>
         </div>
-        <div class="ins-search">
-            <div class="ins-search-mask"></div>
-            <div class="ins-search-container">
-                <div class="ins-input-wrapper">
-                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
-                        x-webkit-speech />
-                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
-                        aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="ins-section-wrapper">
-                    <div class="ins-section-container"></div>
-                </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/">< 归档 ></a><a class="menu-item" href="/tags/">< 标签 ></a><a class="menu-item" href="/categories/">< 分类 ></a><a class="menu-item" href="/links">< 友链 ></a><a class="menu-item" href="/about">< 关于 ></a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="DX3906&#39;s blog"><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
             </div>
         </div>
-    </form>
-</div>
-        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-        <ul class="nav navbar-nav main-nav">
-            <li class="menu-item menu-item-home">
-                <a href="/">
-                    <i class="icon icon-home-fill"></i>
-                  <span class="menu-title">Home</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-archives">
-                <a href="/posts/">
-                    <i class="icon icon-archives-fill"></i>
-                  <span class="menu-title">Archives</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-categories">
-                <a href="/categories/">
-                    <i class="icon icon-folder"></i>
-                  <span class="menu-title">Categories</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-tags">
-                <a href="/tags/">
-                    <i class="icon icon-tags"></i>
-                  <span class="menu-title">Tags</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-about">
-                <a href="/about/">
-                    <i class="icon icon-cup-fill"></i>
-                  <span class="menu-title">About</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-links">
-                <a href="/links/">
-                    <i class="icon icon-friendship"></i>
-                  <span class="menu-title">Links</span>
-                </a>
-            </li>
-        </ul>
-      </nav>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title=""><归档></a><a class="menu-item" href="/tags/" title=""><标签></a><a class="menu-item" href="/categories/" title=""><分类></a><a class="menu-item" href="/links" title=""><友链></a><a class="menu-item" href="/about" title=""><关于></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
     </div>
-  </header>
-
-<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    
-      <div class="widget">
-    <h3 class="widget-title">公告</h3>
-    <div class="widget-body">
-        <div id="board">
-            <div class="content"><p>hello, hugo</p>
-            </div>
-        </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
     </div>
-</div>
-
-      
-<div class="widget">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget-body">
-        <ul class="recent-post-list list-unstyled no-thumbnail">
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" class="title">NepnepxCatCTF Reverse CatFly WriteUp</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2023-01-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2023-01-01</time>
-                    </p>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">NepnepxCatCTF Reverse CatFly WriteUp</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/DX39061" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>DX3906</a></span>&nbsp;<span class="post-category">included in <a href="/categories/writeups/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>WriteUps</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-01">2023-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;637 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9Bgodeep-wp/" class="title">春秋杯冬季赛godeep wp</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-26 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-12-26</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" class="title">可执行文件概述和ssh使用简介</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-23 00:28:04 &#43;0800 CST" itemprop="datePublished">2022-12-23</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E5%88%A9%E7%94%A8%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80%E8%BF%9B%E8%A1%8Cret%E8%B7%B3%E8%BD%AC%E7%9A%84%E7%AE%80%E5%8D%95%E6%8E%A7%E5%88%B6%E6%B5%81%E6%B7%B7%E6%B7%86/" class="title">ret跳转的简单控制流混淆</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-14 02:27:58 &#43;0800 CST" itemprop="datePublished">2022-12-14</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/nctf2022-ccccha-wp/" class="title">NCTF2022 ccccha 花指令/混淆 详解</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-10 02:51:35 &#43;0800 CST" itemprop="datePublished">2022-12-10</time>
-                    </p>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
-      <div class="widget">
-    <h3 class="widget-title"> 分类</h3>
-    <div class="widget-body">
-        <ul class="category-list">
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">11</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">4</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">10</span></li>
-        </ul>
-    </div>
-</div>
-      <div class="widget">
-    <h3 class="widget-title"> 标签</h3>
-    <div class="widget-body">
-        <ul class="tag-list">
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
-                    class="tag-list-count">7</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
-                    class="tag-list-count">3</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
-                    class="tag-list-count">10</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/executable/" class="tag-list-link">executable</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/git/" class="tag-list-link">git</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
-                    class="tag-list-count">4</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/obfuscation/" class="tag-list-link">obfuscation</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
-                    class="tag-list-count">2</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
-                    class="tag-list-count">24</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ssh/" class="tag-list-link">ssh</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/windows/" class="tag-list-link">windows</a><span
-                    class="tag-list-count">1</span></li>
-            
-        </ul>
-
-    </div>
-</div>
-  </div>
-</aside>
-
-    
-    
-<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    <h4 class="toc-title">文章目录</h4>
-    <nav id="toc" class="js-toc toc">
-
-    </nav>
-  </div>
-</aside>
-<main class="main" role="main"><div class="content">
-  <article id="-" class="article article-type-" itemscope
-    itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/2023/01/catctf-catfly-wp/"
-    >NepnepxCatCTF Reverse CatFly WriteUp</a
-  >
-</h1>
-
-      <div class="article-meta">
-        
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" class="article-date">
-  <time datetime="2023-01-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2023-01-01</time>
-</a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/writeups/"> WriteUps </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/ctf/"> CTF </a>
-    <a class="article-tag-link" href="/tags/reverse/"> reverse </a>
-  </span>
-
-	<span class="article-read hidden-xs">
-	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
-	    <span id="busuanzi_container_page_pv">
-			<span id="busuanzi_value_page_pv">0</span>
-		</span>
-	</span>
-        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2023/01/catctf-catfly-wp/#comments"
-            class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1132字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
-      </div>
-    </div>
-    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
-      <p>挺有意思的一道题，本身不算难，但最后加上我只有4解还是挺惊讶</p>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>挺有意思的一道题，本身不算难，但最后加上我只有4解还是挺惊讶</p>
 <p>题目是个命令行小游戏，运行起来可以看到屏幕的第一行会一直打印一些字符，但仔细看都是乱码</p>
 <p>伪代码内容比较清晰，大段都是关于命令行参数、不同终端的处理之类的东西，重点内容如下：</p>
-<pre><code class="language-c"> while ( v13 )
-  {
-    if ( dword_E104 )
-      printf(&quot;\x1B[H&quot;);
-    else
-      printf(&quot;\x1B[u&quot;);
-    for ( screen_row = top; screen_row &lt; bottom; ++screen_row )
-    {
-      for ( screen_col = left; screen_col &lt; right; ++screen_col )
-      {
-        if ( screen_row &lt;= 23 || screen_row &gt; 42 || screen_col &gt;= 0 )
-        {
-          if ( screen_col &gt;= 0 &amp;&amp; (unsigned int)screen_row &lt;= 0x3F &amp;&amp; screen_col &lt;= 63 )
-          {
-            v19 = screen[screen_cnt][screen_row][screen_col];
-            off_FA88 = sub_6314((unsigned int)screen_cnt, screen_row, screen_col, (__int64)v12);
-          }
-          else
-          {
-            v19 = 44;
-          }
-        }
-        else
-        {
-          v18 = (2 - screen_col) % 16 / 8;
-          if ( ((screen_cnt &gt;&gt; 1) &amp; 1) != 0 )
-            v18 = 1 - v18;
-          s[128] = (__int64)&quot;,,&gt;&gt;&amp;&amp;&amp;+++###==;;;,,&quot;;
-          v19 = asc_BFE3[v18 - 23 + screen_row];
-          if ( !v19 )
-            v19 = 44;
-        }
-        if ( v25 )
-        {
-          printf(&quot;%s&quot;, *((const char **)&amp;unk_FCC0 + v19));
-        }
-        else if ( v19 == v22 || !*((_QWORD *)&amp;unk_FCC0 + v19) )
-        {
-          printf(&quot;%s&quot;, off_FA88);
-        }
-        else
-        {
-          v22 = v19;
-          printf(&quot;%s%s&quot;, *((const char **)&amp;unk_FCC0 + v19), off_FA88);
-        }
-      }
-      sub_65E2(1LL);
-    }
-    if ( dword_E100 )
-    {
-      time(&amp;time1);
-      v11 = difftime(time1, timer);
-      v10 = sub_63FF((unsigned int)(int)v11);
-      for ( n = (dword_E1FC - 29 - v10) / 2; n &gt; 0; --n )
-        putchar(' ');
-      key += printf(&quot;\x1B[1;37mYou have nyaned for %d times!\x1B[J\x1B[0m&quot;, (unsigned int)++dword_108E0);
-    }
-    v22 = 0;
-    ++frame_count;
-    if ( frames &amp;&amp; frame_count == frames )
-      quit();
-    if ( !screen[++screen_cnt] )
-      screen_cnt = 0LL;
-    usleep(1000 * v27);
-  }
-</code></pre>
-<pre><code class="language-c">char *__fastcall sub_6314(__int64 a1, int a2, int a3, __int64 a4)
-{
-  if ( a2 != 18 )
-    return (char *)a4;
-  if ( a3 &lt;= 4 || a3 &gt; 54 )
-    return (char *)a4;
-  byte1 = 32;
-  enc[a3 - 5] ^= cal_key();
-  if ( is_printable_char(enc[a3 - 5]) )
-    byte2 = enc[a3 - 5] &amp; 0x7F;
-  else
-    byte2 = 32;
-  return &amp;byte2;
-}
-</code></pre>
-<pre><code class="language-c">__int64 cal_key()
-{
-  key = 1103515245 * key + 12345;
-  return (key &gt;&gt; 10) &amp; 0x7FFF;
-}
-</code></pre>
-<p>可以看出这就是更新屏幕显示内容的逻辑，我们关心的是第一行那一串字符，产生这些字符的逻辑在sub_6314，结合这个函数内的if限制可以得到，只有$screen_row = 18 且 screen_col \in [5, 54]$时才会真正产生字符，即画面中字符的位置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"> <span class="k">while</span> <span class="p">(</span> <span class="n">v13</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">dword_E104</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[H&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[u&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span> <span class="n">screen_row</span> <span class="o">=</span> <span class="n">top</span><span class="p">;</span> <span class="n">screen_row</span> <span class="o">&lt;</span> <span class="n">bottom</span><span class="p">;</span> <span class="o">++</span><span class="n">screen_row</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span> <span class="n">screen_col</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span> <span class="n">screen_col</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">;</span> <span class="o">++</span><span class="n">screen_col</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span> <span class="n">screen_row</span> <span class="o">&lt;=</span> <span class="mi">23</span> <span class="o">||</span> <span class="n">screen_row</span> <span class="o">&gt;</span> <span class="mi">42</span> <span class="o">||</span> <span class="n">screen_col</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span> <span class="n">screen_col</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">screen_row</span> <span class="o">&lt;=</span> <span class="mh">0x3F</span> <span class="o">&amp;&amp;</span> <span class="n">screen_col</span> <span class="o">&lt;=</span> <span class="mi">63</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">v19</span> <span class="o">=</span> <span class="n">screen</span><span class="p">[</span><span class="n">screen_cnt</span><span class="p">][</span><span class="n">screen_row</span><span class="p">][</span><span class="n">screen_col</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="n">off_FA88</span> <span class="o">=</span> <span class="nf">sub_6314</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">screen_cnt</span><span class="p">,</span> <span class="n">screen_row</span><span class="p">,</span> <span class="n">screen_col</span><span class="p">,</span> <span class="p">(</span><span class="kr">__int64</span><span class="p">)</span><span class="n">v12</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="k">else</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">v19</span> <span class="o">=</span> <span class="mi">44</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">v18</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">screen_col</span><span class="p">)</span> <span class="o">%</span> <span class="mi">16</span> <span class="o">/</span> <span class="mi">8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span> <span class="p">((</span><span class="n">screen_cnt</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">v18</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">v18</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="n">s</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kr">__int64</span><span class="p">)</span><span class="s">&#34;,,&gt;&gt;&amp;&amp;&amp;+++###==;;;,,&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="n">v19</span> <span class="o">=</span> <span class="n">asc_BFE3</span><span class="p">[</span><span class="n">v18</span> <span class="o">-</span> <span class="mi">23</span> <span class="o">+</span> <span class="n">screen_row</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">v19</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">v19</span> <span class="o">=</span> <span class="mi">44</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span> <span class="n">v25</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">unk_FCC0</span> <span class="o">+</span> <span class="n">v19</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="n">v19</span> <span class="o">==</span> <span class="n">v22</span> <span class="o">||</span> <span class="o">!*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">unk_FCC0</span> <span class="o">+</span> <span class="n">v19</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="n">off_FA88</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">v22</span> <span class="o">=</span> <span class="n">v19</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%s%s&#34;</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">unk_FCC0</span> <span class="o">+</span> <span class="n">v19</span><span class="p">),</span> <span class="n">off_FA88</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">sub_65E2</span><span class="p">(</span><span class="mi">1LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">dword_E100</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">time</span><span class="p">(</span><span class="o">&amp;</span><span class="n">time1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v11</span> <span class="o">=</span> <span class="nf">difftime</span><span class="p">(</span><span class="n">time1</span><span class="p">,</span> <span class="n">timer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v10</span> <span class="o">=</span> <span class="nf">sub_63FF</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)(</span><span class="kt">int</span><span class="p">)</span><span class="n">v11</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span> <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">dword_E1FC</span> <span class="o">-</span> <span class="mi">29</span> <span class="o">-</span> <span class="n">v10</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">n</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">putchar</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">key</span> <span class="o">+=</span> <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[1;37mYou have nyaned for %d times!</span><span class="se">\x1B</span><span class="s">[J</span><span class="se">\x1B</span><span class="s">[0m&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="o">++</span><span class="n">dword_108E0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v22</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">++</span><span class="n">frame_count</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">frames</span> <span class="o">&amp;&amp;</span> <span class="n">frame_count</span> <span class="o">==</span> <span class="n">frames</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">quit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">screen</span><span class="p">[</span><span class="o">++</span><span class="n">screen_cnt</span><span class="p">]</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="n">screen_cnt</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">usleep</span><span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="n">v27</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">char</span> <span class="o">*</span><span class="kr">__fastcall</span> <span class="nf">sub_6314</span><span class="p">(</span><span class="kr">__int64</span> <span class="n">a1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a3</span><span class="p">,</span> <span class="kr">__int64</span> <span class="n">a4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">a2</span> <span class="o">!=</span> <span class="mi">18</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">a4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">a3</span> <span class="o">&lt;=</span> <span class="mi">4</span> <span class="o">||</span> <span class="n">a3</span> <span class="o">&gt;</span> <span class="mi">54</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">a4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">byte1</span> <span class="o">=</span> <span class="mi">32</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">enc</span><span class="p">[</span><span class="n">a3</span> <span class="o">-</span> <span class="mi">5</span><span class="p">]</span> <span class="o">^=</span> <span class="nf">cal_key</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="nf">is_printable_char</span><span class="p">(</span><span class="n">enc</span><span class="p">[</span><span class="n">a3</span> <span class="o">-</span> <span class="mi">5</span><span class="p">])</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">byte2</span> <span class="o">=</span> <span class="n">enc</span><span class="p">[</span><span class="n">a3</span> <span class="o">-</span> <span class="mi">5</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0x7F</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="n">byte2</span> <span class="o">=</span> <span class="mi">32</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="o">&amp;</span><span class="n">byte2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kr">__int64</span> <span class="nf">cal_key</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">key</span> <span class="o">=</span> <span class="mi">1103515245</span> <span class="o">*</span> <span class="n">key</span> <span class="o">+</span> <span class="mi">12345</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span><span class="n">key</span> <span class="o">&gt;&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x7FFF</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看出这就是更新屏幕显示内容的逻辑，我们关心的是第一行那一串字符，产生这些字符的逻辑在sub_6314，结合这个函数内的if限制可以得到，只有$screen_row = 18 且 screen_col \in [5, 54]$时才会真正产生字符，即画面中字符的位置</p>
 <p>而字符的具体值是由<code>enc</code>数组和<code>key</code>的值计算而来的，结合hint说<code>要抄写这个算法跑一分钟就能出flag</code>，最终exp：</p>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;string.h&gt;
-
-unsigned int key = 0x1106;
-unsigned int cal_key() {
-    key = (0x41C64E6D * key + 12345) &amp; 0xffffffff;
-    return (((int)key &gt;&gt; 10) &amp; 0x7fff);
-}
-
-int cal_digit(int num) {
-    int digit = 0;
-    while(num) {
-        num /= 10;
-        digit++;
-    }
-    return digit;
-}
-
-int main() {
-    int cnt = 0;
-    unsigned char flag[50];
-    unsigned int enc[] = {
-        0x27FB, 0x27A4, 0x464E, 0x0E36, 0x7B70, 0x5E7A, 0x1A4A, 0x45C1,
-        0x2BDF, 0x23BD, 0x3A15, 0x5B83, 0x1E15, 0x5367, 0x50B8, 0x20CA,
-        0x41F5, 0x57D1, 0x7750, 0x2ADF, 0x11F8, 0x09BB, 0x5724, 0x7374,
-        0x3CE6, 0x646E, 0x010C, 0x6E10, 0x64F4, 0x3263, 0x3137, 0x00B8,
-        0x229C, 0x7BCD, 0x73BD, 0x480C, 0x14DB, 0x68B9, 0x5C8A, 0x1B61,
-        0x6C59, 0x5707, 0x09E6, 0x1FB9, 0x2AD3, 0x76D4, 0x3113, 0x7C7E,
-        0x11E0, 0x6C70};
-    while(1) {
-        for (int i = 0; i &lt; 50; i++) {
-            enc[i] ^= cal_key(key);
-            if (((enc[i] &amp; 127) &gt; 32) &amp;&amp; ((enc[i] &amp; 127) &lt;= 126)) {
-                flag[i] = enc[i] &amp; 127;
-            } else {
-                flag[i] = ' ';
-            }
-        }
-        if (!strncmp(flag, &quot;CatCTF&quot;, 6)) {
-            puts(flag);
-            return 0;
-        }
-        cnt++;
-        key += 41;    // key要加上printf的返回值
-        key += cal_digit(cnt);
-    }
-}
-</code></pre>
-<p>为了节省运算时间，代码中做了一些省略，和计算字符串无关的代码，比如screen_row和screen_col的两个外层循环直接扬了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">key</span> <span class="o">=</span> <span class="mh">0x1106</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">cal_key</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="mh">0x41C64E6D</span> <span class="o">*</span> <span class="n">key</span> <span class="o">+</span> <span class="mi">12345</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xffffffff</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(((</span><span class="kt">int</span><span class="p">)</span><span class="n">key</span> <span class="o">&gt;&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x7fff</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">cal_digit</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">digit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">num</span> <span class="o">/=</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">digit</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">digit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">flag</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">enc</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x27FB</span><span class="p">,</span> <span class="mh">0x27A4</span><span class="p">,</span> <span class="mh">0x464E</span><span class="p">,</span> <span class="mh">0x0E36</span><span class="p">,</span> <span class="mh">0x7B70</span><span class="p">,</span> <span class="mh">0x5E7A</span><span class="p">,</span> <span class="mh">0x1A4A</span><span class="p">,</span> <span class="mh">0x45C1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x2BDF</span><span class="p">,</span> <span class="mh">0x23BD</span><span class="p">,</span> <span class="mh">0x3A15</span><span class="p">,</span> <span class="mh">0x5B83</span><span class="p">,</span> <span class="mh">0x1E15</span><span class="p">,</span> <span class="mh">0x5367</span><span class="p">,</span> <span class="mh">0x50B8</span><span class="p">,</span> <span class="mh">0x20CA</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x41F5</span><span class="p">,</span> <span class="mh">0x57D1</span><span class="p">,</span> <span class="mh">0x7750</span><span class="p">,</span> <span class="mh">0x2ADF</span><span class="p">,</span> <span class="mh">0x11F8</span><span class="p">,</span> <span class="mh">0x09BB</span><span class="p">,</span> <span class="mh">0x5724</span><span class="p">,</span> <span class="mh">0x7374</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x3CE6</span><span class="p">,</span> <span class="mh">0x646E</span><span class="p">,</span> <span class="mh">0x010C</span><span class="p">,</span> <span class="mh">0x6E10</span><span class="p">,</span> <span class="mh">0x64F4</span><span class="p">,</span> <span class="mh">0x3263</span><span class="p">,</span> <span class="mh">0x3137</span><span class="p">,</span> <span class="mh">0x00B8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x229C</span><span class="p">,</span> <span class="mh">0x7BCD</span><span class="p">,</span> <span class="mh">0x73BD</span><span class="p">,</span> <span class="mh">0x480C</span><span class="p">,</span> <span class="mh">0x14DB</span><span class="p">,</span> <span class="mh">0x68B9</span><span class="p">,</span> <span class="mh">0x5C8A</span><span class="p">,</span> <span class="mh">0x1B61</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x6C59</span><span class="p">,</span> <span class="mh">0x5707</span><span class="p">,</span> <span class="mh">0x09E6</span><span class="p">,</span> <span class="mh">0x1FB9</span><span class="p">,</span> <span class="mh">0x2AD3</span><span class="p">,</span> <span class="mh">0x76D4</span><span class="p">,</span> <span class="mh">0x3113</span><span class="p">,</span> <span class="mh">0x7C7E</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x11E0</span><span class="p">,</span> <span class="mh">0x6C70</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">enc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^=</span> <span class="nf">cal_key</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(((</span><span class="n">enc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mi">127</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">32</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="n">enc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mi">127</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">126</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">enc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mi">127</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">strncmp</span><span class="p">(</span><span class="n">flag</span><span class="p">,</span> <span class="s">&#34;CatCTF&#34;</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">puts</span><span class="p">(</span><span class="n">flag</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">key</span> <span class="o">+=</span> <span class="mi">41</span><span class="p">;</span>    <span class="c1">// key要加上printf的返回值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">key</span> <span class="o">+=</span> <span class="nf">cal_digit</span><span class="p">(</span><span class="n">cnt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>为了节省运算时间，代码中做了一些省略，和计算字符串无关的代码，比如screen_row和screen_col的两个外层循环直接扬了</p>
 <p>需要注意每次for循环结束之后，key的值要加上printf函数的返回值，即输出的字符数</p>
 <p>踩到的另外一个坑：刚开始想法将所有字符输出到一个文件里，然后结合grep去找有用的字符串，理论可行，但一分钟跑出来就全是乱码，还以为是算法写得有问题。最后又尝试了一遍，程序一分半也没跑出结果，输出文件已经达到了4.7G，使用grep提示内存耗尽，文本编辑器尝试打开直接崩溃，还是挺吓人的，同时也可以看出如printf等输出函数对程序运行效率的降低非常大。</p>
 <p>最终flag：<code>CatCTF{Fly1NG_NyAnC4t_Cha5eS_the_FL4G_in_The_Sky}</code></p>
-
-    </div>
-    <div class="article-footer">
-<blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接: </strong>
-      <a href="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" title="NepnepxCatCTF Reverse CatFly WriteUp" target="_blank" rel="external">https://blog.dx39061.top/2023/01/catctf-catfly-wp/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>License: </strong>
-        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
-    </li>
-  </ul>
-</blockquote>
-
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
-        <div></div>
-      </div>
-    </figure>
-  </div>
-</div>
-
-    </div>
-  </article>
-<section id="comments">
-</section>
-
-</div><nav class="bar bar-footer clearfix" data-stick-bottom>
-    <div class="bar-inner">
-        <ul class="pager pull-left">
-            <li class="prev">
-                <a href="https://blog.dx39061.top/2022/12/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9Bgodeep-wp/" title="春秋杯冬季赛godeep wp"><i
-                        class="icon icon-angle-left"
-                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
-            </li>
-            
-            <li class="toggle-toc">
-                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
-                    title="文章目录" role="button">
-                    <span>[&nbsp;</span><span>文章目录</span>
-                    <i class="text-collapsed icon icon-anchor"></i>
-                    <i class="text-in icon icon-close"></i>
-                    <span>]</span>
-                </a>
-            </li>
-        </ul>
-        <div class="bar-right">
-            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
-                data-mobile-sites="weibo,qq,qzone"></div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-01-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2023/01/catctf-catfly-wp/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" data-title="NepnepxCatCTF Reverse CatFly WriteUp" data-hashtags="CTF,reverse"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" data-hashtag="CTF"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" data-title="NepnepxCatCTF Reverse CatFly WriteUp"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" data-title="NepnepxCatCTF Reverse CatFly WriteUp"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" data-title="NepnepxCatCTF Reverse CatFly WriteUp"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
         </div>
     </div>
-</nav>
 
-
-</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-<ul class="social-links">
-    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
-            <i class="icon icon-github"></i></a></li>
-    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
-            <i class="icon icon-rss"></i></a></li>
-</ul>
-  <div class="copyright">
-    &copy;2022  -
-    2023
-    <div class="publishby">
-        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ctf/">CTF</a>,&nbsp;<a href="/tags/reverse/">reverse</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
     </div>
-    
-  </div>
-</footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-            showMathMenu: false, //disables context menu
-            tex2jax: {
-            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
-           }
-    });
-</script>
+    <div class="post-nav"><a href="/2022/12/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9Bgodeep-wp/" class="prev" rel="prev" title="春秋杯冬季赛godeep wp"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>春秋杯冬季赛godeep wp</a>
+            <a href="/2023/01/grub%E5%BC%95%E5%AF%BC%E6%8A%A2%E6%95%91%E5%AE%9E%E5%BD%95/" class="next" rel="next" title="Archlinux Grub引导抢救实录">Archlinux Grub引导抢救实录<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/DX39061" target="_blank">DX3906</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-<script>
-    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
-</script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
-    hljs.configure({
-        tabReplace: '    ', 
-        classPrefix: ''     
-        
-    })
-    hljs.initHighlightingOnLoad();
-</script>
-<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
-<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
-
-<script>
-    (function (window) {
-        var INSIGHT_CONFIG = {
-            TRANSLATION: {
-                POSTS: '文章',
-                PAGES: '页面',
-                CATEGORIES: '分类',
-                TAGS: '标签',
-                UNTITLED: '(未命名)',
-            },
-            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
-            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
-        };
-        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-    })(window);
-</script>
-<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
-<script>
-    tocbot.init({
-        
-        tocSelector: '.js-toc',
-        
-        contentSelector: '.js-toc-content',
-        
-        headingSelector: 'h1, h2, h3',
-        
-        hasInnerContainers: true,
-    });
-</script>
-
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<script src="https://cdn.bootcss.com/blueimp-md5/2.13.0/js/md5.min.js"></script>
-<script type="text/javascript">
-      const gitalk = new Gitalk({
-        clientID: '309208aa79ed1d5c7a67',
-        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
-        repo: 'DX39061.github.io',
-        owner: 'DX39061',
-        admin: ['DX39061'],
-        id: md5(location.pathname), 
-        distractionFreeMode: false 
-      });
-
-    gitalk.render('comments');
-</script>
-
-
-  </body>
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/index.umd.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":70},"comment":{"giscus":{"category":"General","categoryId":"DIC_kwDOIfJDVM4CTZ0v","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"DX39061/DX39061.github.io","repoId":"R_kgDOIfJDVA"}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"DX3906's blog","id-2":"DX3906's blog"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

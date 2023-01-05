@@ -6,10 +6,19 @@
     <description>Recent content in linux on DX3906&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>CC BY 4.0 CN</copyright>
-    <lastBuildDate>Sun, 20 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 04 Jan 2023 17:13:09 +0800</lastBuildDate>
     
         <atom:link href="https://blog.dx39061.top/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>angr文档翻译（四）Solver Engine</title>
+      <link>https://blog.dx39061.top/2022/09/solver_engine/</link>
+      <pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.dx39061.top/2022/09/solver_engine/</guid>
+      <description>Solver Engine angr的强大之处并不在于它是个模拟器，而在于它能够使用符号变量进行符号执行。与其说一个变量对应一个具体的数值，不如说一个变量对应着一个</description>
+    </item>
     
     <item>
       <title>angr文档翻译（三）Loading a Binary</title>

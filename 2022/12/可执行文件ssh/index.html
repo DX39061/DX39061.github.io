@@ -1,379 +1,146 @@
 <!DOCTYPE html>
-<html lang="zh">
-  <head>
-    <title>
-        可执行文件概述和ssh使用简介 - DX3906&#39;s blog
-      </title>
+<html lang="zh-CN">
+    <head>
         <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-transform" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    
-    <meta name="theme-color" content="#000000" />
-    
-    <meta http-equiv="window-target" content="_top" />
-    
-    
-    <meta name="description" content="XDSEC 2022 DEV组 第四次组会" />
-    <meta name="generator" content="Hugo 0.108.0 with theme pure" />
-    <title>可执行文件概述和ssh使用简介 - DX3906&#39;s blog</title>
-    
-    
-    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
-    
-    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="可执行文件概述和ssh使用简介" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>可执行文件概述和ssh使用简介 - DX3906&#39;s blog</title><meta name="Description" content="DX3906&#39;s blog"><meta property="og:title" content="可执行文件概述和ssh使用简介" />
 <meta property="og:description" content="XDSEC 2022 DEV组 第四次组会" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" /><meta property="og:image" content="https://blog.dx39061.top/images/avatar.jpg"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-12-23T00:28:04+08:00" />
-<meta property="article:modified_time" content="2022-12-23T00:28:04+08:00" />
-<meta itemprop="name" content="可执行文件概述和ssh使用简介">
-<meta itemprop="description" content="XDSEC 2022 DEV组 第四次组会"><meta itemprop="datePublished" content="2022-12-23T00:28:04+08:00" />
-<meta itemprop="dateModified" content="2022-12-23T00:28:04+08:00" />
-<meta itemprop="wordCount" content="1438">
-<meta itemprop="keywords" content="executable,ssh," /><meta name="twitter:card" content="summary"/>
+<meta property="article:modified_time" content="2022-12-23T00:28:04+08:00" /><meta property="og:site_name" content="DX3906&#39;s blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.dx39061.top/images/avatar.jpg"/>
+
 <meta name="twitter:title" content="可执行文件概述和ssh使用简介"/>
 <meta name="twitter:description" content="XDSEC 2022 DEV组 第四次组会"/>
+<meta name="application-name" content="DX3906&#39;s blog">
+<meta name="apple-mobile-web-app-title" content="DX3906&#39;s blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" /><link rel="prev" href="https://blog.dx39061.top/2022/12/%E5%88%A9%E7%94%A8%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80%E8%BF%9B%E8%A1%8Cret%E8%B7%B3%E8%BD%AC%E7%9A%84%E7%AE%80%E5%8D%95%E6%8E%A7%E5%88%B6%E6%B5%81%E6%B7%B7%E6%B7%86/" /><link rel="next" href="https://blog.dx39061.top/2022/12/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9Bgodeep-wp/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "可执行文件概述和ssh使用简介",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.dx39061.top\/2022\/12\/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh\/"
+        },"genre": "posts","keywords": "executable, ssh","wordcount":  187 ,
+        "url": "https:\/\/blog.dx39061.top\/2022\/12\/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh\/","datePublished": "2022-12-23T00:28:04+08:00","dateModified": "2022-12-23T00:28:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "DX3906"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-    <!--[if lte IE 9]>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-      <![endif]-->
-
-    <!--[if lt IE 9]>
-        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-      <![endif]-->
-  </head>
-
-  
-  
-
-  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
-    <div class="slimContent">
-      <div class="navbar-header">
-        <div class="profile-block text-center">
-          <a id="avatar" href="https://github.com/DX39061" target="_blank">
-            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
-          </a>
-          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
-          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
-          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
-        </div><div class="search" id="search-form-wrap">
-    <form class="search-form sidebar-form">
-        <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="搜索" />
-            <span class="input-group-btn">
-                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
-                        class="icon icon-search"></i></button>
-            </span>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="DX3906&#39;s blog"><span id="id-1" class="typeit"></span></a>
         </div>
-        <div class="ins-search">
-            <div class="ins-search-mask"></div>
-            <div class="ins-search-container">
-                <div class="ins-input-wrapper">
-                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
-                        x-webkit-speech />
-                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
-                        aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="ins-section-wrapper">
-                    <div class="ins-section-container"></div>
-                </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/">< 归档 ></a><a class="menu-item" href="/tags/">< 标签 ></a><a class="menu-item" href="/categories/">< 分类 ></a><a class="menu-item" href="/links">< 友链 ></a><a class="menu-item" href="/about">< 关于 ></a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="DX3906&#39;s blog"><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
             </div>
         </div>
-    </form>
-</div>
-        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-        <ul class="nav navbar-nav main-nav">
-            <li class="menu-item menu-item-home">
-                <a href="/">
-                    <i class="icon icon-home-fill"></i>
-                  <span class="menu-title">Home</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-archives">
-                <a href="/posts/">
-                    <i class="icon icon-archives-fill"></i>
-                  <span class="menu-title">Archives</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-categories">
-                <a href="/categories/">
-                    <i class="icon icon-folder"></i>
-                  <span class="menu-title">Categories</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-tags">
-                <a href="/tags/">
-                    <i class="icon icon-tags"></i>
-                  <span class="menu-title">Tags</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-about">
-                <a href="/about/">
-                    <i class="icon icon-cup-fill"></i>
-                  <span class="menu-title">About</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-links">
-                <a href="/links/">
-                    <i class="icon icon-friendship"></i>
-                  <span class="menu-title">Links</span>
-                </a>
-            </li>
-        </ul>
-      </nav>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title=""><归档></a><a class="menu-item" href="/tags/" title=""><标签></a><a class="menu-item" href="/categories/" title=""><分类></a><a class="menu-item" href="/links" title=""><友链></a><a class="menu-item" href="/about" title=""><关于></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
     </div>
-  </header>
-
-<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    
-      <div class="widget">
-    <h3 class="widget-title">公告</h3>
-    <div class="widget-body">
-        <div id="board">
-            <div class="content"><p>hello, hugo</p>
-            </div>
-        </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
     </div>
-</div>
-
-      
-<div class="widget">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget-body">
-        <ul class="recent-post-list list-unstyled no-thumbnail">
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" class="title">NepnepxCatCTF Reverse CatFly WriteUp</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2023-01-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2023-01-01</time>
-                    </p>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">可执行文件概述和ssh使用简介</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/DX39061" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>DX3906</a></span>&nbsp;<span class="post-category">included in <a href="/categories/dev/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Dev</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-23">2022-12-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;187 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9Bgodeep-wp/" class="title">春秋杯冬季赛godeep wp</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-26 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-12-26</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" class="title">可执行文件概述和ssh使用简介</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-23 00:28:04 &#43;0800 CST" itemprop="datePublished">2022-12-23</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E5%88%A9%E7%94%A8%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80%E8%BF%9B%E8%A1%8Cret%E8%B7%B3%E8%BD%AC%E7%9A%84%E7%AE%80%E5%8D%95%E6%8E%A7%E5%88%B6%E6%B5%81%E6%B7%B7%E6%B7%86/" class="title">ret跳转的简单控制流混淆</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-14 02:27:58 &#43;0800 CST" itemprop="datePublished">2022-12-14</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/nctf2022-ccccha-wp/" class="title">NCTF2022 ccccha 花指令/混淆 详解</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-10 02:51:35 &#43;0800 CST" itemprop="datePublished">2022-12-10</time>
-                    </p>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
-      <div class="widget">
-    <h3 class="widget-title"> 分类</h3>
-    <div class="widget-body">
-        <ul class="category-list">
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">11</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">4</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">10</span></li>
-        </ul>
-    </div>
-</div>
-      <div class="widget">
-    <h3 class="widget-title"> 标签</h3>
-    <div class="widget-body">
-        <ul class="tag-list">
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
-                    class="tag-list-count">7</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
-                    class="tag-list-count">3</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
-                    class="tag-list-count">10</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/executable/" class="tag-list-link">executable</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/git/" class="tag-list-link">git</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
-                    class="tag-list-count">4</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/obfuscation/" class="tag-list-link">obfuscation</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
-                    class="tag-list-count">2</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
-                    class="tag-list-count">24</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ssh/" class="tag-list-link">ssh</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/windows/" class="tag-list-link">windows</a><span
-                    class="tag-list-count">1</span></li>
-            
-        </ul>
-
-    </div>
-</div>
-  </div>
-</aside>
-
-    
-    
-<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    <h4 class="toc-title">文章目录</h4>
-    <nav id="toc" class="js-toc toc">
-
-    </nav>
-  </div>
-</aside>
-<main class="main" role="main"><div class="content">
-  <article id="-" class="article article-type-" itemscope
-    itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/"
-    >可执行文件概述和ssh使用简介</a
-  >
-</h1>
-
-      <div class="article-meta">
-        
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" class="article-date">
-  <time datetime="2022-12-23 00:28:04 &#43;0800 CST" itemprop="datePublished">2022-12-23</time>
-</a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/dev/"> Dev </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/executable/"> executable </a>
-    <a class="article-tag-link" href="/tags/ssh/"> ssh </a>
-  </span>
-
-	<span class="article-read hidden-xs">
-	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
-	    <span id="busuanzi_container_page_pv">
-			<span id="busuanzi_value_page_pv">0</span>
-		</span>
-	</span>
-        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/#comments"
-            class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1438字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
-      </div>
-    </div>
-    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
-      <h2 id="可执行文件相关">可执行文件相关</h2>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#可执行文件相关">可执行文件相关</a>
+      <ul>
+        <li><a href="#什么是可执行文件">#什么是可执行文件</a></li>
+        <li><a href="#可执行文件的来龙去脉">#可执行文件的来龙去脉</a></li>
+        <li><a href="#可执行文件如何被执行">#可执行文件如何被执行</a></li>
+        <li><a href="#可执行文件为何无法执行">#可执行文件为何无法执行</a></li>
+        <li><a href="#硬要执行怎么办">#硬要执行怎么办</a></li>
+        <li><a href="#题外话--从可执行文件看跨平台解决方案">#题外话&ndash;从可执行文件看跨平台解决方案</a></li>
+      </ul>
+    </li>
+    <li><a href="#ssh相关">ssh相关</a>
+      <ul>
+        <li><a href="#基本概念">#基本概念</a></li>
+        <li><a href="#如何保障登录时的安全性">#如何保障登录时的安全性</a></li>
+        <li><a href="#关于非对称加密算法">#关于非对称加密算法</a></li>
+        <li><a href="#基于口令的登录验证">#基于口令的登录验证</a></li>
+        <li><a href="#基于公钥的免密登录">#基于公钥的免密登录</a></li>
+        <li><a href="#对服务器验证防止中间人攻击">#对服务器验证防止中间人攻击</a></li>
+        <li><a href="#一些有用的配置">#一些有用的配置</a>
+          <ul>
+            <li><a href="#客户端设置主机别名">客户端设置主机别名</a></li>
+            <li><a href="#服务端安全配置">服务端安全配置</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="可执行文件相关">可执行文件相关</h2>
 <h3 id="什么是可执行文件">#什么是可执行文件</h3>
 <ul>
 <li>
@@ -508,13 +275,13 @@
 </li>
 </ul>
 <h3 id="基于口令的登录验证">#基于口令的登录验证</h3>
-<!-- raw HTML omitted -->
+<img title="" src="https://img.dx3906.cloud/imgs/ssh%E5%9F%BA%E4%BA%8E%E5%8F%A3%E4%BB%A4%E7%9A%84%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81.png" alt="ssh基于口令的登录验证.png" width="489">
 <h3 id="基于公钥的免密登录">#基于公钥的免密登录</h3>
-<!-- raw HTML omitted -->
+<img src="https://img.dx3906.cloud/imgs/ssh%E5%9F%BA%E4%BA%8E%E5%85%AC%E9%92%A5%E7%9A%84%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95.png" title="" alt="ssh基于公钥的免密登录.png" width="514">
 <ul>
 <li>
 <p>客户端（本地）生成公私钥：<code>ssh-keygen -t ed25519</code></p>
-<p><a href="https://marcofranssen.nl/upgrade-your-ssh-security">关于加密方式的对比</a></p>
+<p><a href="https://marcofranssen.nl/upgrade-your-ssh-security" target="_blank" rel="noopener noreffer ">关于加密方式的对比</a></p>
 </li>
 <li>
 <p>将公钥发送给服务器：<code>ssh-copy-id user@ip</code></p>
@@ -523,35 +290,71 @@
 <p>修改服务器sshd配置，允许公钥登录：</p>
 </li>
 </ul>
-<pre><code class="language-shell">&gt; sudo vim /etc/ssh/sshd_config
-&gt; 找到 PubkeyAuthentication选项，配置为yes，并删除行注释
-# 修改完成后重启sshd服务
-&gt; sudo systemctl restart sshd
-</code></pre>
-<h3 id="对服务器验证防止中间人攻击">#对服务器验证防止中间人攻击</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&gt; sudo vim /etc/ssh/sshd_config
+</span></span><span class="line"><span class="cl">&gt; 找到 PubkeyAuthentication选项，配置为yes，并删除行注释
+</span></span><span class="line"><span class="cl"><span class="c1"># 修改完成后重启sshd服务</span>
+</span></span><span class="line"><span class="cl">&gt; sudo systemctl restart sshd
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="对服务器验证防止中间人攻击">#对服务器验证防止中间人攻击</h3>
 <p>是<strong>客户端</strong>对<strong>服务器</strong>身份的验证，防止中间人拦截流量，假冒服务器</p>
 <p>第一次使用ssh登录服务器时，需要你手动验证服务器指纹信息：</p>
-<pre><code class="language-shell">&gt; ssh dx3906@ip
-The authenticity of host 'ip (ip)' can't be established.
-ED25519 key fingerprint is SHA256:xxxxxxxxxxxxxxxxxxxx.
-This key is not known by any other names.
-Are you sure you want to continue connecting (yes/no/[fingerprint])?
-</code></pre>
-<p>此时可使用如下命令计算SHA256：</p>
-<pre><code class="language-shell">&gt; ssh-keyscan -t ed25519 ip | ssh-keygen -lf -
-# ip:22 SSH-2.0-OpenSSH_8.4p1 Debian-5+deb11u1
-256 SHA256:xxxxxxxxxxxxx ip (ED25519)
-</code></pre>
-<p>上下两个SHA256一致，则可证明确实在与服务器通信</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&gt; ssh dx3906@ip
+</span></span><span class="line"><span class="cl">The authenticity of host <span class="s1">&#39;ip (ip)&#39;</span> can<span class="err">&#39;</span>t be established.
+</span></span><span class="line"><span class="cl">ED25519 key fingerprint is SHA256:xxxxxxxxxxxxxxxxxxxx.
+</span></span><span class="line"><span class="cl">This key is not known by any other names.
+</span></span><span class="line"><span class="cl">Are you sure you want to <span class="k">continue</span> connecting <span class="o">(</span>yes/no/<span class="o">[</span>fingerprint<span class="o">])</span>?
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时可使用如下命令计算SHA256：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&gt; ssh-keyscan -t ed25519 ip <span class="p">|</span> ssh-keygen -lf -
+</span></span><span class="line"><span class="cl"><span class="c1"># ip:22 SSH-2.0-OpenSSH_8.4p1 Debian-5+deb11u1</span>
+</span></span><span class="line"><span class="cl"><span class="m">256</span> SHA256:xxxxxxxxxxxxx ip <span class="o">(</span>ED25519<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上下两个SHA256一致，则可证明确实在与服务器通信</p>
 <h3 id="一些有用的配置">#一些有用的配置</h3>
 <h4 id="客户端设置主机别名">客户端设置主机别名</h4>
 <p>每次进行ssh登录都要输入<code>ssh user@ip -p port</code>未免有点麻烦，可以通过配置<code>～/.ssh/config</code>简化命令写法，配置语法如下：</p>
-<pre><code>Host my_vps
-    User user
-    Hostname ip
-    Port port
-</code></pre>
-<p>之后就可以使用<code>ssh my_vps</code>代替先前的命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Host my_vps
+</span></span><span class="line"><span class="cl">    User user
+</span></span><span class="line"><span class="cl">    Hostname ip
+</span></span><span class="line"><span class="cl">    Port port
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>之后就可以使用<code>ssh my_vps</code>代替先前的命令</p>
 <h4 id="服务端安全配置">服务端安全配置</h4>
 <p>修改<code>/etc/ssh/sshd_config</code>文件，保存修改并重启sshd服务<code>sudo systemctl restart sshd</code></p>
 <ul>
@@ -568,169 +371,45 @@ Are you sure you want to continue connecting (yes/no/[fingerprint])?
 <p><code>PasswordAuthentication no</code></p>
 </li>
 </ul>
-
-    </div>
-    <div class="article-footer">
-<blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接: </strong>
-      <a href="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" title="可执行文件概述和ssh使用简介" target="_blank" rel="external">https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>License: </strong>
-        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
-    </li>
-  </ul>
-</blockquote>
-
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
-        <div></div>
-      </div>
-    </figure>
-  </div>
-</div>
-
-    </div>
-  </article>
-<section id="comments">
-</section>
-
-</div><nav class="bar bar-footer clearfix" data-stick-bottom>
-    <div class="bar-inner">
-        <ul class="pager pull-left">
-            <li class="prev">
-                <a href="https://blog.dx39061.top/2022/12/%E5%88%A9%E7%94%A8%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80%E8%BF%9B%E8%A1%8Cret%E8%B7%B3%E8%BD%AC%E7%9A%84%E7%AE%80%E5%8D%95%E6%8E%A7%E5%88%B6%E6%B5%81%E6%B7%B7%E6%B7%86/" title="ret跳转的简单控制流混淆"><i
-                        class="icon icon-angle-left"
-                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
-            </li>
-            <li class="next">
-                <a href="https://blog.dx39061.top/2022/12/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9Bgodeep-wp/"
-                    title="春秋杯冬季赛godeep wp"><span>上一篇&nbsp;&nbsp;</span><i
-                        class="icon icon-angle-right" aria-hidden="true"></i></a>
-            </li>
-            
-            <li class="toggle-toc">
-                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
-                    title="文章目录" role="button">
-                    <span>[&nbsp;</span><span>文章目录</span>
-                    <i class="text-collapsed icon icon-anchor"></i>
-                    <i class="text-in icon icon-close"></i>
-                    <span>]</span>
-                </a>
-            </li>
-        </ul>
-        <div class="bar-right">
-            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
-                data-mobile-sites="weibo,qq,qzone"></div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-12-23</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" data-title="可执行文件概述和ssh使用简介" data-hashtags="executable,ssh"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" data-hashtag="executable"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" data-title="可执行文件概述和ssh使用简介"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" data-title="可执行文件概述和ssh使用简介"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" data-title="可执行文件概述和ssh使用简介"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
         </div>
     </div>
-</nav>
 
-
-</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-<ul class="social-links">
-    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
-            <i class="icon icon-github"></i></a></li>
-    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
-            <i class="icon icon-rss"></i></a></li>
-</ul>
-  <div class="copyright">
-    &copy;2022  -
-    2023
-    <div class="publishby">
-        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/executable/">executable</a>,&nbsp;<a href="/tags/ssh/">ssh</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
     </div>
-    
-  </div>
-</footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-            showMathMenu: false, //disables context menu
-            tex2jax: {
-            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
-           }
-    });
-</script>
+    <div class="post-nav"><a href="/2022/12/%E5%88%A9%E7%94%A8%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80%E8%BF%9B%E8%A1%8Cret%E8%B7%B3%E8%BD%AC%E7%9A%84%E7%AE%80%E5%8D%95%E6%8E%A7%E5%88%B6%E6%B5%81%E6%B7%B7%E6%B7%86/" class="prev" rel="prev" title="ret跳转的简单控制流混淆"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>ret跳转的简单控制流混淆</a>
+            <a href="/2022/12/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9Bgodeep-wp/" class="next" rel="next" title="春秋杯冬季赛godeep wp">春秋杯冬季赛godeep wp<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/DX39061" target="_blank">DX3906</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-<script>
-    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
-</script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
-    hljs.configure({
-        tabReplace: '    ', 
-        classPrefix: ''     
-        
-    })
-    hljs.initHighlightingOnLoad();
-</script>
-<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
-<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
-
-<script>
-    (function (window) {
-        var INSIGHT_CONFIG = {
-            TRANSLATION: {
-                POSTS: '文章',
-                PAGES: '页面',
-                CATEGORIES: '分类',
-                TAGS: '标签',
-                UNTITLED: '(未命名)',
-            },
-            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
-            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
-        };
-        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-    })(window);
-</script>
-<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
-<script>
-    tocbot.init({
-        
-        tocSelector: '.js-toc',
-        
-        contentSelector: '.js-toc-content',
-        
-        headingSelector: 'h1, h2, h3',
-        
-        hasInnerContainers: true,
-    });
-</script>
-
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<script src="https://cdn.bootcss.com/blueimp-md5/2.13.0/js/md5.min.js"></script>
-<script type="text/javascript">
-      const gitalk = new Gitalk({
-        clientID: '309208aa79ed1d5c7a67',
-        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
-        repo: 'DX39061.github.io',
-        owner: 'DX39061',
-        admin: ['DX39061'],
-        id: md5(location.pathname), 
-        distractionFreeMode: false 
-      });
-
-    gitalk.render('comments');
-</script>
-
-
-  </body>
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/index.umd.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":70},"comment":{"giscus":{"category":"General","categoryId":"DIC_kwDOIfJDVM4CTZ0v","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"DX39061/DX39061.github.io","repoId":"R_kgDOIfJDVA"}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"DX3906's blog","id-2":"DX3906's blog"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

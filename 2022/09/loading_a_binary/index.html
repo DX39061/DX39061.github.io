@@ -1,477 +1,335 @@
 <!DOCTYPE html>
-<html lang="zh">
-  <head>
-    <title>
-        angr文档翻译（三）Loading a Binary - DX3906&#39;s blog
-      </title>
+<html lang="zh-CN">
+    <head>
         <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-transform" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    
-    <meta name="theme-color" content="#000000" />
-    
-    <meta http-equiv="window-target" content="_top" />
-    
-    
-    <meta name="description" content="如题" />
-    <meta name="generator" content="Hugo 0.108.0 with theme pure" />
-    <title>angr文档翻译（三）Loading a Binary - DX3906&#39;s blog</title>
-    
-    
-    <link rel="stylesheet" href="https://blog.dx39061.top/css/style.min.e64d754037c0ee0ec4e20ab1d6f07740ace61729bc03850559b8caa21ae4a597.css">
-    
-    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="angr文档翻译（三）Loading a Binary" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>angr文档翻译（三）Loading a Binary - DX3906&#39;s blog</title><meta name="Description" content="DX3906&#39;s blog"><meta property="og:title" content="angr文档翻译（三）Loading a Binary" />
 <meta property="og:description" content="如题" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.dx39061.top/2022/09/loading_a_binary/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://blog.dx39061.top/2022/09/loading_a_binary/" /><meta property="og:image" content="https://blog.dx39061.top/images/avatar.jpg"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-09-08T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-09-08T00:00:00+00:00" />
-<meta itemprop="name" content="angr文档翻译（三）Loading a Binary">
-<meta itemprop="description" content="如题"><meta itemprop="datePublished" content="2022-09-08T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-09-08T00:00:00+00:00" />
-<meta itemprop="wordCount" content="4589">
-<meta itemprop="keywords" content="reverse,angr," /><meta name="twitter:card" content="summary"/>
+<meta property="article:modified_time" content="2022-09-08T00:00:00+00:00" /><meta property="og:site_name" content="DX3906&#39;s blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.dx39061.top/images/avatar.jpg"/>
+
 <meta name="twitter:title" content="angr文档翻译（三）Loading a Binary"/>
 <meta name="twitter:description" content="如题"/>
+<meta name="application-name" content="DX3906&#39;s blog">
+<meta name="apple-mobile-web-app-title" content="DX3906&#39;s blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.dx39061.top/2022/09/loading_a_binary/" /><link rel="prev" href="https://blog.dx39061.top/2022/09/%E7%AE%80%E6%9E%90%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%92%8C%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B/" /><link rel="next" href="https://blog.dx39061.top/2022/09/solver_engine/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "angr文档翻译（三）Loading a Binary",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.dx39061.top\/2022\/09\/loading_a_binary\/"
+        },"genre": "posts","keywords": "reverse, angr","wordcount":  618 ,
+        "url": "https:\/\/blog.dx39061.top\/2022\/09\/loading_a_binary\/","datePublished": "2022-09-08T00:00:00+00:00","dateModified": "2022-09-08T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "DX3906"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-    <!--[if lte IE 9]>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-      <![endif]-->
-
-    <!--[if lt IE 9]>
-        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-      <![endif]-->
-  </head>
-
-  
-  
-
-  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
-    <div class="slimContent">
-      <div class="navbar-header">
-        <div class="profile-block text-center">
-          <a id="avatar" href="https://github.com/DX39061" target="_blank">
-            <img class="img-circle img-rotate" src="https://blog.dx39061.top/avatar.png" width="200" height="200">
-          </a>
-          <h2 id="name" class="hidden-xs hidden-sm">DX3906</h2>
-          <h3 id="title" class="hidden-xs hidden-sm hidden-md">吾辈所赴，是为星辰大海</h3>
-          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>xi&#39;dian university, China</small>
-        </div><div class="search" id="search-form-wrap">
-    <form class="search-form sidebar-form">
-        <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="搜索" />
-            <span class="input-group-btn">
-                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
-                        class="icon icon-search"></i></button>
-            </span>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="DX3906&#39;s blog"><span id="id-1" class="typeit"></span></a>
         </div>
-        <div class="ins-search">
-            <div class="ins-search-mask"></div>
-            <div class="ins-search-container">
-                <div class="ins-input-wrapper">
-                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
-                        x-webkit-speech />
-                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
-                        aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="ins-section-wrapper">
-                    <div class="ins-section-container"></div>
-                </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/">< 归档 ></a><a class="menu-item" href="/tags/">< 标签 ></a><a class="menu-item" href="/categories/">< 分类 ></a><a class="menu-item" href="/links">< 友链 ></a><a class="menu-item" href="/about">< 关于 ></a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="DX3906&#39;s blog"><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
             </div>
         </div>
-    </form>
-</div>
-        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-        <ul class="nav navbar-nav main-nav">
-            <li class="menu-item menu-item-home">
-                <a href="/">
-                    <i class="icon icon-home-fill"></i>
-                  <span class="menu-title">Home</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-archives">
-                <a href="/posts/">
-                    <i class="icon icon-archives-fill"></i>
-                  <span class="menu-title">Archives</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-categories">
-                <a href="/categories/">
-                    <i class="icon icon-folder"></i>
-                  <span class="menu-title">Categories</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-tags">
-                <a href="/tags/">
-                    <i class="icon icon-tags"></i>
-                  <span class="menu-title">Tags</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-about">
-                <a href="/about/">
-                    <i class="icon icon-cup-fill"></i>
-                  <span class="menu-title">About</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-links">
-                <a href="/links/">
-                    <i class="icon icon-friendship"></i>
-                  <span class="menu-title">Links</span>
-                </a>
-            </li>
-        </ul>
-      </nav>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title=""><归档></a><a class="menu-item" href="/tags/" title=""><标签></a><a class="menu-item" href="/categories/" title=""><分类></a><a class="menu-item" href="/links" title=""><友链></a><a class="menu-item" href="/about" title=""><关于></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
     </div>
-  </header>
-
-<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    
-      <div class="widget">
-    <h3 class="widget-title">公告</h3>
-    <div class="widget-body">
-        <div id="board">
-            <div class="content"><p>hello, hugo</p>
-            </div>
-        </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
     </div>
-</div>
-
-      
-<div class="widget">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget-body">
-        <ul class="recent-post-list list-unstyled no-thumbnail">
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2023/01/catctf-catfly-wp/" class="title">NepnepxCatCTF Reverse CatFly WriteUp</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2023-01-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">2023-01-01</time>
-                    </p>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">angr文档翻译（三）Loading a Binary</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/DX39061" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>DX3906</a></span>&nbsp;<span class="post-category">included in <a href="/categories/angr/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Angr</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-09-08">2022-09-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;618 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9Bgodeep-wp/" class="title">春秋杯冬季赛godeep wp</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-26 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-12-26</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6ssh/" class="title">可执行文件概述和ssh使用简介</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-23 00:28:04 &#43;0800 CST" itemprop="datePublished">2022-12-23</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/%E5%88%A9%E7%94%A8%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80%E8%BF%9B%E8%A1%8Cret%E8%B7%B3%E8%BD%AC%E7%9A%84%E7%AE%80%E5%8D%95%E6%8E%A7%E5%88%B6%E6%B5%81%E6%B7%B7%E6%B7%86/" class="title">ret跳转的简单控制流混淆</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-14 02:27:58 &#43;0800 CST" itemprop="datePublished">2022-12-14</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://blog.dx39061.top/2022/12/nctf2022-ccccha-wp/" class="title">NCTF2022 ccccha 花指令/混淆 详解</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2022-12-10 02:51:35 &#43;0800 CST" itemprop="datePublished">2022-12-10</time>
-                    </p>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
-      <div class="widget">
-    <h3 class="widget-title"> 分类</h3>
-    <div class="widget-body">
-        <ul class="category-list">
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/angr/" class="category-list-link">angr</a><span class="category-list-count">7</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/binary/" class="category-list-link">binary</a><span class="category-list-count">11</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/crypto/" class="category-list-link">crypto</a><span class="category-list-count">3</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/dev/" class="category-list-link">dev</a><span class="category-list-count">4</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/life/" class="category-list-link">life</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">1</span></li>
-            <li class="category-list-item"><a href="https://blog.dx39061.top/categories/writeups/" class="category-list-link">writeups</a><span class="category-list-count">10</span></li>
-        </ul>
-    </div>
-</div>
-      <div class="widget">
-    <h3 class="widget-title"> 标签</h3>
-    <div class="widget-body">
-        <ul class="tag-list">
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/angr/" class="tag-list-link">angr</a><span
-                    class="tag-list-count">7</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/assembly/" class="tag-list-link">assembly</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/binary/" class="tag-list-link">binary</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/cpp/" class="tag-list-link">cpp</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crack/" class="tag-list-link">crack</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/crypto/" class="tag-list-link">crypto</a><span
-                    class="tag-list-count">3</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ctf/" class="tag-list-link">ctf</a><span
-                    class="tag-list-count">10</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/executable/" class="tag-list-link">executable</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/git/" class="tag-list-link">git</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/life/" class="tag-list-link">life</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/linux/" class="tag-list-link">linux</a><span
-                    class="tag-list-count">4</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misc/" class="tag-list-link">misc</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/misunderstanding/" class="tag-list-link">misunderstanding</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/obfuscation/" class="tag-list-link">obfuscation</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/oop/" class="tag-list-link">oop</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/pwn/" class="tag-list-link">pwn</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/python/" class="tag-list-link">python</a><span
-                    class="tag-list-count">2</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/reverse/" class="tag-list-link">reverse</a><span
-                    class="tag-list-count">24</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/ssh/" class="tag-list-link">ssh</a><span
-                    class="tag-list-count">1</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://blog.dx39061.top/tags/windows/" class="tag-list-link">windows</a><span
-                    class="tag-list-count">1</span></li>
-            
-        </ul>
-
-    </div>
-</div>
-  </div>
-</aside>
-
-    
-    
-<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    <h4 class="toc-title">文章目录</h4>
-    <nav id="toc" class="js-toc toc">
-
-    </nav>
-  </div>
-</aside>
-<main class="main" role="main"><div class="content">
-  <article id="-" class="article article-type-" itemscope
-    itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/2022/09/loading_a_binary/"
-    >angr文档翻译（三）Loading a Binary</a
-  >
-</h1>
-
-      <div class="article-meta">
-        
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://blog.dx39061.top/2022/09/loading_a_binary/" class="article-date">
-  <time datetime="2022-09-08 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-09-08</time>
-</a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/angr/"> Angr </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/reverse/"> reverse </a>
-    <a class="article-tag-link" href="/tags/angr/"> angr </a>
-  </span>
-
-	<span class="article-read hidden-xs">
-	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
-	    <span id="busuanzi_container_page_pv">
-			<span id="busuanzi_value_page_pv">0</span>
-		</span>
-	</span>
-        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2022/09/loading_a_binary/#comments"
-            class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4589字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 10分 </span>
-      </div>
-    </div>
-    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
-      <h1 id="loading-a-binary">Loading a Binary</h1>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#加载器the-loader">加载器（The Loader）</a></li>
+    <li><a href="#加载的对象loaded-objects">加载的对象（Loaded Objects）</a></li>
+    <li><a href="#符号和重定位symbols-and-relocations">符号和重定位（Symbols and Relocations）</a></li>
+    <li><a href="#加载选项loading-options">加载选项（Loading Options）</a>
+      <ul>
+        <li><a href="#基本选项basic-options">基本选项（Basic Options）</a></li>
+        <li><a href="#二进制加载选项pre-binary-options">二进制加载选项（Pre-Binary Options）</a></li>
+        <li><a href="#后端backends">后端（Backends）</a></li>
+      </ul>
+    </li>
+    <li><a href="#符号函数简介symbolic-function-summaries">符号函数简介（Symbolic Function Summaries）</a>
+      <ul>
+        <li><a href="#hooking">Hooking</a></li>
+      </ul>
+    </li>
+    <li><a href="#到这里非常棒so-far-so-good-">到这里非常棒！（So far so good ！）</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="loading-a-binary">Loading a Binary</h1>
 <p>在之前的文档中，你仅仅对angr的加载功能进行了一个简单的使用——你加载了<code>/bin/true</code>，然后在没有动态连接库的情况下再次加载了它。你也看到了一些angr提供给你的指令比如<code>proj.factory</code>。现在，我们将深入这些指令，了解它们之间的差别以及它们能提供给你什么信息。</p>
 <p>我们简要的介绍了angr的二进制加载组件CLE（CLE Loads Everything），它常被用来获取二进制程序（以及它的依赖库），并且可以将这些信息以易于使用的形式传递给angr的其他组件</p>
 <h2 id="加载器the-loader">加载器（The Loader）</h2>
 <p>我们以加载<code>example/fauxware/fauxware</code>为例，对如何与加载器交互进行一个深入的探究。</p>
-<pre><code class="language-python">&gt;&gt;&gt; import angr, mokeyhex
-&gt;&gt;&gt; proj = angr.Project('example/fauxware/fauxware')
-&gt;&gt; proj.loader
-&lt;Loaded fauxware, maps [0x400000:0x5008000]&gt;
-</code></pre>
-<h2 id="加载的对象loaded-objects">加载的对象（Loaded Objects）</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">angr</span><span class="o">,</span> <span class="nn">mokeyhex</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="s1">&#39;example/fauxware/fauxware&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">loader</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">Loaded</span> <span class="n">fauxware</span><span class="p">,</span> <span class="n">maps</span> <span class="p">[</span><span class="mh">0x400000</span><span class="p">:</span><span class="mh">0x5008000</span><span class="p">]</span><span class="o">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="加载的对象loaded-objects">加载的对象（Loaded Objects）</h2>
 <p>CLE加载器（cle.loader）是被加载的二进制对象的一个集合，被加载并映射到单独的内存空间。每个二进制对象都可以被相对应的加载器后端加载（cle.Backend的子类）。例如用<code>cle.ELF</code>加载ELF文件</p>
 <p>在内存中也有与加载的二进制程序无关的对象。比如用来提供线程本地存储支持的对象，用来提供未解析符号的外部对象<code>externs oobject</code>。</p>
 <p>你可以使用<code>loader.all_objects</code>来查看CLE加载的所有对象，还可以通过特定命令查看一些更有针对性的分类</p>
-<pre><code class="language-python"># 所有加载的对象
-&gt;&gt;&gt; proj.loader.all_projects
-[&lt;ELF Object fauxware, maps [0x400000:0x60105f]&gt;,
- &lt;ELF Object libc-2.23.so, maps [0x1000000:0x13c999f]&gt;,
- &lt;ELF Object ld-2.23.so, maps [0x2000000:0x2227167]&gt;,
- &lt;ELFTLSObject Object cle##tls, maps [0x3000000:0x3015010]&gt;,
- &lt;ExternObject Object cle##externs, maps [0x4000000:0x4008000]&gt;,
- &lt;KernelObject Object cle##kernel, maps [0x5000000:0x5008000]&gt;]
-
-# 这是main对象，你在加载项目时直接指定的对象
-&gt;&gt;&gt; proj.loader.main_object
-&lt;ELF Object fauxware, maps [0x400000:0x60105f]&gt;
-
-# 这是动态链接库对象名称和到对象的映射字典
-&gt;&gt;&gt; proj.loader.shared_objects
-{ 'fauxware': &lt;ELF Object fauxware, maps [0x400000:0x60105f]&gt;,
-  'libc.so.6': &lt;ELF Object libc-2.23.so, maps [0x1000000:0x13c999f]&gt;,
-  'ld-linux-x86-64.so.2': &lt;ELF Object ld-2.23.so, maps [0x2000000:0x2227167]&gt; }
-
-# 这是从ELF文件加载的所有对象
-# 如果这是windows文件，你可以使用all_pe_objects
-&gt;&gt;&gt; proj.loader.all_elf_objects
-[&lt;ELF Object fauxware, maps [0x400000:0x60105f]&gt;,
- &lt;ELF Object libc-2.23.so, maps [0x1000000:0x13c999f]&gt;,
- &lt;ELF Object ld-2.23.so, maps [0x2000000:0x2227167]&gt;]
-
-# 这是externs对象，它用来为未解析的导入符号和angr内部运行提供地址
-&gt;&gt;&gt; proj.loader.extern_object
-&lt;ExternObject Object cle##externs, maps [0x4000000:0x4008000]&gt;
-
-# 该对象为模拟系统调用提供地址
-&gt;&gt;&gt; proj.loader.kernel_object
-&lt;KernelObject Object cle##kernel, maps [0x5000000:0x5008000]&gt;
-
-# 最后，你可以获得给定地址对象的引用
-&gt;&gt;&gt; proj.loader.find_object_containing(0x400000)
-&lt;ELF Object fauxware, maps [0x400000:0x60105f]&gt;
-</code></pre>
-<p>你可以直接与这些对象交互，从中提取数据</p>
-<pre><code class="language-python">&gt;&gt;&gt; obj = proj.loader.main_object
-
-# 对象的入口点
-&gt;&gt;&gt; obj.entry
-0x400580
-
-&gt;&gt;&gt; obj.mmin_addr, obj.max_addr
-(0x400000, 0x60105f)
-
-# 查看ELF文件的段（segmets）和节（section）
-&gt;&gt;&gt; obj.segments
-&lt;Regions: [&lt;ELFSegment memsize=0xa74, filesize=0xa74, vaddr=0x400000, flags=0x5, offset=0x0&gt;,
-           &lt;ELFSegment memsize=0x238, filesize=0x228, vaddr=0x600e28, flags=0x6, offset=0xe28&gt;]&gt;
-&gt;&gt;&gt; obj.sections
-&lt;Regions: [&lt;Unnamed | offset 0x0, vaddr 0x0, size 0x0&gt;,
-           &lt;.interp | offset 0x238, vaddr 0x400238, size 0x1c&gt;,
-           &lt;.note.ABI-tag | offset 0x254, vaddr 0x400254, size 0x20&gt;,
-            ...etc
-
-# 你可以给定地址获取特定的段和节
-&gt;&gt;&gt; obj.find_segment_containing(obj.entry)
-&lt;ELFSegment memsize=0xa74, filesize=0xa74, vaddr=0x400000, flags=0x5, offset=0x0&gt;
-&gt;&gt;&gt; obj.find_section_containing(obj.entry)
-&lt;.text | offset 0x580, vaddr 0x400580, size 0x338&gt;
-
-# 获取符号在PLT表中的地址，或根据地址取得相应的符号
-&gt;&gt;&gt; addr = obj.plt['strcmp']
-&gt;&gt;&gt; addr
-0x400550
-&gt;&gt;&gt; obj.reverse_plt[addr]
-'strcmp'
-
-# 显示对象的预链接基地址及它实际被CLE映射到内存中的地址
-&gt;&gt;&gt; obj.linked_base
-0x400000
-&gt;&gt;&gt; obj.mapped_base
-0x400000
-</code></pre>
-<h2 id="符号和重定位symbols-and-relocations">符号和重定位（Symbols and Relocations）</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 所有加载的对象</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">all_projects</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">&lt;</span><span class="n">ELF</span> <span class="n">Object</span> <span class="n">fauxware</span><span class="p">,</span> <span class="n">maps</span> <span class="p">[</span><span class="mh">0x400000</span><span class="p">:</span><span class="mh">0x60105f</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="o">&lt;</span><span class="n">ELF</span> <span class="n">Object</span> <span class="n">libc</span><span class="o">-</span><span class="mf">2.23</span><span class="o">.</span><span class="n">so</span><span class="p">,</span> <span class="n">maps</span> <span class="p">[</span><span class="mh">0x1000000</span><span class="p">:</span><span class="mh">0x13c999f</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="o">&lt;</span><span class="n">ELF</span> <span class="n">Object</span> <span class="n">ld</span><span class="o">-</span><span class="mf">2.23</span><span class="o">.</span><span class="n">so</span><span class="p">,</span> <span class="n">maps</span> <span class="p">[</span><span class="mh">0x2000000</span><span class="p">:</span><span class="mh">0x2227167</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="o">&lt;</span><span class="n">ELFTLSObject</span> <span class="n">Object</span> <span class="n">cle</span><span class="c1">##tls, maps [0x3000000:0x3015010]&gt;,</span>
+</span></span><span class="line"><span class="cl"> <span class="o">&lt;</span><span class="n">ExternObject</span> <span class="n">Object</span> <span class="n">cle</span><span class="c1">##externs, maps [0x4000000:0x4008000]&gt;,</span>
+</span></span><span class="line"><span class="cl"> <span class="o">&lt;</span><span class="n">KernelObject</span> <span class="n">Object</span> <span class="n">cle</span><span class="c1">##kernel, maps [0x5000000:0x5008000]&gt;]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 这是main对象，你在加载项目时直接指定的对象</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">main_object</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">ELF</span> <span class="n">Object</span> <span class="n">fauxware</span><span class="p">,</span> <span class="n">maps</span> <span class="p">[</span><span class="mh">0x400000</span><span class="p">:</span><span class="mh">0x60105f</span><span class="p">]</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 这是动态链接库对象名称和到对象的映射字典</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">shared_objects</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span> <span class="s1">&#39;fauxware&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">ELF</span> <span class="n">Object</span> <span class="n">fauxware</span><span class="p">,</span> <span class="n">maps</span> <span class="p">[</span><span class="mh">0x400000</span><span class="p">:</span><span class="mh">0x60105f</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;libc.so.6&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">ELF</span> <span class="n">Object</span> <span class="n">libc</span><span class="o">-</span><span class="mf">2.23</span><span class="o">.</span><span class="n">so</span><span class="p">,</span> <span class="n">maps</span> <span class="p">[</span><span class="mh">0x1000000</span><span class="p">:</span><span class="mh">0x13c999f</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;ld-linux-x86-64.so.2&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">ELF</span> <span class="n">Object</span> <span class="n">ld</span><span class="o">-</span><span class="mf">2.23</span><span class="o">.</span><span class="n">so</span><span class="p">,</span> <span class="n">maps</span> <span class="p">[</span><span class="mh">0x2000000</span><span class="p">:</span><span class="mh">0x2227167</span><span class="p">]</span><span class="o">&gt;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 这是从ELF文件加载的所有对象</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果这是windows文件，你可以使用all_pe_objects</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">all_elf_objects</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">&lt;</span><span class="n">ELF</span> <span class="n">Object</span> <span class="n">fauxware</span><span class="p">,</span> <span class="n">maps</span> <span class="p">[</span><span class="mh">0x400000</span><span class="p">:</span><span class="mh">0x60105f</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="o">&lt;</span><span class="n">ELF</span> <span class="n">Object</span> <span class="n">libc</span><span class="o">-</span><span class="mf">2.23</span><span class="o">.</span><span class="n">so</span><span class="p">,</span> <span class="n">maps</span> <span class="p">[</span><span class="mh">0x1000000</span><span class="p">:</span><span class="mh">0x13c999f</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="o">&lt;</span><span class="n">ELF</span> <span class="n">Object</span> <span class="n">ld</span><span class="o">-</span><span class="mf">2.23</span><span class="o">.</span><span class="n">so</span><span class="p">,</span> <span class="n">maps</span> <span class="p">[</span><span class="mh">0x2000000</span><span class="p">:</span><span class="mh">0x2227167</span><span class="p">]</span><span class="o">&gt;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 这是externs对象，它用来为未解析的导入符号和angr内部运行提供地址</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">extern_object</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">ExternObject</span> <span class="n">Object</span> <span class="n">cle</span><span class="c1">##externs, maps [0x4000000:0x4008000]&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 该对象为模拟系统调用提供地址</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">kernel_object</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">KernelObject</span> <span class="n">Object</span> <span class="n">cle</span><span class="c1">##kernel, maps [0x5000000:0x5008000]&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 最后，你可以获得给定地址对象的引用</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">find_object_containing</span><span class="p">(</span><span class="mh">0x400000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">ELF</span> <span class="n">Object</span> <span class="n">fauxware</span><span class="p">,</span> <span class="n">maps</span> <span class="p">[</span><span class="mh">0x400000</span><span class="p">:</span><span class="mh">0x60105f</span><span class="p">]</span><span class="o">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>你可以直接与这些对象交互，从中提取数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">proj</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">main_object</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 对象的入口点</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span><span class="o">.</span><span class="n">entry</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x400580</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span><span class="o">.</span><span class="n">mmin_addr</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">max_addr</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mh">0x400000</span><span class="p">,</span> <span class="mh">0x60105f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看ELF文件的段（segmets）和节（section）</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span><span class="o">.</span><span class="n">segments</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">Regions</span><span class="p">:</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">ELFSegment</span> <span class="n">memsize</span><span class="o">=</span><span class="mh">0xa74</span><span class="p">,</span> <span class="n">filesize</span><span class="o">=</span><span class="mh">0xa74</span><span class="p">,</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x400000</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mh">0x5</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mh">0x0</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="o">&lt;</span><span class="n">ELFSegment</span> <span class="n">memsize</span><span class="o">=</span><span class="mh">0x238</span><span class="p">,</span> <span class="n">filesize</span><span class="o">=</span><span class="mh">0x228</span><span class="p">,</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x600e28</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mh">0x6</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mh">0xe28</span><span class="o">&gt;</span><span class="p">]</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span><span class="o">.</span><span class="n">sections</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">Regions</span><span class="p">:</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">Unnamed</span> <span class="o">|</span> <span class="n">offset</span> <span class="mh">0x0</span><span class="p">,</span> <span class="n">vaddr</span> <span class="mh">0x0</span><span class="p">,</span> <span class="n">size</span> <span class="mh">0x0</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="o">&lt;.</span><span class="n">interp</span> <span class="o">|</span> <span class="n">offset</span> <span class="mh">0x238</span><span class="p">,</span> <span class="n">vaddr</span> <span class="mh">0x400238</span><span class="p">,</span> <span class="n">size</span> <span class="mh">0x1c</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="o">&lt;.</span><span class="n">note</span><span class="o">.</span><span class="n">ABI</span><span class="o">-</span><span class="n">tag</span> <span class="o">|</span> <span class="n">offset</span> <span class="mh">0x254</span><span class="p">,</span> <span class="n">vaddr</span> <span class="mh">0x400254</span><span class="p">,</span> <span class="n">size</span> <span class="mh">0x20</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="o">...</span><span class="n">etc</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 你可以给定地址获取特定的段和节</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span><span class="o">.</span><span class="n">find_segment_containing</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">entry</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">ELFSegment</span> <span class="n">memsize</span><span class="o">=</span><span class="mh">0xa74</span><span class="p">,</span> <span class="n">filesize</span><span class="o">=</span><span class="mh">0xa74</span><span class="p">,</span> <span class="n">vaddr</span><span class="o">=</span><span class="mh">0x400000</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mh">0x5</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mh">0x0</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span><span class="o">.</span><span class="n">find_section_containing</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">entry</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;.</span><span class="n">text</span> <span class="o">|</span> <span class="n">offset</span> <span class="mh">0x580</span><span class="p">,</span> <span class="n">vaddr</span> <span class="mh">0x400580</span><span class="p">,</span> <span class="n">size</span> <span class="mh">0x338</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 获取符号在PLT表中的地址，或根据地址取得相应的符号</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">plt</span><span class="p">[</span><span class="s1">&#39;strcmp&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">addr</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x400550</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span><span class="o">.</span><span class="n">reverse_plt</span><span class="p">[</span><span class="n">addr</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;strcmp&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 显示对象的预链接基地址及它实际被CLE映射到内存中的地址</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span><span class="o">.</span><span class="n">linked_base</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x400000</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span><span class="o">.</span><span class="n">mapped_base</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x400000</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="符号和重定位symbols-and-relocations">符号和重定位（Symbols and Relocations）</h2>
 <p>你也可以使用CLE操作符号。符号是可执行文件中的一个重要的概念，实现了名称到地址的映射。</p>
 <p>从CLE中获取一个符号最简单的方法是使用<code>loader.find_symbol</code>，它接收一个符号名或地址作为参数，返回一个符号对象</p>
-<pre><code class="language-python">&gt;&gt;&gt; strcmp = proj.loader.find_symbol('strcmp')
-&gt;&gt;&gt; strcmp
-&lt;Symbol &quot;strcmp&quot; in libc.so.6 at 0x1089cd0&gt;
-</code></pre>
-<p>一个符号最有用的属性是它的名称、所有者和地址，但符号的地址表示不止一种，symbol对象地址有三种表示方式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">strcmp</span> <span class="o">=</span> <span class="n">proj</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">find_symbol</span><span class="p">(</span><span class="s1">&#39;strcmp&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">strcmp</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">Symbol</span> <span class="s2">&#34;strcmp&#34;</span> <span class="ow">in</span> <span class="n">libc</span><span class="o">.</span><span class="n">so</span><span class="mf">.6</span> <span class="n">at</span> <span class="mh">0x1089cd0</span><span class="o">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一个符号最有用的属性是它的名称、所有者和地址，但符号的地址表示不止一种，symbol对象地址有三种表示方式：</p>
 <ul>
 <li>
 <p><code>.rebased_addr</code>是符号在全局地址空间的地址，这就是在上面命令屏幕上输出的地址</p>
@@ -483,52 +341,104 @@
 <p><code>.relative_addr</code>是它相对于对象基地址的地址。这经常在文献中被使用（尤其在windows文档），被称为RVA（relative virtual address）</p>
 </li>
 </ul>
-<pre><code class="language-python">&gt;&gt;&gt; strcmp.name
-'strcmp'
-
-&gt;&gt;&gt; strcmp.owner
-&lt;ELF Object libc-2.23.so, maps [0x1000000:0x13c999f]&gt;
-
-&gt;&gt;&gt; strcmp.rebased_addr
-0x1089cd0
-&gt;&gt;&gt; strcmp.linked_addr
-0x89cd0
-&gt;&gt;&gt; strcmp.relative_addr
-0x89cd0
-</code></pre>
-<p>除了提供调试信息之外，符号对象也支持动态链接。libc提供了如strcmp等外部符号，而main程序需要使用它。如果我们让CLE直接从main对象给我们一个strcmp符号，它会告诉你这是个导入符号。导入符号并没有与之关联的有意义的地址，但它们提供了用于解析它们的引用，通过<code>.resolvedby</code>属性可以得到。</p>
-<pre><code class="language-python">&gt;&gt;&gt; strcmp.is_export
-True
-&gt;&gt;&gt; strcmp.is_import
-False
-
-# 在加载器层面，这条指令是find_symbol,因为它是执行了搜索命令查找符号
-# 在一个特定的对象层面，这条指令是get_symbol，因为一个指定的名称只有一个符号与之对应
-&gt;&gt;&gt; main_strcmp = proj.loader.main_object.get_symbol('strcmp')
-&gt;&gt;&gt; main_strcmp
-&lt;Symbol &quot;strcmp&quot; in fauxware (import)&gt;
-&gt;&gt;&gt; main_strcmp.is_export
-False
-&gt;&gt;&gt; main_strcmp.is_import
-True
-&gt;&gt;&gt; main_strcmp.resolvedby
-&lt;Symbol &quot;strcmp&quot; in libc.so.6 at 0x1089cd0&gt;
-</code></pre>
-<p>通过链接在内存中将外部符号注册为导入符号由另一个概念“重定位”处理。重定位将[import]和外部符号匹配，将导出地址写入[location]，格式为[format]。使用<code>obj.relocs</code>可以看到一个对象完整的重定位表（重定位实例），或者使用<code>obj.imports</code>获取从符号名到重定位表项的映射，这里没有给出相应的外部符号</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">strcmp</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;strcmp&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">strcmp</span><span class="o">.</span><span class="n">owner</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">ELF</span> <span class="n">Object</span> <span class="n">libc</span><span class="o">-</span><span class="mf">2.23</span><span class="o">.</span><span class="n">so</span><span class="p">,</span> <span class="n">maps</span> <span class="p">[</span><span class="mh">0x1000000</span><span class="p">:</span><span class="mh">0x13c999f</span><span class="p">]</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">strcmp</span><span class="o">.</span><span class="n">rebased_addr</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x1089cd0</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">strcmp</span><span class="o">.</span><span class="n">linked_addr</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x89cd0</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">strcmp</span><span class="o">.</span><span class="n">relative_addr</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x89cd0</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>除了提供调试信息之外，符号对象也支持动态链接。libc提供了如strcmp等外部符号，而main程序需要使用它。如果我们让CLE直接从main对象给我们一个strcmp符号，它会告诉你这是个导入符号。导入符号并没有与之关联的有意义的地址，但它们提供了用于解析它们的引用，通过<code>.resolvedby</code>属性可以得到。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">strcmp</span><span class="o">.</span><span class="n">is_export</span>
+</span></span><span class="line"><span class="cl"><span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">strcmp</span><span class="o">.</span><span class="n">is_import</span>
+</span></span><span class="line"><span class="cl"><span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 在加载器层面，这条指令是find_symbol,因为它是执行了搜索命令查找符号</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 在一个特定的对象层面，这条指令是get_symbol，因为一个指定的名称只有一个符号与之对应</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">main_strcmp</span> <span class="o">=</span> <span class="n">proj</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">main_object</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">(</span><span class="s1">&#39;strcmp&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">main_strcmp</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">Symbol</span> <span class="s2">&#34;strcmp&#34;</span> <span class="ow">in</span> <span class="n">fauxware</span> <span class="p">(</span><span class="n">import</span><span class="p">)</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">main_strcmp</span><span class="o">.</span><span class="n">is_export</span>
+</span></span><span class="line"><span class="cl"><span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">main_strcmp</span><span class="o">.</span><span class="n">is_import</span>
+</span></span><span class="line"><span class="cl"><span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">main_strcmp</span><span class="o">.</span><span class="n">resolvedby</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">Symbol</span> <span class="s2">&#34;strcmp&#34;</span> <span class="ow">in</span> <span class="n">libc</span><span class="o">.</span><span class="n">so</span><span class="mf">.6</span> <span class="n">at</span> <span class="mh">0x1089cd0</span><span class="o">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过链接在内存中将外部符号注册为导入符号由另一个概念“重定位”处理。重定位将[import]和外部符号匹配，将导出地址写入[location]，格式为[format]。使用<code>obj.relocs</code>可以看到一个对象完整的重定位表（重定位实例），或者使用<code>obj.imports</code>获取从符号名到重定位表项的映射，这里没有给出相应的外部符号</p>
 <p>重定位对应的导入符号可以用<code>.symbol</code>访问，重定位写入的地址可通过Symbol对象的任何地址标识符得到，你也可以使用<code>.owner</code>获取对重定位对象的引用。</p>
-<pre><code class="language-python"># 重定位表项无法很好的打印, 所以这些地址是python内部的, 与angr无关
-&gt;&gt;&gt; proj.loader.shared_objects['libc.so.6'].imports
-{'__libc_enable_secure': &lt;cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT at 0x7ff5c5fce780&gt;,
- '__tls_get_addr': &lt;cle.backends.elf.relocation.amd64.R_X86_64_JUMP_SLOT at 0x7ff5c6018358&gt;,
- '_dl_argv': &lt;cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT at 0x7ff5c5fd2e48&gt;,
- '_dl_find_dso_for_object': &lt;cle.backends.elf.relocation.amd64.R_X86_64_JUMP_SLOT at 0x7ff5c6018588&gt;,
- '_dl_starting_up': &lt;cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT at 0x7ff5c5fd2550&gt;,
- '_rtld_global': &lt;cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT at 0x7ff5c5fce4e0&gt;,
- '_rtld_global_ro': &lt;cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT at 0x7ff5c5fcea20&gt;}
-</code></pre>
-<p>如果导入符号无法解析为任何外部符号，例如，一个需要的共享库无法找到，CLE会自动将其更新为外部对象（loader.extern_obj），表明CLE提供这个符号作为外部符号。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 重定位表项无法很好的打印, 所以这些地址是python内部的, 与angr无关</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">shared_objects</span><span class="p">[</span><span class="s1">&#39;libc.so.6&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">imports</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s1">&#39;__libc_enable_secure&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">cle</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">elf</span><span class="o">.</span><span class="n">relocation</span><span class="o">.</span><span class="n">amd64</span><span class="o">.</span><span class="n">R_X86_64_GLOB_DAT</span> <span class="n">at</span> <span class="mh">0x7ff5c5fce780</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;__tls_get_addr&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">cle</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">elf</span><span class="o">.</span><span class="n">relocation</span><span class="o">.</span><span class="n">amd64</span><span class="o">.</span><span class="n">R_X86_64_JUMP_SLOT</span> <span class="n">at</span> <span class="mh">0x7ff5c6018358</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;_dl_argv&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">cle</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">elf</span><span class="o">.</span><span class="n">relocation</span><span class="o">.</span><span class="n">amd64</span><span class="o">.</span><span class="n">R_X86_64_GLOB_DAT</span> <span class="n">at</span> <span class="mh">0x7ff5c5fd2e48</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;_dl_find_dso_for_object&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">cle</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">elf</span><span class="o">.</span><span class="n">relocation</span><span class="o">.</span><span class="n">amd64</span><span class="o">.</span><span class="n">R_X86_64_JUMP_SLOT</span> <span class="n">at</span> <span class="mh">0x7ff5c6018588</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;_dl_starting_up&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">cle</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">elf</span><span class="o">.</span><span class="n">relocation</span><span class="o">.</span><span class="n">amd64</span><span class="o">.</span><span class="n">R_X86_64_GLOB_DAT</span> <span class="n">at</span> <span class="mh">0x7ff5c5fd2550</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;_rtld_global&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">cle</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">elf</span><span class="o">.</span><span class="n">relocation</span><span class="o">.</span><span class="n">amd64</span><span class="o">.</span><span class="n">R_X86_64_GLOB_DAT</span> <span class="n">at</span> <span class="mh">0x7ff5c5fce4e0</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="s1">&#39;_rtld_global_ro&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">cle</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">elf</span><span class="o">.</span><span class="n">relocation</span><span class="o">.</span><span class="n">amd64</span><span class="o">.</span><span class="n">R_X86_64_GLOB_DAT</span> <span class="n">at</span> <span class="mh">0x7ff5c5fcea20</span><span class="o">&gt;</span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果导入符号无法解析为任何外部符号，例如，一个需要的共享库无法找到，CLE会自动将其更新为外部对象（loader.extern_obj），表明CLE提供这个符号作为外部符号。</p>
 <h2 id="加载选项loading-options">加载选项（Loading Options）</h2>
-<p>如果你使用<code>angr.Project</code>来加载某些内容，那么你传递给Project构造器的关键词参数会直接传递给<code>cle.Loader</code>。如果你想了解所有可以使用的参数，你应该查看<a href="https://api.angr.io/cle">CLE API docs</a>。在下面我们会介绍一些重要且常用的选项。</p>
+<p>如果你使用<code>angr.Project</code>来加载某些内容，那么你传递给Project构造器的关键词参数会直接传递给<code>cle.Loader</code>。如果你想了解所有可以使用的参数，你应该查看<a href="https://api.angr.io/cle" target="_blank" rel="noopener noreffer ">CLE API docs</a>。在下面我们会介绍一些重要且常用的选项。</p>
 <h3 id="基本选项basic-options">基本选项（Basic Options）</h3>
 <p><code>auto_load_libs</code>用来指定是否启用CLE自动加载共享库，默认开启。相反的，<code>except_missing_libs</code>，设置为true时如果二进制文件存在无法解析的共享库依赖时，会引发一个异常。</p>
 <p><code>force_load_libs</code>接收一个字符串列表，列表中的字符串被视为必须加载的共享库，或者你可以使用<code>skip_libs</code>传递一个字符串列表跳过指定共享库的解析。可以通过<code>ld_path</code>传递一个字符串列表或字符串作为共享库的额外检索路径，优先级高于程序所在目录、工作目录和系统共享库目录。</p>
@@ -550,10 +460,17 @@ True
 </li>
 </ul>
 <p>例如：</p>
-<pre><code class="language-python">&gt;&gt;&gt; angr.Project('examples/fauxware/fauxware', main_opts={'backend': 'blob', 'arch': 'i386'}, lib_opts={'libc.so.6': {'backend': 'elf'}})
-&lt;Project examples/fauxware/fauxware&gt;
-</code></pre>
-<h3 id="后端backends">后端（Backends）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="s1">&#39;examples/fauxware/fauxware&#39;</span><span class="p">,</span> <span class="n">main_opts</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;backend&#39;</span><span class="p">:</span> <span class="s1">&#39;blob&#39;</span><span class="p">,</span> <span class="s1">&#39;arch&#39;</span><span class="p">:</span> <span class="s1">&#39;i386&#39;</span><span class="p">},</span> <span class="n">lib_opts</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;libc.so.6&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;backend&#39;</span><span class="p">:</span> <span class="s1">&#39;elf&#39;</span><span class="p">}})</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">Project</span> <span class="n">examples</span><span class="o">/</span><span class="n">fauxware</span><span class="o">/</span><span class="n">fauxware</span><span class="o">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="后端backends">后端（Backends）</h3>
 <p>CLE目前有静态加载ELF、PE、CGC、Mach-O和ELF  core  dump 文件的后端，或者把文件加载到一个平坦地址。CLE在大多数情况下会自动检测并使用合适的后端。所以你无需手动指定使用的后端，除非你在做一些非常奇怪的事情。</p>
 <p>你可以在选项字典中包含一个键来强制CLE使用特定的后端，但有些后端无法自动检测架构，需要手动指定所需架构。架构的键值无需匹配某一个架构列表，angr会通过几乎所有受支持架构的通用标识符来识别你所指定的架构。</p>
 <p>要使用特定的后端，请指定下表的名称：</p>
@@ -627,189 +544,85 @@ True
 <p>angr可以将库代码替换为python的模拟，这种机制称为<code>hooking</code>，你也可以这么做！</p>
 <p>在进行模拟执行时，angr在每一步都会检查是否有对应的hook函数，如果有，则运行hook函数内容而不是二进制代码。可以使用API<code>proj.hook（addr, hook）</code>，其中hook是一个SimProcedure实例。你可以通过<code>.is_hooked``.unhook``.hooked_by</code>来管理工程中的hooks。</p>
 <p>另一个hook函数的替代API，使用<code>proj.hook(addr)</code>作为函数装饰器，你可以将现成的函数作为hook函数。如果你这么做，你可以选择是否指定一个<code>length</code>关键字，在hook函数完成后跳过指定长度的字节继续执行。</p>
-<pre><code class="language-python">&gt;&gt;&gt; stub_func = angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained'] # 这是一个类
-&gt;&gt;&gt; proj.hook(0x10000, stub_func())  # 使用类的实例进行hook
-
-&gt;&gt;&gt; proj.is_hooked(0x10000)
-True
-&gt;&gt;&gt; proj.hooked_by(0x10000)
-&lt;ReturnUnconstrained&gt;
-&gt;&gt;&gt; proj.unhook(0x10000)
-
-&gt;&gt;&gt; @proj.hook(0x20000, length=5)
-... def my_hook(state):
-...     state.regs.rax = 1
-
-&gt;&gt;&gt; proj.is_hooked(0x20000)
-True
-</code></pre>
-<p>此外，你可以使用<code>proj.hook_symbol(name, hook)</code>，第一个参数是符号的名称，来hook符号所在的地址。一个非常重要的用途是扩展angr的内置SimProcedures库。因为这些库函数都是类，所以你可以创建它们的子类，重载它们的一些行为，然后在hook中使用你的子类。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">stub_func</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">SIM_PROCEDURES</span><span class="p">[</span><span class="s1">&#39;stubs&#39;</span><span class="p">][</span><span class="s1">&#39;ReturnUnconstrained&#39;</span><span class="p">]</span> <span class="c1"># 这是一个类</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">hook</span><span class="p">(</span><span class="mh">0x10000</span><span class="p">,</span> <span class="n">stub_func</span><span class="p">())</span>  <span class="c1"># 使用类的实例进行hook</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">is_hooked</span><span class="p">(</span><span class="mh">0x10000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">hooked_by</span><span class="p">(</span><span class="mh">0x10000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">ReturnUnconstrained</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">unhook</span><span class="p">(</span><span class="mh">0x10000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nd">@proj.hook</span><span class="p">(</span><span class="mh">0x20000</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span> <span class="k">def</span> <span class="nf">my_hook</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="n">state</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">rax</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span><span class="o">.</span><span class="n">is_hooked</span><span class="p">(</span><span class="mh">0x20000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kc">True</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此外，你可以使用<code>proj.hook_symbol(name, hook)</code>，第一个参数是符号的名称，来hook符号所在的地址。一个非常重要的用途是扩展angr的内置SimProcedures库。因为这些库函数都是类，所以你可以创建它们的子类，重载它们的一些行为，然后在hook中使用你的子类。</p>
 <h2 id="到这里非常棒so-far-so-good-">到这里非常棒！（So far so good ！）</h2>
 <p>到目前为止，你应该对CLE加载程序和Project级别控制分析的环境有一个大致的了解。你还应该明白angr对使用SimProcedures将复杂的库函数hook做出了合理的尝试来简化分析。</p>
-<p>要了解您可以使用CLE加载程序及后端可执行的所有操作，请查看<a href="https://api.angr.io/cle">CLE API docs</a></p>
-
-    </div>
-    <div class="article-footer">
-<blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接: </strong>
-      <a href="https://blog.dx39061.top/2022/09/loading_a_binary/" title="angr文档翻译（三）Loading a Binary" target="_blank" rel="external">https://blog.dx39061.top/2022/09/loading_a_binary/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>License: </strong>
-        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
-    </li>
-  </ul>
-</blockquote>
-
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/DX39061" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://blog.dx39061.top/avatar.png" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/DX39061" target="_blank"><span class="text-dark">DX3906</span><small class="ml-1x">吾辈所赴，是为星辰大海</small></a></h3>
-        <div></div>
-      </div>
-    </figure>
-  </div>
-</div>
-
-    </div>
-  </article>
-<section id="comments">
-</section>
-
-</div><nav class="bar bar-footer clearfix" data-stick-bottom>
-    <div class="bar-inner">
-        <ul class="pager pull-left">
-            <li class="prev">
-                <a href="https://blog.dx39061.top/2022/09/%E7%AE%80%E6%9E%90%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%92%8C%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B/" title="简析可重定位目标文件和程序链接过程"><i
-                        class="icon icon-angle-left"
-                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
-            </li>
-            <li class="next">
-                <a href="https://blog.dx39061.top/2022/09/solver_engine/"
-                    title="angr文档翻译（四）Solver Engine"><span>上一篇&nbsp;&nbsp;</span><i
-                        class="icon icon-angle-right" aria-hidden="true"></i></a>
-            </li>
-            
-            <li class="toggle-toc">
-                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
-                    title="文章目录" role="button">
-                    <span>[&nbsp;</span><span>文章目录</span>
-                    <i class="text-collapsed icon icon-anchor"></i>
-                    <i class="text-in icon icon-close"></i>
-                    <span>]</span>
-                </a>
-            </li>
-        </ul>
-        <div class="bar-right">
-            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
-                data-mobile-sites="weibo,qq,qzone"></div>
+<p>要了解您可以使用CLE加载程序及后端可执行的所有操作，请查看<a href="https://api.angr.io/cle" target="_blank" rel="noopener noreffer ">CLE API docs</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-09-08</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2022/09/loading_a_binary/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.dx39061.top/2022/09/loading_a_binary/" data-title="angr文档翻译（三）Loading a Binary" data-hashtags="reverse,angr"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.dx39061.top/2022/09/loading_a_binary/" data-hashtag="reverse"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.dx39061.top/2022/09/loading_a_binary/" data-title="angr文档翻译（三）Loading a Binary"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.dx39061.top/2022/09/loading_a_binary/" data-title="angr文档翻译（三）Loading a Binary"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.dx39061.top/2022/09/loading_a_binary/" data-title="angr文档翻译（三）Loading a Binary"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
         </div>
     </div>
-</nav>
 
-
-</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-<ul class="social-links">
-    <li><a href="https://github.com/DX39061" target="_blank" title="github" data-toggle=tooltip data-placement=top >
-            <i class="icon icon-github"></i></a></li>
-    <li><a href="https://blog.dx39061.top/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
-            <i class="icon icon-rss"></i></a></li>
-</ul>
-  <div class="copyright">
-    &copy;2022  -
-    2023
-    <div class="publishby">
-        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/reverse/">reverse</a>,&nbsp;<a href="/tags/angr/">angr</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
     </div>
-    
-  </div>
-</footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-            showMathMenu: false, //disables context menu
-            tex2jax: {
-            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
-           }
-    });
-</script>
+    <div class="post-nav"><a href="/2022/09/%E7%AE%80%E6%9E%90%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%92%8C%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B/" class="prev" rel="prev" title="简析可重定位目标文件和程序链接过程"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>简析可重定位目标文件和程序链接过程</a>
+            <a href="/2022/09/solver_engine/" class="next" rel="next" title="angr文档翻译（四）Solver Engine">angr文档翻译（四）Solver Engine<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/DX39061" target="_blank">DX3906</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-<script>
-    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
-</script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
-<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
-    hljs.configure({
-        tabReplace: '    ', 
-        classPrefix: ''     
-        
-    })
-    hljs.initHighlightingOnLoad();
-</script>
-<script src="https://blog.dx39061.top/js/application.min.e4989ab4dc212027af8773861b05b6bc333a1217f6b0a1b3377a3a3dbd454483.js"></script>
-<script src="https://blog.dx39061.top/js/plugin.min.738a460bf4317fac61717f1bca393e53d00973db9754d9f0a81c7312d5874840.js"></script>
-
-<script>
-    (function (window) {
-        var INSIGHT_CONFIG = {
-            TRANSLATION: {
-                POSTS: '文章',
-                PAGES: '页面',
-                CATEGORIES: '分类',
-                TAGS: '标签',
-                UNTITLED: '(未命名)',
-            },
-            ROOT_URL: 'https:\/\/blog.dx39061.top\/',
-            CONTENT_URL: 'https:\/\/blog.dx39061.top\/\/searchindex.json ',
-        };
-        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-    })(window);
-</script>
-<script type="text/javascript" src="https://blog.dx39061.top/js/insight.min.716b0c6a00b68ccc31a2b65345f3412f4246ffa94a90f8e25d525528b4504f9937880692bbe619023233caba5d0a17ebe23d7cfb57cd3a88f23ea337ad5e4d00.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
-<script>
-    tocbot.init({
-        
-        tocSelector: '.js-toc',
-        
-        contentSelector: '.js-toc-content',
-        
-        headingSelector: 'h1, h2, h3',
-        
-        hasInnerContainers: true,
-    });
-</script>
-
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<script src="https://cdn.bootcss.com/blueimp-md5/2.13.0/js/md5.min.js"></script>
-<script type="text/javascript">
-      const gitalk = new Gitalk({
-        clientID: '309208aa79ed1d5c7a67',
-        clientSecret: '59f662e2a49a4f9ce433a9b3b261e6aeadd7f5a6',
-        repo: 'DX39061.github.io',
-        owner: 'DX39061',
-        admin: ['DX39061'],
-        id: md5(location.pathname), 
-        distractionFreeMode: false 
-      });
-
-    gitalk.render('comments');
-</script>
-
-
-  </body>
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/index.umd.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":70},"comment":{"giscus":{"category":"General","categoryId":"DIC_kwDOIfJDVM4CTZ0v","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"DX39061/DX39061.github.io","repoId":"R_kgDOIfJDVA"}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"DX3906's blog","id-2":"DX3906's blog"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>
