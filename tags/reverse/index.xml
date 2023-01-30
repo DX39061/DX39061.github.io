@@ -4,7 +4,23 @@
         <link>https://blog.dx39061.top/tags/reverse/</link>
         <description>reverse - Tag - DX3906&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>dx390611@gmail.com (DX3906)</managingEditor>
-            <webMaster>dx390611@gmail.com (DX3906)</webMaster><lastBuildDate>Sun, 01 Jan 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.dx39061.top/tags/reverse/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>dx390611@gmail.com (DX3906)</webMaster><lastBuildDate>Sun, 15 Jan 2023 16:19:05 &#43;0800</lastBuildDate><atom:link href="https://blog.dx39061.top/tags/reverse/" rel="self" type="application/rss+xml" /><item>
+    <title>函数调用、花指令与smc</title>
+    <link>https://blog.dx39061.top/2023/01/%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E8%8A%B1%E6%8C%87%E4%BB%A4smc/</link>
+    <pubDate>Sun, 15 Jan 2023 16:19:05 &#43;0800</pubDate>
+    <author>DX3906</author>
+    <guid>https://blog.dx39061.top/2023/01/%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E8%8A%B1%E6%8C%87%E4%BB%A4smc/</guid>
+    <description><![CDATA[XDSEC REV组会 1.15]]></description>
+</item>
+<item>
+    <title>LLVM基础概念总结</title>
+    <link>https://blog.dx39061.top/2023/01/llvm%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/</link>
+    <pubDate>Wed, 11 Jan 2023 21:01:37 &#43;0800</pubDate>
+    <author>DX3906</author>
+    <guid>https://blog.dx39061.top/2023/01/llvm%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/</guid>
+    <description><![CDATA[如题]]></description>
+</item>
+<item>
     <title>NepnepxCatCTF Reverse CatFly WriteUp</title>
     <link>https://blog.dx39061.top/2023/01/catctf-catfly-wp/</link>
     <pubDate>Sun, 01 Jan 2023 00:00:00 &#43;0000</pubDate>
@@ -67,22 +83,6 @@
     <author>DX3906</author>
     <guid>https://blog.dx39061.top/2022/11/%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0%E4%B8%8Eptrace%E5%87%BD%E6%95%B0/</guid>
     <description><![CDATA[如题]]></description>
-</item>
-<item>
-    <title>KCTF2022秋季赛第二题WriteUp</title>
-    <link>https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/</link>
-    <pubDate>Sat, 19 Nov 2022 00:00:00 &#43;0000</pubDate>
-    <author>DX3906</author>
-    <guid>https://blog.dx39061.top/2022/11/kctf2022%E7%A7%8B%E5%AD%A3%E8%B5%9B%E7%AC%AC%E4%BA%8C%E9%A2%98writeup/</guid>
-    <description><![CDATA[KCTF2022 秋季赛第二题《盗贼作乱》WriteUp]]></description>
-</item>
-<item>
-    <title>linux进程基础</title>
-    <link>https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/</link>
-    <pubDate>Thu, 17 Nov 2022 00:00:00 &#43;0000</pubDate>
-    <author>DX3906</author>
-    <guid>https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/</guid>
-    <description><![CDATA[进程状态、进程信号、进程创建]]></description>
 </item>
 </channel>
 </rss>

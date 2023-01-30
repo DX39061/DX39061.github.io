@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>虚拟机&amp;Docker - DX3906&#39;s blog</title><meta name="Description" content="DX3906&#39;s blog"><meta property="og:title" content="虚拟机&amp;Docker" />
+<meta property="og:description" content="XDSEC DEV组会 1.28" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.dx39061.top/2023/01/%E8%99%9A%E6%8B%9F%E6%9C%BAdocker/" /><meta property="og:image" content="https://blog.dx39061.top/images/avatar.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-28T16:22:43+08:00" />
+<meta property="article:modified_time" content="2023-01-28T16:22:43+08:00" /><meta property="og:site_name" content="DX3906&#39;s blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.dx39061.top/images/avatar.jpg"/>
+
+<meta name="twitter:title" content="虚拟机&amp;Docker"/>
+<meta name="twitter:description" content="XDSEC DEV组会 1.28"/>
+<meta name="application-name" content="DX3906&#39;s blog">
+<meta name="apple-mobile-web-app-title" content="DX3906&#39;s blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.dx39061.top/2023/01/%E8%99%9A%E6%8B%9F%E6%9C%BAdocker/" /><link rel="prev" href="https://blog.dx39061.top/2023/01/%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E8%8A%B1%E6%8C%87%E4%BB%A4smc/" /><link rel="next" href="https://blog.dx39061.top/2023/01/os/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "虚拟机\u0026Docker",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.dx39061.top\/2023\/01\/%E8%99%9A%E6%8B%9F%E6%9C%BAdocker\/"
+        },"genre": "posts","keywords": "vm, docker","wordcount":  218 ,
+        "url": "https:\/\/blog.dx39061.top\/2023\/01\/%E8%99%9A%E6%8B%9F%E6%9C%BAdocker\/","datePublished": "2023-01-28T16:22:43+08:00","dateModified": "2023-01-28T16:22:43+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "DX3906"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="DX3906&#39;s blog"><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/">< 归档 ></a><a class="menu-item" href="/tags/">< 标签 ></a><a class="menu-item" href="/categories/">< 分类 ></a><a class="menu-item" href="/links">< 友链 ></a><a class="menu-item" href="/about">< 关于 ></a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="DX3906&#39;s blog"><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title=""><归档></a><a class="menu-item" href="/tags/" title=""><标签></a><a class="menu-item" href="/categories/" title=""><分类></a><a class="menu-item" href="/links" title=""><友链></a><a class="menu-item" href="/about" title=""><关于></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">虚拟机&Docker</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/DX39061" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>DX3906</a></span>&nbsp;<span class="post-category">included in <a href="/categories/dev/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Dev</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-28">2023-01-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;218 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#虚拟机virtual-machine">虚拟机(Virtual Machine)</a>
+      <ul>
+        <li><a href="#为什么会有虚拟机">#为什么会有虚拟机</a></li>
+        <li><a href="#虚拟机基本架构">#虚拟机基本架构</a></li>
+        <li><a href="#两种虚拟机方案">#两种虚拟机方案</a>
+          <ul>
+            <li><a href="#type1直接运行在硬件上">type1：直接运行在硬件上</a></li>
+            <li><a href="#type2运行于存在的os上">type2：运行于存在的os上</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#docker">Docker</a>
+      <ul>
+        <li><a href="#容器技术简介">#容器技术简介</a></li>
+        <li><a href="#容器技术发展">#容器技术发展</a></li>
+        <li><a href="#docker简介">#Docker简介</a></li>
+        <li><a href="#docker三大基本概念">#Docker三大基本概念</a></li>
+        <li><a href="#docker基本架构">#Docker基本架构</a></li>
+        <li><a href="#实例拉取docker镜像并启动容器">#实例：拉取Docker镜像并启动容器</a></li>
+        <li><a href="#dockerfile">#Dockerfile</a></li>
+        <li><a href="#docker-compose">#Docker Compose</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="虚拟机virtual-machine">虚拟机(Virtual Machine)</h2>
+<p>从使用的角度讨论几个简单概念，不涉及具体的虚拟化技术</p>
+<h3 id="为什么会有虚拟机">#为什么会有虚拟机</h3>
+<ul>
+<li>
+<p>使用现有硬件资源干更多的事</p>
+<p>最常用，如在windows上装linux运行elf文件</p>
+</li>
+<li>
+<p>获得隔离环境</p>
+<p>运行不受信任的软件，如病毒</p>
+</li>
+<li>
+<p>售卖云计算资源</p>
+<p>阿里云/腾讯云/华为云等各种vps提供商</p>
+</li>
+</ul>
+<h3 id="虚拟机基本架构">#虚拟机基本架构</h3>
+<p>理论层面来看：</p>
+<ul>
+<li>
+<p>在一台普通的机器中，软件如何使用硬件资源进行运作？</p>
+<p>笼统地说，操作系统内核调动硬件资源，分配给用户程序使用</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.dx3906.cloud/imgs/os-structure.png"
+        data-srcset="https://img.dx3906.cloud/imgs/os-structure.png, https://img.dx3906.cloud/imgs/os-structure.png 1.5x, https://img.dx3906.cloud/imgs/os-structure.png 2x"
+        data-sizes="auto"
+        alt="https://img.dx3906.cloud/imgs/os-structure.png"
+        title="https://img.dx3906.cloud/imgs/os-structure.png" /></p>
+</li>
+<li>
+<p>尝试在操作系统内核和硬件之间加一层</p>
+<p>虚拟机监视器（VMM）负责在不同系统内核之间协调硬件资源，隔离环境，并监控其运行状态</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.dx3906.cloud/imgs/vm-1.png"
+        data-srcset="https://img.dx3906.cloud/imgs/vm-1.png, https://img.dx3906.cloud/imgs/vm-1.png 1.5x, https://img.dx3906.cloud/imgs/vm-1.png 2x"
+        data-sizes="auto"
+        alt="https://img.dx3906.cloud/imgs/vm-1.png"
+        title="vm1png" /></p>
+</li>
+</ul>
+<h3 id="两种虚拟机方案">#两种虚拟机方案</h3>
+<h4 id="type1直接运行在硬件上">type1：直接运行在硬件上</h4>
+<p>我们在上面的想法实际变成了type1虚拟机。VMM直接与硬件交互，协调、分配硬件资源。一般为虚拟机数量较多的企业环境使用</p>
+<ul>
+<li>
+<p>hyper-V：win10自带，开启后，windows主机就变成了第一个vm</p>
+</li>
+<li>
+<p>kvm：linux内核的一个模块。</p>
+</li>
+<li>
+<p>优势：</p>
+<ul>
+<li>
+<p>灵活。可以在不同的物理资源之间移动，而不会影响用户</p>
+</li>
+<li>
+<p>安全性高。不经过os层直接操作硬件，减少了vmm被攻击的可能</p>
+</li>
+<li>
+<p>动态分配资源。vmm实际运行时只分配足够客户机使用的资源。vps超售</p>
+</li>
+</ul>
+</li>
+<li>
+<p>劣势：</p>
+<ul>
+<li>
+<p>功能有限。相比type2提供的功能较少</p>
+</li>
+<li>
+<p>管理较难。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="type2运行于存在的os上">type2：运行于存在的os上</h4>
+<p>不直接接触硬件，受主机操作系统控制，作为一个用户程序运行在os上，个人使用较多。</p>
+<ul>
+<li>
+<p>vmware：虚拟机软件老大哥。功能丰富，使用者众多。但专业版收费</p>
+</li>
+<li>
+<p>virtual-box：免费且做得很不错，某些功能不如vmware，但实测在linux上使用体验更好</p>
+</li>
+<li>
+<p>优势：</p>
+<ul>
+<li>
+<p>便于管理。管理简单，适合个人使用</p>
+</li>
+<li>
+<p>功能丰富。软件通常会提供丰富的工具，文件拖拽、剪贴板同步等等</p>
+</li>
+</ul>
+</li>
+<li>
+<p>劣势：</p>
+<ul>
+<li>
+<p>性能较低。性能不如type1，容易出现延迟</p>
+</li>
+<li>
+<p>安全性较低。攻击者可能会利用操作系统的漏洞来访问虚拟机</p>
+</li>
+<li>
+<p>无法动态分配资源。需要预分配资源，虚拟机开启状态下无法更改</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.stack.imgur.com/TAMdL.png"
+        data-srcset="https://i.stack.imgur.com/TAMdL.png, https://i.stack.imgur.com/TAMdL.png 1.5x, https://i.stack.imgur.com/TAMdL.png 2x"
+        data-sizes="auto"
+        alt="https://i.stack.imgur.com/TAMdL.png"
+        title="https://i.stack.imgur.com/TAMdL.png" /></p>
+<h2 id="docker">Docker</h2>
+<h3 id="容器技术简介">#容器技术简介</h3>
+<p>在很多虚拟化场景下，我们的目的其实只是要运行某个应用，如果使用虚拟机构建一整个操作系统未免太过浪费，且不利于打包与移植</p>
+<p>容器技术可以按软件所需将系统资源划分到孤立的组中。</p>
+<h3 id="容器技术发展">#容器技术发展</h3>
+<ul>
+<li>
+<p>chroot：</p>
+<p>是unix系统的一个命令。作用于正在运行的进程和它的子进程，改变其根目录。被操作的应用程序无法访问根目录之外的内容，从而unix就有了这种能力：为每个进程提供一个隔离的文件系统。chroot被认为是容器技术的鼻祖。</p>
+</li>
+<li>
+<p>namespace机制：</p>
+<p>linux内核用来隔离资源的方式。通过namespace可以让一个进程只看到与自己相关的一部分资源，是对全局资源的一种封装隔离。</p>
+</li>
+<li>
+<p>Cgroups：</p>
+<p>全称Control Groups，原名Process Containers，后被并入linux内核。用来限制、统计、隔离一组进程的资源使用。</p>
+</li>
+<li>
+<p>LXC：</p>
+<p>全称Linux Containers。使用namespace做资源隔离，解决能用什么资源的问题。使用Cgroups做资源控制，解决能用多少资源的问题。</p>
+</li>
+<li>
+<p>k8s：</p>
+<p>全称Kubernetes。是用于自动部署、扩展和管理“容器化（containerized）应用程序”的开源系统，它旨在提供“跨主机集群的自动部署、扩展以及运行应用程序容器的平台”。它支持一系列容器工具，包括Docker等</p>
+</li>
+</ul>
+<h3 id="docker简介">#Docker简介</h3>
+<p>Docker是目前最受欢迎的容器技术。</p>
+<ul>
+<li>
+<p>轻量、便携、隔离、性能损耗小</p>
+</li>
+<li>
+<p>Docker使用linux kernel的namespace做资源隔离（能用什么资源），使用Cgroups做资源控制（能用多少资源）</p>
+</li>
+<li>
+<p>windows和其它平台要使用docker，需要安装一个特殊改进的linux kernel（docker安装包自带）。</p>
+</li>
+</ul>
+<h3 id="docker三大基本概念">#Docker三大基本概念</h3>
+<ul>
+<li>
+<p>镜像（image）：一个只读的文件和文件夹组合，包含所有镜像启动所需的基础文件和配置信息。</p>
+</li>
+<li>
+<p>容器（Container）：是镜像的运行实体，运行着真正的应用进程。与主机隔离，无法看到主机上的进程、环境变量、网络等信息。</p>
+</li>
+<li>
+<p>仓库（Repository）：类似于代码仓库，用于存放docker镜像。Dockerhub是官方的公开镜像仓库，自己也可以构建自己的私有仓库。</p>
+</li>
+</ul>
+<h3 id="docker基本架构">#Docker基本架构</h3>
+<p>docker采用CS架构，由docker守护进程（Docker daemon）作为server和Docker命令行工具作为client组成。</p>
+<ul>
+<li>
+<p>Dockerd：docker引擎，真正干活的程序</p>
+</li>
+<li>
+<p>Docker client：接收用户输入的命令，与Dockerd通信</p>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic4.zhimg.com/80/v2-3c73d6d9a294506faa20ed6e0c10a513_720w.jpg"
+        data-srcset="https://pic4.zhimg.com/80/v2-3c73d6d9a294506faa20ed6e0c10a513_720w.jpg, https://pic4.zhimg.com/80/v2-3c73d6d9a294506faa20ed6e0c10a513_720w.jpg 1.5x, https://pic4.zhimg.com/80/v2-3c73d6d9a294506faa20ed6e0c10a513_720w.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic4.zhimg.com/80/v2-3c73d6d9a294506faa20ed6e0c10a513_720w.jpg"
+        title="https://pic4.zhimg.com/80/v2-3c73d6d9a294506faa20ed6e0c10a513_720w.jpg" /></p>
+<h3 id="实例拉取docker镜像并启动容器">#实例：拉取Docker镜像并启动容器</h3>
+<p>注：如果想要使用非root用户操作docker,可以创建docker用户组，具体方法请自行搜索</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo systemctl start docker <span class="c1"># 确保dockerd守护进程开启</span>
+</span></span><span class="line"><span class="cl">docker pull nginx <span class="c1"># 拉取nginx镜像</span>
+</span></span><span class="line"><span class="cl">docker run  -d       -p         8080:80             nginx
+</span></span><span class="line"><span class="cl"><span class="c1">#         后台运行  指定端口映射   主机端口:容器内端口    镜像名</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>浏览器打开<code>127.0.0.1:8080</code>即可看到nginx页面</p>
+<h3 id="dockerfile">#Dockerfile</h3>
+<p>由基础镜像，逐步构建自己的镜像。以下为一个最简单的Dockerfile例子:</p>
+<ul>
+<li>Dockerfile：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-docker" data-lang="docker"><span class="line"><span class="cl"><span class="c"># 指定基础镜像</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> nginx</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 替换nginx默认index.html的内容</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="s2">&#34;&lt;h1&gt;RX IS GOD!&lt;/h1&gt;&#34;</span> &gt; /usr/share/nginx/html/index.html<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用Dockerfile构建镜像</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker build  .       -t  mynginx:v1
+</span></span><span class="line"><span class="cl"><span class="c1">#  构建镜像  当前目录 指定标签   name:tag</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用镜像创建并运行容器</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker run  -d       -p         8081:80            mynginx:v1
+</span></span><span class="line"><span class="cl"><span class="c1">#         后台运行  指定端口映射   主机端口:容器内端口    镜像名:tag   (不加tag会默认找mynginx:latest)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="docker-compose">#Docker Compose</h3>
+<p>注：在大多数发行版中，docker compose需要单独安装</p>
+<p>用于定义和运行<strong>多容器</strong>应用程序的工具。使用<code>docker-compose.yml</code>配置文件定义服务。部署多容器项目时，方便一条命令启动、停止、管理整个项目</p>
+<p>例如一个前后端分离的web项目，可以分成前端、后端、数据库、缓存服务器等多个容器，统一管理</p>
+<p>下面用一个单容器的例子简单介绍下docker compose的常用语法</p>
+<ul>
+<li>docker-compose.yml(遵循yaml配置文件语法):</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-docker" data-lang="docker"><span class="line"><span class="cl"><span class="c"># 指定docker-compose 版本</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>version: <span class="s1">&#39;3&#39;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 开始定义services</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>services:<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 定义一个叫nginx的服务</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  nginx:<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># docker会去当前目录(.)下寻找Dockerfile构建镜像</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    build: .    <span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 指定端口映射</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    ports:<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      - <span class="s2">&#34;8082:80&#34;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>运行服务</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docer-compose up -d <span class="c1"># 后台运行</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>重新构建所用镜像</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker-compose build
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>查看log与停止、重启服务</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker-compose logs <span class="c1"># 查看运行日志 </span>
+</span></span><span class="line"><span class="cl">docker-compose stop <span class="c1"># 停止</span>
+</span></span><span class="line"><span class="cl">docker-compose restart <span class="c1"># 重启</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-01-28</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2023/01/%E8%99%9A%E6%8B%9F%E6%9C%BAdocker/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.dx39061.top/2023/01/%E8%99%9A%E6%8B%9F%E6%9C%BAdocker/" data-title="虚拟机&amp;Docker" data-hashtags="vm,docker"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.dx39061.top/2023/01/%E8%99%9A%E6%8B%9F%E6%9C%BAdocker/" data-hashtag="vm"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.dx39061.top/2023/01/%E8%99%9A%E6%8B%9F%E6%9C%BAdocker/" data-title="虚拟机&amp;Docker"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.dx39061.top/2023/01/%E8%99%9A%E6%8B%9F%E6%9C%BAdocker/" data-title="虚拟机&amp;Docker"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.dx39061.top/2023/01/%E8%99%9A%E6%8B%9F%E6%9C%BAdocker/" data-title="虚拟机&amp;Docker"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/vm/">vm</a>,&nbsp;<a href="/tags/docker/">docker</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2023/01/%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E8%8A%B1%E6%8C%87%E4%BB%A4smc/" class="prev" rel="prev" title="函数调用、花指令与smc"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>函数调用、花指令与smc</a>
+            <a href="/2023/01/os/" class="next" rel="next" title="OS learning">OS learning<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/DX39061" target="_blank">DX3906</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/index.umd.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":70},"comment":{"giscus":{"category":"General","categoryId":"DIC_kwDOIfJDVM4CTZ0v","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"DX39061/DX39061.github.io","repoId":"R_kgDOIfJDVA"}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"DX3906's blog","id-2":"DX3906's blog"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-PDDZEGMRFE', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-PDDZEGMRFE" async></script></body>
+</html>

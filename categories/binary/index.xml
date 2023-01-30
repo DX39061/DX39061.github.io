@@ -4,7 +4,39 @@
         <link>https://blog.dx39061.top/categories/binary/</link>
         <description>Binary - Category - DX3906&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>dx390611@gmail.com (DX3906)</managingEditor>
-            <webMaster>dx390611@gmail.com (DX3906)</webMaster><lastBuildDate>Wed, 14 Dec 2022 02:27:58 &#43;0800</lastBuildDate><atom:link href="https://blog.dx39061.top/categories/binary/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>dx390611@gmail.com (DX3906)</webMaster><lastBuildDate>Sun, 29 Jan 2023 10:23:42 &#43;0800</lastBuildDate><atom:link href="https://blog.dx39061.top/categories/binary/" rel="self" type="application/rss+xml" /><item>
+    <title>OS learning</title>
+    <link>https://blog.dx39061.top/2023/01/os/</link>
+    <pubDate>Sun, 29 Jan 2023 10:23:42 &#43;0800</pubDate>
+    <author>DX3906</author>
+    <guid>https://blog.dx39061.top/2023/01/os/</guid>
+    <description><![CDATA[如题]]></description>
+</item>
+<item>
+    <title>函数调用、花指令与smc</title>
+    <link>https://blog.dx39061.top/2023/01/%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E8%8A%B1%E6%8C%87%E4%BB%A4smc/</link>
+    <pubDate>Sun, 15 Jan 2023 16:19:05 &#43;0800</pubDate>
+    <author>DX3906</author>
+    <guid>https://blog.dx39061.top/2023/01/%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E8%8A%B1%E6%8C%87%E4%BB%A4smc/</guid>
+    <description><![CDATA[XDSEC REV组会 1.15]]></description>
+</item>
+<item>
+    <title>LLVM基础概念总结</title>
+    <link>https://blog.dx39061.top/2023/01/llvm%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/</link>
+    <pubDate>Wed, 11 Jan 2023 21:01:37 &#43;0800</pubDate>
+    <author>DX3906</author>
+    <guid>https://blog.dx39061.top/2023/01/llvm%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/</guid>
+    <description><![CDATA[如题]]></description>
+</item>
+<item>
+    <title>ASLR保护关闭情况下环境变量对栈地址的影响</title>
+    <link>https://blog.dx39061.top/2023/01/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D/</link>
+    <pubDate>Mon, 09 Jan 2023 16:01:05 &#43;0800</pubDate>
+    <author>DX3906</author>
+    <guid>https://blog.dx39061.top/2023/01/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D/</guid>
+    <description><![CDATA[追溯无法复现的ret2shellcode]]></description>
+</item>
+<item>
     <title>ret跳转的简单控制流混淆</title>
     <link>https://blog.dx39061.top/2022/12/%E5%88%A9%E7%94%A8%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80%E8%BF%9B%E8%A1%8Cret%E8%B7%B3%E8%BD%AC%E7%9A%84%E7%AE%80%E5%8D%95%E6%8E%A7%E5%88%B6%E6%B5%81%E6%B7%B7%E6%B7%86/</link>
     <pubDate>Wed, 14 Dec 2022 02:27:58 &#43;0800</pubDate>
@@ -51,38 +83,6 @@
     <author>DX3906</author>
     <guid>https://blog.dx39061.top/2022/11/linux%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/</guid>
     <description><![CDATA[进程状态、进程信号、进程创建]]></description>
-</item>
-<item>
-    <title>linux下通过设置LD_PRELOAD环境变量hook动态链接库</title>
-    <link>https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/</link>
-    <pubDate>Mon, 14 Nov 2022 00:00:00 &#43;0000</pubDate>
-    <author>DX3906</author>
-    <guid>https://blog.dx39061.top/2022/11/%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AEld_preload%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fhook%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/</guid>
-    <description><![CDATA[动态链接是什么？C代码中如何使用动态链接库？如何使用LD_PRELOAD环境变量进行简单的符号hook？]]></description>
-</item>
-<item>
-    <title>简析可重定位目标文件和程序链接过程</title>
-    <link>https://blog.dx39061.top/2022/09/%E7%AE%80%E6%9E%90%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%92%8C%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B/</link>
-    <pubDate>Thu, 08 Sep 2022 00:00:00 &#43;0000</pubDate>
-    <author>DX3906</author>
-    <guid>https://blog.dx39061.top/2022/09/%E7%AE%80%E6%9E%90%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%92%8C%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B/</guid>
-    <description><![CDATA[可重定位目标文件/程序静态链接/动态链接]]></description>
-</item>
-<item>
-    <title>堆栈对齐——关于64位程序ret2text失败的溯源</title>
-    <link>https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/</link>
-    <pubDate>Sun, 04 Sep 2022 00:00:00 &#43;0000</pubDate>
-    <author>DX3906</author>
-    <guid>https://blog.dx39061.top/2022/09/%E5%A0%86%E6%A0%88%E5%AF%B9%E9%BD%90%E5%85%B3%E4%BA%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8Fret2text%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%BA%AF%E6%BA%90/</guid>
-    <description><![CDATA[为什么同样的栈溢出32位程序可以打通64位就不行？什么是堆栈对齐？]]></description>
-</item>
-<item>
-    <title>010Editor逆向-登陆绕过</title>
-    <link>https://blog.dx39061.top/2022/04/010editor%E9%80%86%E5%90%91-%E7%99%BB%E9%99%86%E7%BB%95%E8%BF%87/</link>
-    <pubDate>Tue, 05 Apr 2022 00:00:00 &#43;0000</pubDate>
-    <author>dx3906</author>
-    <guid>https://blog.dx39061.top/2022/04/010editor%E9%80%86%E5%90%91-%E7%99%BB%E9%99%86%E7%BB%95%E8%BF%87/</guid>
-    <description><![CDATA[白嫖010 editor]]></description>
 </item>
 </channel>
 </rss>

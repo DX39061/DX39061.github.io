@@ -4,7 +4,23 @@
         <link>https://blog.dx39061.top/tags/ctf/</link>
         <description>CTF - Tag - DX3906&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>dx390611@gmail.com (DX3906)</managingEditor>
-            <webMaster>dx390611@gmail.com (DX3906)</webMaster><lastBuildDate>Sun, 01 Jan 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.dx39061.top/tags/ctf/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>dx390611@gmail.com (DX3906)</webMaster><lastBuildDate>Sun, 15 Jan 2023 16:19:05 &#43;0800</lastBuildDate><atom:link href="https://blog.dx39061.top/tags/ctf/" rel="self" type="application/rss+xml" /><item>
+    <title>函数调用、花指令与smc</title>
+    <link>https://blog.dx39061.top/2023/01/%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E8%8A%B1%E6%8C%87%E4%BB%A4smc/</link>
+    <pubDate>Sun, 15 Jan 2023 16:19:05 &#43;0800</pubDate>
+    <author>DX3906</author>
+    <guid>https://blog.dx39061.top/2023/01/%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E8%8A%B1%E6%8C%87%E4%BB%A4smc/</guid>
+    <description><![CDATA[XDSEC REV组会 1.15]]></description>
+</item>
+<item>
+    <title>ASLR保护关闭情况下环境变量对栈地址的影响</title>
+    <link>https://blog.dx39061.top/2023/01/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D/</link>
+    <pubDate>Mon, 09 Jan 2023 16:01:05 &#43;0800</pubDate>
+    <author>DX3906</author>
+    <guid>https://blog.dx39061.top/2023/01/aslr%E4%BF%9D%E6%8A%A4%E5%85%B3%E9%97%AD%E6%83%85%E5%86%B5%E4%B8%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AF%B9%E6%A0%88%E5%9C%B0%E5%9D%80%E7%9A%84%E5%BD%B1%E5%93%8D/</guid>
+    <description><![CDATA[追溯无法复现的ret2shellcode]]></description>
+</item>
+<item>
     <title>NepnepxCatCTF Reverse CatFly WriteUp</title>
     <link>https://blog.dx39061.top/2023/01/catctf-catfly-wp/</link>
     <pubDate>Sun, 01 Jan 2023 00:00:00 &#43;0000</pubDate>
@@ -67,22 +83,6 @@
     <author>dx3906</author>
     <guid>https://blog.dx39061.top/2022/04/buu-misc-wp/</guid>
     <description><![CDATA[buuoj misc 做题记录]]></description>
-</item>
-<item>
-    <title>buu re wp</title>
-    <link>https://blog.dx39061.top/2022/02/buu-re-wp/</link>
-    <pubDate>Wed, 23 Feb 2022 00:00:00 &#43;0000</pubDate>
-    <author>DX3906</author>
-    <guid>https://blog.dx39061.top/2022/02/buu-re-wp/</guid>
-    <description><![CDATA[buuoj RE 做题记录]]></description>
-</item>
-<item>
-    <title>强壮逆向人wp</title>
-    <link>https://blog.dx39061.top/2022/02/%E5%BC%BA%E5%A3%AE%E9%80%86%E5%90%91%E4%BA%BA-wp/</link>
-    <pubDate>Tue, 08 Feb 2022 00:00:00 &#43;0000</pubDate>
-    <author>dx3906</author>
-    <guid>https://blog.dx39061.top/2022/02/%E5%BC%BA%E5%A3%AE%E9%80%86%E5%90%91%E4%BA%BA-wp/</guid>
-    <description><![CDATA[XDSEC bbs 强壮逆向人帖 非完全wp，RE入门血泪史]]></description>
 </item>
 </channel>
 </rss>
